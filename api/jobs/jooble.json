@@ -1,6 +1,0 @@
-{
-  "errorCode": 3,
-  "statusCode": 400,
-  "message": "Query must contains keywords or location",
-  "details": ""
-}
