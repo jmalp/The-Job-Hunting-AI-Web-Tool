@@ -14,7 +14,7 @@ df = pd.DataFrame(data)
 df = df.drop_duplicates()
 
 # Handling missing values
-df['Age'].fillna(df['Age'].mean(), inplace=True)
+df = df.dropna()
 
 # Converting data types
 df['Income'] = pd.to_numeric(df['Income'], errors='coerce')
