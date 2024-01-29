@@ -1,3 +1,4 @@
 .env
 /api/jobs/jooble_response.json
 /api/jobs/usajobs_response.json
+test_jobs.csv
