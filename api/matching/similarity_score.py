@@ -26,8 +26,8 @@ def nltk_pos_tag_to_wordnet_tag(nltk_pos_tag):
         return None
 
 # File Paths
-resume_file_path = '../data/user_data.txt'
-job_descriptions_file_path = '../data/test_jobs.json'
+resume_file_path = 'api/data/user_data.txt'
+job_descriptions_file_path = 'api/data/test_jobs.json'
 
 if not os.path.isfile(resume_file_path) or not os.path.isfile(job_descriptions_file_path):
     print("Error with file path. Resume or description file not found.")

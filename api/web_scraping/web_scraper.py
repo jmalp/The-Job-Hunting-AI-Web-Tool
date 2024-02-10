@@ -2,6 +2,9 @@ import requests
 import json
 import os
 
+JOOBLE_RESPONSE_PATH = "api/web_scraping/jobs/jooble_response.json"
+USA_JOBS_RESPONSE_PATH = "api/web_scraping/jobs/usajobs_response.json"
+
 
 def get_jobs(keywords: str, location: str) -> None:
     """
@@ -31,12 +34,12 @@ def get_jooble(keywords: str, location: str) -> None:
     response = requests.post(url, data=body, headers=headers)
 
     # Parse Request
-    path = "web_scraping/jobs/jooble_response.json"
+    path = JOOBLE_RESPONSE_PATH
     parse_data(response, path)
     return
 
 
-def get_usajobs(keywords: str, location: str) -> None:
+def get_usajobs(keywords: str) -> None:
     """
     HTTP GET Request from USA Jobs's API
     keywords: str | job search query
@@ -57,7 +60,7 @@ def get_usajobs(keywords: str, location: str) -> None:
     response = requests.get(url, headers=headers)
 
     # Parse Request
-    path = "web_scraping/jobs/usajobs_response.json"
+    path = USA_JOBS_RESPONSE_PATH
     parse_data(response, path)
     return
 
@@ -86,5 +89,4 @@ if __name__ == "__main__":
     """
     Driver code for testing purposes
     """
-    get_jooble("teacher", "denver")
-    get_usajobs("python", "corvallis")
+    get_jobs("python", "corvallis")
