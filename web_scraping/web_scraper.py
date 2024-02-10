@@ -3,7 +3,18 @@ import json
 import os
 
 
-def get_jooble(keywords: str, location: str):
+def get_jobs(keywords: str, location: str) -> None:
+    """
+    Get's jobs from all sources the app provides
+    Jobs are stored into JSON files separated by sources
+    keywords: str | job search query
+    location: str | location search query
+    """
+    get_jooble(keywords, location)
+    get_usajobs(keywords)
+
+
+def get_jooble(keywords: str, location: str) -> None:
     """
     HTTP GET Request from Jooble's API
     keywords: str | job search query
@@ -32,7 +43,7 @@ def get_usajobs(keywords: str, location: str) -> None:
     location: str | location search query
     """
     # Create Request
-    url = f'https://data.usajobs.gov/api/search?Keyword={keywords}&location={location}'
+    url = f'https://data.usajobs.gov/api/search?Keyword={keywords}'
     host = 'data.usajobs.gov'
     user_agent = os.getenv("USAJOBS_USERAGENT")
     auth_key = os.getenv("USAJOBS_KEY")
