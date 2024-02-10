@@ -1,4 +1,5 @@
 .env
-
+/web_scraping/jobs/jooble_response.json
+/web_scraping/jobs/usajobs_response.json
 test_jobs.csv
 cleaned_test_jobs.csv

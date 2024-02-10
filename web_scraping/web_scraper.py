@@ -15,7 +15,7 @@ def get_jooble(keywords: str, location: str):
     response = requests.post(url, data=body, headers=headers)
 
     # Parse Request
-    path = "api/jobs/jooble_response.json"
+    path = "web_scraping/jobs/jooble_response.json"
     parse_data(response, path)
     return
 
@@ -41,7 +41,7 @@ def get_usajobs(keywords: str, location: str) -> None:
     response = requests.get(url, headers=headers)
 
     # Parse Request
-    path = "api/jobs/usajobs_response.json"
+    path = "web_scraping/jobs/usajobs_response.json"
     parse_data(response, path)
     return
 
