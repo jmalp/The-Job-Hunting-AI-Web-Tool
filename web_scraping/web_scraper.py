@@ -4,6 +4,11 @@ import os
 
 
 def get_jooble(keywords: str, location: str):
+    """
+    HTTP GET Request from Jooble's API
+    keywords: str | job search query
+    location: str | location search query
+    """
     # Create Request
     host = "jooble.org"
     key = os.getenv("JOOBLE_KEY")
