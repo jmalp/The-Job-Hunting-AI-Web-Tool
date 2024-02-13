@@ -10,6 +10,12 @@ app = Flask(__name__)
 resume_file_path = 'api/data/user_data.txt'
 job_descriptions_file_path = 'api/data/test_jobs.json'
 
+
+@app.route('/', methods=['GET'])
+def test():
+    return jsonify({'test': 'success'})
+
+
 @app.route('/search', methods=['GET'])
 def search_jobs():
     """
@@ -18,7 +24,7 @@ def search_jobs():
     get_jobs("software engineer", "san francisco")
     with open(job_descriptions_file_path, 'r', encoding='utf-8') as file:
         job_descriptions = json.load(file)
-        
+
     jobs = calculate_tfidf_similarity(resume_file_path, job_descriptions)
     return jobs
 
