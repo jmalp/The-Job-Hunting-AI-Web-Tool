@@ -35,7 +35,17 @@ def get_jooble(keywords: str, location: str) -> None:
 
     # Parse Request
     path = JOOBLE_RESPONSE_PATH
-    parse_data(response, path)
+    
+    if response.status_code == 200:
+        # If successful, store data
+        data = response.json()
+        jobs = data['jobs']
+        with open(path, 'w') as json_file:
+            json.dump(jobs, json_file, indent=2)
+    else:
+        # If unsuccessful, print error response
+        print(f"Request failed with status code {response.status_code}")
+        print(response.text) 
     return
 
 
@@ -61,23 +71,13 @@ def get_usajobs(keywords: str) -> None:
 
     # Parse Request
     path = USA_JOBS_RESPONSE_PATH
-    parse_data(response, path)
-    return
 
-
-def parse_data(response, path: str) -> None:
-    """
-    Parses response from HTTP GET request
-    If successful, stores data into path
-    If unsuccessful, print error response
-    response: response from HTTP GET
-    path: str | path to json file to store data
-    """
     if response.status_code == 200:
         # If successful, store data
         data = response.json()
+        jobs = data['SearchResult']['SearchResultItems']
         with open(path, 'w') as json_file:
-            json.dump(data, json_file, indent=2)
+            json.dump(jobs, json_file, indent=2)
     else:
         # If unsuccessful, print error response
         print(f"Request failed with status code {response.status_code}")
