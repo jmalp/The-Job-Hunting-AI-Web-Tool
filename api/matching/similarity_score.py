@@ -25,13 +25,6 @@ def nltk_pos_tag_to_wordnet_tag(nltk_pos_tag):
     else:
         return None
 
-# File Paths
-resume_file_path = '../data/user_data.txt'
-job_descriptions_file_path = '../data/test_jobs.json'
-
-if not os.path.isfile(resume_file_path) or not os.path.isfile(job_descriptions_file_path):
-    print("Error with file path. Resume or description file not found.")
-    exit()
 
 def preprocess_text_with_lemmatization(text):
     tokens = word_tokenize(text.lower())
@@ -46,6 +39,7 @@ def preprocess_text_with_lemmatization(text):
     lemmatized_tokens = [token for token in lemmatized_tokens if token.isalpha() and token not in stop_words]
     preprocessed_text = " ".join(lemmatized_tokens)
     return preprocessed_text
+
 
 # Function to calculate TF-IDF similarity for each job description
 # returns sorted list of job descriptions with similarity score
@@ -75,14 +69,24 @@ def calculate_tfidf_similarity(resume_path, job_descriptions):
 
         return job_matches
 
-# print sorted job matches
-with open(job_descriptions_file_path, 'r', encoding='utf-8') as file:
-    job_descriptions = json.load(file)
 
-job_matches_sorted = calculate_tfidf_similarity(resume_file_path, job_descriptions)
+if __name__ == '__main__':
+    # File Paths
+    resume_file_path = 'api/data/user_data.txt'
+    job_descriptions_file_path = 'api/data/test_jobs.json'
 
-print("\nJob matches sorted from best to worst match:\n")
-for job, score in job_matches_sorted:
-    for key, value in job.items():
-        print(f"{key}: {value}")
-    print(f"Similarity score: {round(score, 2)}\n")
+    if not os.path.isfile(resume_file_path) or not os.path.isfile(job_descriptions_file_path):
+        print("Error with file path. Resume or description file not found.")
+        exit()
+
+        # print sorted job matches
+    with open(job_descriptions_file_path, 'r', encoding='utf-8') as file:
+        job_descriptions = json.load(file)
+
+    job_matches_sorted = calculate_tfidf_similarity(resume_file_path, job_descriptions)
+
+    print("\nJob matches sorted from best to worst match:\n")
+    for job, score in job_matches_sorted:
+        for key, value in job.items():
+            print(f"{key}: {value}")
+        print(f"Similarity score: {round(score, 2)}\n")
