@@ -23,7 +23,7 @@ def search_jobs():
     """
     Login
     """
-    get_jobs("software engineer", "san francisco")
+    get_jobs("software engineer", "Santa Clara", "60000", "100")
     job_descriptions_file_path = 'api/web_scraping/jobs/jooble_response.json'
     with open(job_descriptions_file_path, 'r', encoding='utf-8') as file:
         job_descriptions = json.load(file)
