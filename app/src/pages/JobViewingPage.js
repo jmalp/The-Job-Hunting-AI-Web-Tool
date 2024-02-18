@@ -3,12 +3,11 @@ import example_jobs from "./example_jobs.json";
 import { useState, useEffect } from 'react';
 
 export default function JobViewingPage() {
-    const url = "localhost:5000"
     const [jobs, setJobs] = useState([]);
 
     const loadJobs = async () => {
         //Search Jobs
-        fetch(url + '/search', {
+        fetch('http://localhost:5000/search', {
             method: 'GET'
         })
             .then((response) => response.json())
@@ -21,13 +20,10 @@ export default function JobViewingPage() {
             });
     }
 
-    useEffect(() => {
-        loadJobs();
-    }, []);
-
     return (
         <div>
             <h1>Job Viewing Page</h1>
+            <button onClick={loadJobs}>Search</button>
             <JobList jobs={jobs} />
         </div>
     )
