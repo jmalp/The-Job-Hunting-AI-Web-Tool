@@ -12,7 +12,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 # Constants for file paths
-MODEL_PATH = 'GoogleNews-vectors-negative300.bin'
+MODEL_PATH = 'api/matching/GoogleNews-vectors-negative300.bin'
 BASE_DIRECTORY = "../data"
 RESUME_FILENAME = "user_data.txt"
 JOB_DESCRIPTIONS_FILENAME = "test_jobs.json"
