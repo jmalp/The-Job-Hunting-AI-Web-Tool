@@ -1,9 +1,11 @@
 import requests
 import json
-import os
 
-JOOBLE_RESPONSE_PATH = "api/web_scraping/jobs/jooble_response.json"
-USA_JOBS_RESPONSE_PATH = "api/web_scraping/jobs/usajobs_response.json"
+JOOBLE_RESPONSE_PATH = "web_scraping/jobs/jooble_response.json"
+USA_JOBS_RESPONSE_PATH = "web_scraping/jobs/usajobs_response.json"
+
+with open("web_scraping/api_keys.json", 'r') as file:
+    KEYS = json.load(file)
 
 
 def get_jobs(keywords: str, location: str, salary: str = "0", radius: str = "20") -> None:
@@ -31,7 +33,8 @@ def get_jooble(keywords: str, location: str, salary: str = "0", radius: str = "2
     
     # Create Request
     host = "jooble.org"
-    key = os.getenv("JOOBLE_KEY")
+    key = KEYS["JOOBLE_KEY"]
+    print("JOOBLE_KEY: ", key)
     url = f"https://{host}/api/{key}"
     headers = {"Content-type": "application/json"} 
     body = '{' + f'"keywords": "{keywords}", "location": "{location}", "salary": "{salary}", "radius": "{radius}", "ResultOnPage": 100' + '}'
@@ -50,7 +53,7 @@ def get_jooble(keywords: str, location: str, salary: str = "0", radius: str = "2
             json.dump(jobs, json_file, indent=2)
     else:
         # If unsuccessful, print error response
-        print(f"Request failed with status code {response.status_code}")
+        print(f" Jooble request failed with status code {response.status_code}")
         print(response.text) 
         
     return
@@ -65,8 +68,8 @@ def get_usajobs(keywords: str) -> None:
     # Create Request
     url = f'https://data.usajobs.gov/api/search?Keyword={keywords}'
     host = 'data.usajobs.gov'
-    user_agent = os.getenv("USAJOBS_USERAGENT")
-    auth_key = os.getenv("USAJOBS_KEY")
+    user_agent = KEYS["USAJOBS_USERAGENT"]
+    auth_key = KEYS["USAJOBS_KEY"]
     headers = {
         'Host': host,
         'User-Agent': user_agent,
@@ -87,7 +90,7 @@ def get_usajobs(keywords: str) -> None:
             json.dump(jobs, json_file, indent=2)
     else:
         # If unsuccessful, print error response
-        print(f"Request failed with status code {response.status_code}")
+        print(f"USA Jobs request failed with status code {response.status_code}")
         print(response.text) 
     return
 

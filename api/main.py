@@ -10,7 +10,7 @@ CORS(app)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 # File Paths
-resume_file_path = 'api/data/user_data.txt'
+resume_file_path = 'data/user_data.txt'
 
 
 @app.route('/', methods=['GET'])
@@ -24,7 +24,7 @@ def search_jobs():
     Login
     """
     get_jobs("software engineer", "Santa Clara", "60000", "100")
-    job_descriptions_file_path = 'api/web_scraping/jobs/jooble_response.json'
+    job_descriptions_file_path = 'web_scraping/jobs/jooble_response.json'
     with open(job_descriptions_file_path, 'r', encoding='utf-8') as file:
         job_descriptions = json.load(file)
 
