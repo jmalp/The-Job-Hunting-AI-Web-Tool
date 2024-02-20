@@ -3,3 +3,5 @@
 /api/jobs/usajobs_response.json
 test_jobs.csv
 cleaned_test_jobs.csv
+.DS_Store
+/database/database.ini
