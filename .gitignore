@@ -3,3 +3,4 @@
 /web_scraping/jobs/usajobs_response.json
 test_jobs.csv
 cleaned_test_jobs.csv
+/api/matching/GoogleNews-vectors-negative300.bin
