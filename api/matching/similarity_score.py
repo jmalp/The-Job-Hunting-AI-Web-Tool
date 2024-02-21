@@ -1,6 +1,7 @@
 
 import json
 import os
+import pickle
 import sys
 import numpy as np
 import nltk
@@ -12,18 +13,18 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 # Constants for file paths
-MODEL_PATH = 'matching/GoogleNews-vectors-negative300.bin'
+MODEL_PATH = 'matching/pickled_word2vec.pkl'
 BASE_DIRECTORY = "../data"
 RESUME_FILENAME = "user_data.txt"
 JOB_DESCRIPTIONS_FILENAME = "test_jobs.json"
 RESUME_FILE_PATH = os.path.join(BASE_DIRECTORY, RESUME_FILENAME)
 JOB_DESCRIPTIONS_FILE_PATH = os.path.join(BASE_DIRECTORY, JOB_DESCRIPTIONS_FILENAME)
 
-# Initialize model and pre-processing tools
-word2vec_model = KeyedVectors.load_word2vec_format(MODEL_PATH, binary=True)
+# Load the pickled model and initialize pre-processing tools
+with open(MODEL_PATH, 'rb') as f:
+    word2vec_model = pickle.load(f)
 stop_words = set(stopwords.words('english'))
 lemmatizer = WordNetLemmatizer()
-
 
 # Utility function for loading file contents
 def get_file_contents(file_path):
