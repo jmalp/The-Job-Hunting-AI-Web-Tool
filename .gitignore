@@ -3,5 +3,7 @@
 /web_scraping/jobs/usajobs_response.json
 test_jobs.csv
 cleaned_test_jobs.csv
+.DS_Store
+/database/database.ini
 /api/matching/GoogleNews-vectors-negative300.bin
 /api/matching/pickled_word2vec.pkl
