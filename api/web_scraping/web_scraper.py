@@ -34,7 +34,6 @@ def get_jooble(keywords: str, location: str, salary: str = "0", radius: str = "2
     # Create Request
     host = "jooble.org"
     key = KEYS["JOOBLE_KEY"]
-    print("JOOBLE_KEY: ", key)
     url = f"https://{host}/api/{key}"
     headers = {"Content-type": "application/json"} 
     body = '{' + f'"keywords": "{keywords}", "location": "{location}", "salary": "{salary}", "radius": "{radius}", "ResultOnPage": 100' + '}'
