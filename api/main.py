@@ -1,10 +1,11 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 import json
 
 from authentication.authentication import generate_token, token_required
 from web_scraping.web_scraper import get_jobs
 from matching.similarity_score import calculate_tfidf_similarity
+from database.db_connection import connect_to_db
 
 app = Flask(__name__)
 CORS(app)
@@ -42,6 +43,23 @@ def test_generate_token():
     return jsonify(token), 200
 
 
+@app.route('/login', methods=['POST'])
+def login():
+    """
+    Login
+    """
+    try:
+        user = request.get_json()
+        password_hash = user['password_hash']
+        print(user)
+        sql = f"SELECT user_id FROM users WHERE email = '{user['email']}' AND password_hash = {password_hash}"
+        query_result = connect_to_db(sql)
+        user_id = query_result[0]['user_id']
+        token = generate_token(user_id)
+        return jsonify({"token": token}), 200
+    except Exception as e:
+        return jsonify({"error": e}), 500
+
 @app.route('/search', methods=['GET'])
 def search_jobs():
     """
@@ -60,4 +78,4 @@ def search_jobs():
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)
