@@ -13,7 +13,7 @@ def connect_to_db(query = "SELECT * FROM users LIMIT 5;"):
     query (str): The SQL query to be executed.
     """
     # Connecting to the PostgreSQL database
-    conn = psycopg2.connect(load_config())
+    conn = psycopg2.connect(**load_config())
 
     # Create a cursor object
     cur = conn.cursor()
