@@ -1,3 +1,5 @@
+BEGIN;
+
 -- Insert statements for `users`
 INSERT INTO users (username, password_hash, email, city, state, phone_number, country) VALUES 
 ('john_doe', 'hashed_password1', 'john.doe@email.com', 'CityA', 'StateA', '1234567890', 'CountryA'),
@@ -69,6 +71,9 @@ INSERT INTO user_activity_logs (user_id, activity_date, activity_type) VALUES
 (3, '2024-02-08 14:00:00', 'Update Profile'),
 (4, '2024-02-09 15:00:00', 'Logout'),
 (5, '2024-02-10 16:00:00', 'View Jobs');
+
+COMMIT;
+
 
 -- Delete statements
 DELETE FROM applications WHERE user_id = 1;
