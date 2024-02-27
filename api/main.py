@@ -2,7 +2,7 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 import json
 
-from authentication.authentication import generate_token, validate_token, read_key, write_key, token_required
+from authentication.authentication import generate_token, token_required
 from web_scraping.web_scraper import get_jobs
 from matching.similarity_score import calculate_tfidf_similarity
 
@@ -21,11 +21,11 @@ def test():
 
 @app.route('/test-token-required', methods=['GET'])
 @token_required
-def test_token_required(user_id):
+def test_token_required(user_id: int):
     """
     Test endpoint to verify functionality of @token_required() and validate_token()
     """
-    return jsonify({'user_id': user_id})
+    return jsonify({'user_id': user_id}), 200
 
 
 @app.route('/test-generate-token', methods=['GET'])
@@ -33,13 +33,13 @@ def test_generate_token():
     """
     Test endpoint to verify functionality of generate_token()
     """
-    user_id = 1092346
+    user_id = 109
     token = {
         'token': generate_token(user_id, key_location="authentication/key.json")
     }
     with open("test_token.json", 'w') as json_file:
         json.dump(token, json_file, indent=4)
-    return token
+    return jsonify(token), 200
 
 
 @app.route('/search', methods=['GET'])
