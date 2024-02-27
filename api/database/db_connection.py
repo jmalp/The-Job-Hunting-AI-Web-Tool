@@ -1,5 +1,5 @@
 import psycopg2
-from config import load_config
+from database.config import load_config
 
 def connect_to_db(query = "SELECT * FROM users LIMIT 5;"):
     """
