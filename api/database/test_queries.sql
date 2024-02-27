@@ -55,11 +55,11 @@ INSERT INTO applications (user_id, job_id, application_date) VALUES (4, 4, '2024
 INSERT INTO applications (user_id, job_id, application_date) VALUES (5, 5, '2024-02-05');
 
 -- Insert statements for `user_activity_logs`
-INSERT INTO user_activity_logs (user_id, activity_time, activity_type) VALUES (1, '2024-02-06 12:00:00', 'Login');
-INSERT INTO user_activity_logs (user_id, activity_time, activity_type) VALUES (2, '2024-02-07 13:00:00', 'Apply Job');
-INSERT INTO user_activity_logs (user_id, activity_time, activity_type) VALUES (3, '2024-02-08 14:00:00', 'Update Profile');
-INSERT INTO user_activity_logs (user_id, activity_time, activity_type) VALUES (4, '2024-02-09 15:00:00', 'Logout');
-INSERT INTO user_activity_logs (user_id, activity_time, activity_type) VALUES (5, '2024-02-10 16:00:00', 'View Jobs');
+INSERT INTO user_activity_logs (user_id, activity_type) VALUES (1, '2024-02-06 12:00:00', 'Login');
+INSERT INTO user_activity_logs (user_id, activity_type) VALUES (2, '2024-02-07 13:00:00', 'Apply Job');
+INSERT INTO user_activity_logs (user_id, activity_type) VALUES (3, '2024-02-08 14:00:00', 'Update Profile');
+INSERT INTO user_activity_logs (user_id, activity_type) VALUES (4, '2024-02-09 15:00:00', 'Logout');
+INSERT INTO user_activity_logs (user_id, activity_type) VALUES (5, '2024-02-10 16:00:00', 'View Jobs');
 
 -- Delete statements
 DELETE FROM applications WHERE user_id = 1;
