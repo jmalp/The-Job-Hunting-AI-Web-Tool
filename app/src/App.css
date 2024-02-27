@@ -36,3 +36,32 @@
     transform: rotate(360deg);
   }
 }
+
+.text-left {
+  text-align: left;
+}
+
+.custom-submit-btn {
+  width: 220px;
+  height: 60px;
+  background: #3498db;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 19px;
+  font-weight: 700;
+  border-radius: 30px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.custom-submit-btn:hover {
+  background-color: #2980b9;
+}
+
+.custom-submit-btn.gray {
+  background: #bdc3c7;
+  color: #2c3e50;
+}
