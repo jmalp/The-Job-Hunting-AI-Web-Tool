@@ -1,10 +1,11 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 import json
 
 from authentication.authentication import generate_token, token_required
 from web_scraping.web_scraper import get_jobs
 from matching.similarity_score import calculate_tfidf_similarity
+from database.db_connection import connect_to_db
 
 app = Flask(__name__)
 CORS(app)
@@ -28,18 +29,45 @@ def test_token_required(user_id: int):
     return jsonify({'user_id': user_id}), 200
 
 
-@app.route('/test-generate-token', methods=['GET'])
-def test_generate_token():
+@app.route('/login', methods=['POST'])
+def login():
     """
-    Test endpoint to verify functionality of generate_token()
+    Validate user email and password to generate a session token to allow access to the rest of the website
+
+    Args:
+    *Args to be included in the form data in the body of the request*
+    email: str | user email
+    password: str | user's password
+
+    Returns:
+    JSON response with session token
     """
-    user_id = 109
-    token = {
-        'token': generate_token(user_id, key_location="authentication/key.json")
-    }
-    with open("test_token.json", 'w') as json_file:
-        json.dump(token, json_file, indent=4)
-    return jsonify(token), 200
+    try:
+        # Extract email and password from HTTP Post form
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        # TODO: password hashing function
+
+        # Generate and execute database query
+        sql = f"SELECT user_id FROM users WHERE email = '{email}' AND password_hash = '{password}';"
+        query_result = connect_to_db(sql)
+
+        # ERROR no matches for username and password in database
+        if len(query_result) != 1:
+            return jsonify({"error": "Invalid login credential"}), 500
+        
+        # Query result should give a list of tuples ex. [(1,)]
+        # Double array index 0 to ensure we get the first and only value of the first and only tuple, our user_id
+        user_id = query_result[0][0]
+
+        # Generate and return token with our user_id
+        token = generate_token(user_id)
+        return jsonify({"token": token}), 200
+    
+    # Return any other exception messages
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 @app.route('/search', methods=['GET'])
