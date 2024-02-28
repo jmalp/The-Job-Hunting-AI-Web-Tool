@@ -29,20 +29,6 @@ def test_token_required(user_id: int):
     return jsonify({'user_id': user_id}), 200
 
 
-@app.route('/test-generate-token', methods=['GET'])
-def test_generate_token():
-    """
-    Test endpoint to verify functionality of generate_token()
-    """
-    user_id = 109
-    token = {
-        'token': generate_token(user_id, key_location="authentication/key.json")
-    }
-    with open("test_token.json", 'w') as json_file:
-        json.dump(token, json_file, indent=4)
-    return jsonify(token), 200
-
-
 @app.route('/login', methods=['POST'])
 def login():
     """
