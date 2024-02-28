@@ -46,19 +46,43 @@ def test_generate_token():
 @app.route('/login', methods=['POST'])
 def login():
     """
-    Login
+    Validate user email and password to generate a session token to allow access to the rest of the website
+
+    Args:
+    *Args to be included in the form data in the body of the request*
+    email: str | user email
+    password: str | user's password
+
+    Returns:
+    JSON response with session token
     """
     try:
-        user = request.get_json()
-        password_hash = user['password_hash']
-        print(user)
-        sql = f"SELECT user_id FROM users WHERE email = '{user['email']}' AND password_hash = {password_hash}"
+        # Extract email and password from HTTP Post form
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        # TODO: password hashing function
+
+        # Generate and execute database query
+        sql = f"SELECT user_id FROM users WHERE email = '{email}' AND password_hash = '{password}';"
         query_result = connect_to_db(sql)
-        user_id = query_result[0]['user_id']
+
+        # ERROR no matches for username and password in database
+        if len(query_result) != 1:
+            return jsonify({"error": "Invalid login credential"}), 500
+        
+        # Query result should give a list of tuples ex. [(1,)]
+        # Double array index 0 to ensure we get the first and only value of the first and only tuple, our user_id
+        user_id = query_result[0][0]
+
+        # Generate and return token with our user_id
         token = generate_token(user_id)
         return jsonify({"token": token}), 200
+    
+    # Return any other exception messages
     except Exception as e:
-        return jsonify({"error": e}), 500
+        return jsonify({"error": str(e)}), 500
+
 
 @app.route('/search', methods=['GET'])
 def search_jobs():
