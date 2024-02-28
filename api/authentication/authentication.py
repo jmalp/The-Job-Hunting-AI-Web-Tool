@@ -119,7 +119,7 @@ def generate_token(user_id: int, time: int = 60, key_location: str = LOCATION) -
     returns: str, token
     """
     # Token will expire after 'time' minutes
-    expires = datetime.utcnow() + timedelta(minutes=1)
+    expires = datetime.utcnow() + timedelta(minutes=time)
     payload = {
         'user_id': user_id,
         'expires': expires.isoformat()
