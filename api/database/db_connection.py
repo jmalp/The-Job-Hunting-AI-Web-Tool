@@ -1,7 +1,7 @@
 import psycopg2
 from database.config import load_config
 
-def connect_to_db(query = "SELECT * FROM users LIMIT 5;"):
+def connect_to_db(query: str = "SELECT * FROM users LIMIT 5;") -> list:
     """
     Connect to a PostgreSQL database and execute a query.
 
@@ -11,6 +11,9 @@ def connect_to_db(query = "SELECT * FROM users LIMIT 5;"):
 
     Args:
     query (str): The SQL query to be executed.
+
+    Returns:
+    result (list): list of rows represented by tuples
     """
     # Connecting to the PostgreSQL database
     conn = psycopg2.connect(**load_config())
@@ -24,9 +27,8 @@ def connect_to_db(query = "SELECT * FROM users LIMIT 5;"):
         
         # Fetch the results
         rows = cur.fetchall()
-        
-        for row in rows:
-            print(row)
+
+        return rows
             
     except Exception as e:
         print(f"An error occurred: {e}")
