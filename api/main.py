@@ -35,7 +35,7 @@ def login():
     Validate user email and password to generate a session token to allow access to the rest of the website
 
     Args:
-    *Args to be included in the form data in the body of the request*
+    *Args to be included in the json object in the body of the request*
     email: str | user email
     password: str | user's password
 
@@ -44,8 +44,9 @@ def login():
     """
     try:
         # Extract email and password from HTTP Post form
-        email = request.form.get('email')
-        password = request.form.get('password')
+        user = request.get_json()
+        email = user['email']
+        password = user['password']
 
         # TODO: password hashing function
 
@@ -88,4 +89,4 @@ def search_jobs():
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)

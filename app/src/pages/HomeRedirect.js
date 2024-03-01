@@ -5,7 +5,7 @@ export default function HomeRedirect() {
     let navigate = useNavigate();
 
     useEffect(() => {
-        navigate('/jobs', { replace: true });
+        navigate('/login', { replace: true });
     }, [navigate]);
 
     return null

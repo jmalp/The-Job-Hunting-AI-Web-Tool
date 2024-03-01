@@ -1,5 +1,5 @@
 import JobList from "../components/JobList";
-import example_jobs from "./example_jobs.json";
+import url from "../api_url.json"
 import { useState, useEffect } from 'react';
 
 export default function JobViewingPage() {
@@ -7,7 +7,7 @@ export default function JobViewingPage() {
 
     const loadJobs = async () => {
         //Search Jobs
-        fetch('http://localhost:5000/search', {
+        fetch(url['api_url'] + '/search', {
             method: 'GET'
         })
             .then((response) => response.json())
