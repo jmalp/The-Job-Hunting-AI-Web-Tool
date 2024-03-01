@@ -85,35 +85,37 @@
     gap: 20px; 
     margin: 40px auto; 
   }
-  
+
+  .submit.submit {
+  border-radius: 30px !important;
+  font-family: sans-serif !important;
+}
+
   .submit {
     display: flex;
     width: 200px; 
-    height: 50px; 
-    background: #3498db; 
+    height: 50px;
+    background: #3498db;
     color: #fff;
     justify-content: center;
     font-size: 17px; 
     border-radius: 30px; 
     cursor: pointer;
-    transition: background-color 0.3s; /* Smooth transition for hover effect */
-
-
-
+    transition: background-color 0.3s;
     align-items: center;
     width: 220px;
     height: 60px;
     font-size: 19px;
     font-weight: 700;
-
+    border: none !important;
   }
   
   .submit:hover {
-    background-color: #2980b9; /* Slightly darker blue on hover */
+    background-color: #2980b9;
   }
   
   .gray {
-    background: #bdc3c7; /* Modern gray */
-    color: #2c3e50; /* Dark blue for contrast */
+    background: #bdc3c7;
+    color: #2c3e50;
   }
   
