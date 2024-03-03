@@ -18,10 +18,7 @@ def clean_data(input_file: str, output_file: str):
     output_file: str | path to json file where jobs will be stored
     """
     
-    df = pd.read_csv('test_jobs.csv')
-
-    # Drop the 'salary' column
-    df.drop('salary', axis=1, inplace=True)
+    df = pd.read_json(input_file)
 
     # Fill missing values in the 'type' column with "Not Specified"
     df['type'] = df['type'].fillna('Not Specified')
