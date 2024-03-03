@@ -4,11 +4,19 @@ import { useState, useEffect } from 'react';
 
 export default function JobViewingPage() {
     const [jobs, setJobs] = useState([]);
+    const [tempForm, setFormData] = useState({
+        keywords: "Software Engineer",
+        location: "Santa Clara",
+        salary: "60000",
+        radius: "100"
+    });
 
     const loadJobs = async () => {
         //Search Jobs
         fetch(url['api_url'] + '/search', {
-            method: 'GET'
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(tempForm)
         })
             .then((response) => response.json())
             .then((data) => {
