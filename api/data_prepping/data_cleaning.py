@@ -60,6 +60,9 @@ def clean_html(text: str) -> str:
     
     # Remove \r and \n characters
     text = text.replace('\r', ' ').replace('\n', ' ')
+
+    # Remove \xa0
+    text = text.replace('\xa0', '')
     
     # Remove extra spaces caused by replacements
     text = re.sub(' +', ' ', text)
