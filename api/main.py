@@ -37,7 +37,7 @@ def login():
 
     Args:
     *Args to be included in the json object in the body of the request*
-    email: str | user email
+    email:    str | user email
     password: str | user's password
 
     Returns:
@@ -72,12 +72,42 @@ def login():
         return jsonify({"error": str(e)}), 500
 
 
-@app.route('/search', methods=['GET'])
+@app.route('/search', methods=['POST'])
 def search_jobs():
     """
     Search Jobs
+
+    Args:
+    *Args to be included in the json object in the body of the request*
+    keywords:    str | Keywords for search query
+    location:    str | Desired location of job
+    salary:      str | Desired minimum salary
+    radius:      str | Desired radius (in miles) from location
+
+    Returns:
+    List of JSON objects representing job postings
+    {
+        title: str,
+        location: str,
+        snippet: str,
+        salary: str,
+        source: str,
+        type: str,
+        link: str,
+        company: str,
+        job posted: str,
+        id: int
+    }
     """
-    get_jobs("software engineer", "Santa Clara", "60000", "100")
+    # Scrape Jobs
+    search_query = request.get_json()
+    keywords = search_query['keywords']
+    location = search_query['location']
+    salary = search_query['salary']
+    radius = search_query['radius']
+    get_jobs(keywords, location, salary, radius)
+
+    # Clean Data
     job_descriptions_file_path = 'web_scraping/jobs/jooble_response.json'
     job_results_file_path = 'data/job_results.json'
     clean_data(job_descriptions_file_path, job_results_file_path)
@@ -85,10 +115,16 @@ def search_jobs():
     with open(job_results_file_path, 'r', encoding='utf-8') as file:
         job_descriptions = json.load(file)
 
+    # Retrieve User Resume
+    # TODO: Retrieve User Resume
+
+    # Sort Jobs by Similarity Score
     jobs = calculate_tfidf_similarity(resume_file_path, job_descriptions)
     result = []
     for job in jobs:
         result.append(job[0])
+
+    # Return List
     return result
 
 
