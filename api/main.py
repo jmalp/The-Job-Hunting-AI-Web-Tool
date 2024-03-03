@@ -3,9 +3,10 @@ from flask_cors import CORS
 import json
 
 from authentication.authentication import generate_token, token_required
-from web_scraping.web_scraper import get_jobs
-from matching.similarity_score import calculate_tfidf_similarity
+from data_prepping.data_cleaning import clean_data
 from database.db_connection import connect_to_db
+from matching.similarity_score import calculate_tfidf_similarity
+from web_scraping.web_scraper import get_jobs
 
 app = Flask(__name__)
 CORS(app)
@@ -78,7 +79,10 @@ def search_jobs():
     """
     get_jobs("software engineer", "Santa Clara", "60000", "100")
     job_descriptions_file_path = 'web_scraping/jobs/jooble_response.json'
-    with open(job_descriptions_file_path, 'r', encoding='utf-8') as file:
+    job_results_file_path = 'data/job_results.json'
+    clean_data(job_descriptions_file_path, job_results_file_path)
+
+    with open(job_results_file_path, 'r', encoding='utf-8') as file:
         job_descriptions = json.load(file)
 
     jobs = calculate_tfidf_similarity(resume_file_path, job_descriptions)
