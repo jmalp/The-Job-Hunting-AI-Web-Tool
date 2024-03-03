@@ -2,7 +2,7 @@ import pandas as pd
 from html import unescape
 import re
 
-def clean_data():
+def clean_data(input_file: str, output_file: str):
     """
     Cleans and preprocess job data from a CSV file.
 
@@ -12,6 +12,10 @@ def clean_data():
     - Pre-processes the 'updated' column to keep only the date part.
     - Converts the 'updated' column to a date format and renames it to 'job posted'.
     - Saves the cleaned data in a new CSV file.
+
+    ARGS:
+    input_file: str | path to json file with jobs to clean
+    output_file: str | path to json file where jobs will be stored
     """
     
     df = pd.read_csv('test_jobs.csv')
