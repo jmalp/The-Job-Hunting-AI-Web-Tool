@@ -18,7 +18,7 @@ def get_jobs(keywords: str, location: str, salary: str = "0", radius: str = "20"
     radius:   str | radius from given location to search for job
     """
     get_jooble(keywords, location, salary, radius)
-    get_usajobs(keywords)
+    #get_usajobs(keywords)
 
 
 def get_jooble(keywords: str, location: str, salary: str = "0", radius: str = "20") -> None:
