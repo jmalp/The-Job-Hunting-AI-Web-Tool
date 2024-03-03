@@ -33,7 +33,7 @@ def clean_data(input_file: str, output_file: str):
     df['snippet'] = df['snippet'].apply(clean_html)
     
     # Saves the cleaned data to a new CSV file
-    df.to_csv('cleaned_test_jobs.csv', encoding ='utf-8', index = False)
+    df.to_json(output_file, orient='records', indent=2)
 
 
 # Clean HTML content from the 'snippet' column
