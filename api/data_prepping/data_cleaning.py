@@ -26,9 +26,6 @@ def clean_data(input_file: str, output_file: str):
     # Pre-process the 'updated' column to remove everything after the "T"
     df['updated'] = df['updated'].str.split('T').str[0]
 
-    # Convert 'updated' column to datetime format (after removing time parts)
-    df['updated'] = pd.to_datetime(df['updated'], errors='coerce').dt.date
-
     # Rename the 'updated' column to 'job posted'
     df.rename(columns={'updated': 'job posted'}, inplace=True)
     
