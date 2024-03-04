@@ -1,5 +1,6 @@
 import { Form } from "react-bootstrap";
 import { useState } from "react";
+import DragDropFiles from "./DragDropFiles"
 
 export const FormItem = ({ item, onChange, answer }) => {
   const [currentValue, setCurrentValue] = useState(answer || '');
@@ -39,7 +40,7 @@ export const FormItem = ({ item, onChange, answer }) => {
             {item.label}
           </p>
         )
-       case "checkbox":
+       case 'checkbox':
         return (
           <Form.Check
             type="checkbox"
@@ -63,5 +64,8 @@ export const FormItem = ({ item, onChange, answer }) => {
             </Form.Select>
           </div>
         )
+          case 'dragDropFile':
+            return (
+            <DragDropFiles />)
     }
   };

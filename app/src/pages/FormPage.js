@@ -59,6 +59,7 @@ function FormPage() {
             </Card> :
           <Card>
             <Card.Body>
+            <p>Tell us more about yourself to receive more accurate results</p>
               <MultiStepForm
                 list={questions}
                 step={index}
