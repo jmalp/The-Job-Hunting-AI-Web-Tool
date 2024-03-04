@@ -37,7 +37,7 @@ function FormPage() {
   }
 
   return (
-    <div className="App">
+    <div>
       <Container className="h-100">
         <Row className="m-5">
           <Col className="align-self-center">
@@ -59,6 +59,7 @@ function FormPage() {
             </Card> :
           <Card>
             <Card.Body>
+            <p>Tell us more about yourself to receive more accurate results</p>
               <MultiStepForm
                 list={questions}
                 step={index}
