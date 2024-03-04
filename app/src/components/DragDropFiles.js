@@ -45,7 +45,7 @@ const DragDropFiles = () => {
         >
           <Card>
             <Card.Body>
-              <p>Drag and Drop a PDF to Upload</p>
+              <p>Drag and drop a PDF to upload</p>
               <input
                 type="file"
                 multiple

@@ -37,7 +37,7 @@ function FormPage() {
   }
 
   return (
-    <div className="App">
+    <div>
       <Container className="h-100">
         <Row className="m-5">
           <Col className="align-self-center">
