@@ -12,17 +12,17 @@ CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
-    city VARCHAR(255) NOT NULL,
-    state VARCHAR(255) NOT NULL,
-    phone_number VARCHAR(255) NOT NULL
+    password_hash VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE profile_info (
     profileinfo_id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL,
-    username VARCHAR(255) NOT NULL UNIQUE,
-    password_hash VARCHAR(255) NOT NULL,
+    city VARCHAR(255) NOT NULL,
+    state VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(255) NOT NULL,
     resume VARCHAR(255) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
