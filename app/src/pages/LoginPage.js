@@ -26,7 +26,6 @@ export default function LoginPage() {
     const handleSignUpClick = () => {
         if (action === "Login") {
             setAction("Sign Up")
-        } else {
             navigate("/form"); // Navigate to FormPage
         }
     }
@@ -90,11 +89,7 @@ export default function LoginPage() {
                     <div className="text">I agree to the Terms and Conditions</div> */}
 
             <div className="submit-container">
-                {/*<div className={action === "Login" ? "submit gray" : "submit"} onClick={handleSignUpClick}>Sign Up</div>*/}
-                <div className={action === "Login" ? "submit gray" : "submit"} onClick={() => {
-                    handleSignUpClick()
-                }}>Sign Up
-                </div>
+                <div className={action === "Login" ? "submit gray" : "submit"} onClick={handleSignUpClick}>Sign Up</div>
                 <div className={action === "Sign Up" ? "submit gray" : "submit"} onClick={() => {
                     handleLoginClick()
                 }}>Login

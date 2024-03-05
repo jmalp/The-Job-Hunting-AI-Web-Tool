@@ -40,8 +40,9 @@ export const questions = [
     section: 3,
     items: [
       {
-        label: 'Optionally you can upload a resume.',
-        type: 'information'
+        label: 'Upload a resume for more accurate matches',
+        type: 'dragDropFile',
+        value: 'resume'
       }
     ]
   }
