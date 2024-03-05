@@ -4,7 +4,7 @@ import json
 
 from authentication.authentication import generate_token, token_required
 from data_prepping.data_cleaning import clean_data
-from database.db_connection import connect_to_db
+from database.db_connection import read_db, update_db
 from matching.similarity_score import calculate_tfidf_similarity
 from web_scraping.web_scraper import get_jobs
 
@@ -30,6 +30,31 @@ def test_token_required(user_id: int):
     return jsonify({'user_id': user_id}), 200
 
 
+@app.route('/create-acocunt', methods=['POST'])
+def create_account():
+    """
+    Create account
+    """
+    try:
+        # Extract user information from HTTP Post form
+        user = request.get_json()
+        email = user['email']
+        password = user['password']
+        city = user['city']
+        state = user['state']
+        
+        # Create account
+        sql = f"INSERT INTO users (email, password, city, state) \
+                VALUES ('{email}', '{password}', '{city}', '{state}')"
+        response = update_db(sql)
+
+        # Generate token
+
+    # Return any other exception messages
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 @app.route('/login', methods=['POST'])
 def login():
     """
@@ -53,7 +78,7 @@ def login():
 
         # Generate and execute database query
         sql = f"SELECT user_id FROM users WHERE email = '{email}' AND password_hash = '{password}';"
-        query_result = connect_to_db(sql)
+        query_result = read_db(sql)
 
         # ERROR no matches for username and password in database
         if len(query_result) != 1:
