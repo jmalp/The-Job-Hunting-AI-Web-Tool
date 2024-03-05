@@ -78,4 +78,4 @@ def update_db(query: str) -> str:
 
 
 if __name__ == "__main__":
-    read_from_db()
+    read_db()
