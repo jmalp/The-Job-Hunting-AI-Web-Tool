@@ -23,7 +23,7 @@ CREATE TABLE work_history (
     CHECK (start_date < end_date OR end_date IS NULL)
 );
 
-CREATE TABLE users (
+CREATE TABLE user (
     user_id SERIAL PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
