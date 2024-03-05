@@ -1,12 +1,12 @@
 BEGIN;
 
 -- Insert statements for `users`
-INSERT INTO users (username, password_hash, email, city, state, phone_number, country) VALUES 
-('john_doe', 'hashed_password1', 'john.doe@email.com', 'CityA', 'StateA', '1234567890', 'CountryA'),
-('jane_smith', 'hashed_password2', 'jane.smith@email.com', 'CityB', 'StateB', '0987654321', 'CountryB'),
-('alex_brown', 'hashed_password3', 'alex.brown@email.com', 'CityC', 'StateC', '1122334455', 'CountryC'),
-('emma_white', 'hashed_password4', 'emma.white@email.com', 'CityD', 'StateD', '2233445566', 'CountryD'),
-('david_jones', 'hashed_password5', 'david.jones@email.com', 'CityE', 'StateE', '3344556677', 'CountryE');
+INSERT INTO users (first_name, last_name, email, city, state, phone_number) VALUES 
+('John', 'Doe', 'john.doe@email.com', 'CityA', 'StateA', '1234567890'),
+('Jane', 'Smith', 'jane.smith@email.com', 'CityB', 'StateB', '0987654321'),
+('Alex', 'Brown', 'alex.brown@email.com', 'CityC', 'StateC', '1122334455'),
+('Emma', 'White', 'emma.white@email.com', 'CityD', 'StateD', '2233445566'),
+('David', 'Jones', 'david.jones@email.com', 'CityE', 'StateE', '3344556677');
 
 -- Insert statements for `employer`
 INSERT INTO employer (company_name, industry, contact_info) VALUES 
@@ -41,12 +41,12 @@ INSERT INTO work_history (company_name, title, start_date, end_date, job_descrip
 ('Market Makers', 'Digital Marketer', '2022-02-01', NULL, 'Implementing digital marketing strategies.');
 
 -- Insert statements for `profile_info`
-INSERT INTO profile_info (user_id, resume, skills_id, education_id, work_history_id) VALUES 
-(1, 'resume_link_1', 1, 1, 1),
-(2, 'resume_link_2', 2, 2, 2),
-(3, 'resume_link_3', 3, 3, 3),
-(4, 'resume_link_4', 4, 4, 4),
-(5, 'resume_link_5', 5, 5, 5);
+INSERT INTO profile_info (user_id, username, password_hash, resume, skills_id, education_id, work_history_id) VALUES 
+(1, 'john_doe', 'hashed_password1', 'resume_link_1', 1, 1, 1),
+(2, 'jane_smith', 'hashed_password2', 'resume_link_2', 2, 2, 2),
+(3, 'alex_brown', 'hashed_password3', 'resume_link_3', 3, 3, 3),
+(4, 'emma_white', 'hashed_password4', 'resume_link_4', 4, 4, 4),
+(5, 'david_jones', 'hashed_password5', 'resume_link_5', 5, 5, 5);
 
 -- Insert statements for `jobs`
 INSERT INTO jobs (employer_id, job_title, job_description, job_location, salary_range, job_type) VALUES 
@@ -65,7 +65,7 @@ INSERT INTO applications (user_id, job_id, application_date) VALUES
 (5, 5, '2024-02-05');
 
 -- Insert statements for `user_activity_logs`
-INSERT INTO user_activity_logs (user_id, activity_date, activity_type) VALUES 
+INSERT INTO user_activity_logs (user_id, timestamp, activity_type) VALUES 
 (1, '2024-02-06 12:00:00', 'Login'),
 (2, '2024-02-07 13:00:00', 'Apply Job'),
 (3, '2024-02-08 14:00:00', 'Update Profile'),
