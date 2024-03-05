@@ -23,20 +23,21 @@ CREATE TABLE work_history (
     CHECK (start_date < end_date OR end_date IS NULL)
 );
 
-CREATE TABLE users (
+CREATE TABLE user (
     user_id SERIAL PRIMARY KEY,
-    username VARCHAR(255) NOT NULL UNIQUE,
-    password_hash VARCHAR(255) NOT NULL,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     city VARCHAR(255) NOT NULL,
     state VARCHAR(255) NOT NULL,
-    phone_number VARCHAR(255) NOT NULL,
-    country VARCHAR(255) NOT NULL
+    phone_number VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE profile_info (
     profileinfo_id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
     resume VARCHAR(255) NOT NULL,
     skills_id INTEGER NOT NULL,
     education_id INTEGER NOT NULL,

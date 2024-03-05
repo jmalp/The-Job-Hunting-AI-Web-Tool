@@ -80,7 +80,7 @@ export default function LoginPage() {
                 </div>
                 <div className="input">
                     <img src={password_icon} alt="user_icon" className="icon"/>
-                    <input type="password" placeholder="Passoword" className="input-field" name="password" value={formData.password} onChange={handleFormChange} />
+                    <input type="password" placeholder="Password" className="input-field" name="password" value={formData.password} onChange={handleFormChange} />
                 </div>
             
                 </div>
