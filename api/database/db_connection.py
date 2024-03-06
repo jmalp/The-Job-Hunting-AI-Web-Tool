@@ -69,7 +69,7 @@ def update_db(query: str) -> str:
         return "Database successfully updated"
             
     except Exception as e:
-        print(f"An error occurred: {e}")
+        return f"An error occurred: {e}"
         
     finally:
         # Close the cursor and connection
