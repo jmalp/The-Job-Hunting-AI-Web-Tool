@@ -38,37 +38,67 @@ def create_account():
 
     Args:
     *Args to be included in the json object in the body of the request*
+    username:      str | REQUIRED
+    email:         str | REQUIRED
+    password_hash: str | REQUIRED
+    first_name:    str | REQUIRED
+    last_name:     str | REQUIRED
+    city:          str | OPTIONAL
+    state:         str | OPTIONAL
+    phone_number:  str | OPTIONAL
+    resume:        str | OPTIONAL
+
+    Returns:
+    JSON response with session token
     """
     try:
         # Extract user information from HTTP Post form
         user = request.get_json()
         
-        # Add all keys and values to lists
-        key_list = []
-        val_list = []
+        # TODO: password hashing function
 
-        for key, val in user.items():
-            key_list.append(key)
-            val_list.append(str(val))
+        # Raise error for any missing required field
+        if 'username' not in user:
+            return jsonify({"error": "missing username"}), 500
+        if 'email' not in user:
+            return jsonify({"error": "missing email"}), 500
+        if 'password_hash' not in user:
+            return jsonify({"error": "missing password_hash"}), 500
+        if 'first_name' not in user:
+            return jsonify({"error": "missing first_name"}), 500
+        if 'last_name' not in user:
+            return jsonify({"error": "missing last_name"}), 500
 
-        # Add lists to query strings in correct SQL syntax 
-        key_list = str(tuple(key_list)).replace("'", "")
-        val_list = tuple(val_list)
-        sql = f"INSERT INTO users {key_list} VALUES {val_list} RETURNING *;"
+        # Construct and execute INSERT query for users
+        users_sql = f"INSERT INTO users (username, email, password_hash, first_name, last_name) \ 
+                        VALUES ({user['username']}, {user['email']}, {user['password_hash']}, {user['first_name']}, {user['last_name']}) RETURNING user_id;"
+        response = update_db(users_sql)
 
-        # Create account
-        response = update_db(sql)
-
-        # Return error on error
-        if "error" in response:
-            return jsonify({"error": response}), 500
-
-        # Get new user's user_id
+        # Get generated user_id from response
         user_id = response[0][0]
 
-        # Generate login token with user_id
+        # Construct and execute INSERT query for profile_info with optionals given
+        profile_info_keys = ['user_id']
+        profile_info_vals = [user_id]
+        excluded_keys = ['username', 'email', 'password_hash', 'first_name', 'last_name']
+
+        for key, val in user.items():
+            if key not in excluded_keys:
+                profile_info_keys.append(key)
+                profile_info_vals.append(key)
+
+        # Add lists to query strings in correct SQL syntax 
+        profile_info_keys = str(tuple(profile_info_keys)).replace("'", "")
+        profile_info_vals = tuple(profile_info_vals)
+        sql = f"INSERT INTO profile_info {profile_info_keys} VALUES {profile_info_vals};"
+
+        # Execute query
+        response = update_db(users_sql)
+
+        # Generate and return token
         token = generate_token(user_id)
         return jsonify({"token": token}), 200
+
 
     # Return any other exception messages
     except Exception as e:
