@@ -1,15 +1,23 @@
 BEGIN;
 
 -- Insert statements for `users`
-INSERT INTO users (first_name, last_name, email, city, state, phone_number) VALUES 
-('John', 'Doe', 'john.doe@email.com', 'CityA', 'StateA', '1234567890'),
-('Jane', 'Smith', 'jane.smith@email.com', 'CityB', 'StateB', '0987654321'),
-('Alex', 'Brown', 'alex.brown@email.com', 'CityC', 'StateC', '1122334455'),
-('Emma', 'White', 'emma.white@email.com', 'CityD', 'StateD', '2233445566'),
-('David', 'Jones', 'david.jones@email.com', 'CityE', 'StateE', '3344556677');
+INSERT INTO users (first_name, last_name, email, username, password_hash) VALUES 
+('John', 'Doe', 'john.doe@email.com', 'john_doe', 'hashed_password1'),
+('Jane', 'Smith', 'jane.smith@email.com', 'jane_smith', 'hashed_password2'),
+('Alex', 'Brown', 'alex.brown@email.com', 'alex_brown', 'hashed_password3'),
+('Emma', 'White', 'emma.white@email.com', 'emma_white', 'hashed_password4'),
+('David', 'Jones', 'david.jones@email.com', 'david_jones', 'hashed_password5');
+
+-- Insert statements for `profile_info`
+INSERT INTO profile_info (user_id, city, state, phone_number, resume) VALUES 
+(1, 'resume_link_1','CityA', 'StateA', '1234567890'),
+(2,  'resume_link_2', 'CityB', 'StateB', '0987654321'),
+(3, 'resume_link_3', 'CityC', 'StateC', '1122334455'),
+(4, 'resume_link_4', 'CityD', 'StateD', '2233445566'),
+(5, 'resume_link_5', 'CityE', 'StateE', '3344556677');
 
 -- Insert statements for `employer`
-INSERT INTO employer (company_name, industry, contact_info) VALUES 
+INSERT INTO employers (company_name, industry, contact_info) VALUES 
 ('Tech Innovations', 'Technology', 'contact@techinnovations.com'),
 ('Design Studio', 'Design', 'contact@designstudio.com'),
 ('Global Corp', 'Consulting', 'contact@globalcorp.com'),
@@ -17,36 +25,28 @@ INSERT INTO employer (company_name, industry, contact_info) VALUES
 ('Market Makers', 'Marketing', 'contact@marketmakers.com');
 
 -- Insert statements for `skills`
-INSERT INTO skills (skill_name) VALUES 
-('Software Development'),
-('Project Management'),
-('Graphic Design'),
-('Data Analysis'),
-('Digital Marketing');
+INSERT INTO skills (profileinfo_id, skill_name) VALUES 
+(1, 'Software Development'),
+(2, 'Project Management'),
+(3, 'Graphic Design'),
+(4, 'Data Analysis'),
+(5, 'Digital Marketing');
 
 -- Insert statements for `education`
-INSERT INTO education (degree, field_of_study, school_name, start_date, end_date) VALUES 
-('BSc Computer Science', 'Computer Science', 'Tech University', '2015-09-01', '2019-06-30'),
-('MA Design', 'Graphic Design', 'Art & Design College', '2016-09-01', '2018-06-30'),
-('MBA', 'Business Administration', 'Business School', '2017-09-01', '2019-06-30'),
-('PhD Data Science', 'Data Science', 'Global University', '2018-09-01', '2022-06-30'),
-('BSc Marketing', 'Marketing', 'University of Commerce', '2019-09-01', '2023-06-30');
+INSERT INTO education (profileinfo_id, degree, field_of_study, school_name, start_date, end_date) VALUES 
+(1, 'BSc Computer Science', 'Computer Science', 'Tech University', '2015-09-01', '2019-06-30'),
+(2, 'MA Design', 'Graphic Design', 'Art & Design College', '2016-09-01', '2018-06-30'),
+(3, 'MBA', 'Business Administration', 'Business School', '2017-09-01', '2019-06-30'),
+(4, 'PhD Data Science', 'Data Science', 'Global University', '2018-09-01', '2022-06-30'),
+(5, 'BSc Marketing', 'Marketing', 'University of Commerce', '2019-09-01', '2023-06-30');
 
 -- Insert statements for `work_history`
-INSERT INTO work_history (company_name, title, start_date, end_date, job_description) VALUES 
-('Tech Innovations', 'Software Engineer', '2019-07-01', '2021-08-31', 'Developing and maintaining software applications.'),
-('Design Studio', 'Graphic Designer', '2018-07-01', '2020-08-31', 'Creating visual concepts and designs.'),
-('Global Corp', 'Project Manager', '2020-09-01', '2022-09-30', 'Managing and leading project teams.'),
-('Data Analysts Inc', 'Data Analyst', '2021-10-01', '2023-01-31', 'Analyzing data trends for business insights.'),
-('Market Makers', 'Digital Marketer', '2022-02-01', NULL, 'Implementing digital marketing strategies.');
-
--- Insert statements for `profile_info`
-INSERT INTO profile_info (user_id, username, password_hash, resume, skills_id, education_id, work_history_id) VALUES 
-(1, 'john_doe', 'hashed_password1', 'resume_link_1', 1, 1, 1),
-(2, 'jane_smith', 'hashed_password2', 'resume_link_2', 2, 2, 2),
-(3, 'alex_brown', 'hashed_password3', 'resume_link_3', 3, 3, 3),
-(4, 'emma_white', 'hashed_password4', 'resume_link_4', 4, 4, 4),
-(5, 'david_jones', 'hashed_password5', 'resume_link_5', 5, 5, 5);
+INSERT INTO work_history (profileinfo_id, company_name, title, start_date, end_date, job_description) VALUES 
+(1, 'Tech Innovations', 'Software Engineer', '2019-07-01', '2021-08-31', 'Developing and maintaining software applications.'),
+(2, 'Design Studio', 'Graphic Designer', '2018-07-01', '2020-08-31', 'Creating visual concepts and designs.'),
+(3, 'Global Corp', 'Project Manager', '2020-09-01', '2022-09-30', 'Managing and leading project teams.'),
+(4, 'Data Analysts Inc', 'Data Analyst', '2021-10-01', '2023-01-31', 'Analyzing data trends for business insights.'),
+(5, 'Market Makers', 'Digital Marketer', '2022-02-01', NULL, 'Implementing digital marketing strategies.');
 
 -- Insert statements for `jobs`
 INSERT INTO jobs (employer_id, job_title, job_description, job_location, salary_range, job_type) VALUES 
@@ -85,6 +85,6 @@ DELETE FROM education WHERE education_id = 3;
 -- Update statements
 UPDATE users SET email = 'new_email@email.com' WHERE user_id = 1;
 UPDATE jobs SET salary_range = '$80000-$95000' WHERE job_id = 2;
-UPDATE employer SET contact_info = 'new_contact@globalcorp.com' WHERE employer_id = 3;
+UPDATE employers SET contact_info = 'new_contact@globalcorp.com' WHERE employer_id = 3;
 UPDATE profile_info SET resume = 'updated_resume_link' WHERE user_id = 4;
 UPDATE education SET field_of_study = 'Cybersecurity' WHERE education_id = 5;
