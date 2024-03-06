@@ -30,11 +30,14 @@ def test_token_required(user_id: int):
     return jsonify({'user_id': user_id}), 200
 
 
-@app.route('/create-acocunt', methods=['POST'])
+@app.route('/create-account', methods=['POST'])
 def create_account():
     """
     Create account by adding user's credentials to the database 
     and generate a token to grant access to the rest of the website
+
+    Headers:
+    testing: str ('True' or 'False') | If set to True, user/profile_info created will be deleted on completion of the function
 
     Args:
     *Args to be included in the json object in the body of the request*
@@ -70,12 +73,14 @@ def create_account():
             return jsonify({"error": "missing last_name"}), 500
 
         # Construct and execute INSERT query for users
-        users_sql = f"INSERT INTO users (username, email, password_hash, first_name, last_name) \ 
-                        VALUES ({user['username']}, {user['email']}, {user['password_hash']}, {user['first_name']}, {user['last_name']}) RETURNING user_id;"
+        users_sql = f"INSERT INTO users (username, email, password_hash, first_name, last_name) \
+            VALUES ('{user['username']}', '{user['email']}', '{user['password_hash']}', '{user['first_name']}', '{user['last_name']}') RETURNING user_id;"
+        print(users_sql)
         response = update_db(users_sql)
+        print(response)
 
         # Get generated user_id from response
-        user_id = response[0][0]
+        user_id = response[0]
 
         # Construct and execute INSERT query for profile_info with optionals given
         profile_info_keys = ['user_id']
@@ -85,15 +90,24 @@ def create_account():
         for key, val in user.items():
             if key not in excluded_keys:
                 profile_info_keys.append(key)
-                profile_info_vals.append(key)
+                profile_info_vals.append(val)
 
         # Add lists to query strings in correct SQL syntax 
         profile_info_keys = str(tuple(profile_info_keys)).replace("'", "")
         profile_info_vals = tuple(profile_info_vals)
-        sql = f"INSERT INTO profile_info {profile_info_keys} VALUES {profile_info_vals};"
+        profile_info_sql = f"INSERT INTO profile_info {profile_info_keys} VALUES {profile_info_vals};"
 
-        # Execute query
-        response = update_db(users_sql)
+        # Execute profile_info query query
+        print(profile_info_sql)
+        response = update_db(profile_info_sql)
+        print(response)
+
+        # Delete rows if testing is true
+        testing_header_value = request.headers.get('Testing')
+        if testing_header_value == 'True':
+            delete_sql = f"DELETE FROM users WHERE user_id = {user_id}"
+            response = update_db(delete_sql)
+            print(response)
 
         # Generate and return token
         token = generate_token(user_id)
