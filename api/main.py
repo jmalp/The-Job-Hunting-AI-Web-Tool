@@ -33,22 +33,42 @@ def test_token_required(user_id: int):
 @app.route('/create-acocunt', methods=['POST'])
 def create_account():
     """
-    Create account
+    Create account by adding user's credentials to the database 
+    and generate a token to grant access to the rest of the website
+
+    Args:
+    *Args to be included in the json object in the body of the request*
     """
     try:
         # Extract user information from HTTP Post form
         user = request.get_json()
-        email = user['email']
-        password = user['password']
-        city = user['city']
-        state = user['state']
         
+        # Add all keys and values to lists
+        key_list = []
+        val_list = []
+
+        for key, val in user.items():
+            key_list.append(key)
+            val_list.append(str(val))
+
+        # Add lists to query strings in correct SQL syntax 
+        key_list = str(tuple(key_list)).replace("'", "")
+        val_list = tuple(val_list)
+        sql = f"INSERT INTO users {key_list} VALUES {val_list} RETURNING *;"
+
         # Create account
-        sql = f"INSERT INTO users (email, password, city, state) \
-                VALUES ('{email}', '{password}', '{city}', '{state}')"
         response = update_db(sql)
 
-        # Generate token
+        # Return error on error
+        if "error" in response:
+            return jsonify({"error": response}), 500
+
+        # Get new user's user_id
+        user_id = response[0][0]
+
+        # Generate login token with user_id
+        token = generate_token(user_id)
+        return jsonify({"token": token}), 200
 
     # Return any other exception messages
     except Exception as e:
@@ -58,7 +78,7 @@ def create_account():
 @app.route('/login', methods=['POST'])
 def login():
     """
-    Validate user email and password to generate a session token to allow access to the rest of the website
+    Validate user email and password to generate a session token to grant access to the rest of the website
 
     Args:
     *Args to be included in the json object in the body of the request*
@@ -68,6 +88,7 @@ def login():
     Returns:
     JSON response with session token
     """
+    print(request.get_json())
     try:
         # Extract email and password from HTTP Post form
         user = request.get_json()
@@ -78,7 +99,9 @@ def login():
 
         # Generate and execute database query
         sql = f"SELECT user_id FROM users WHERE email = '{email}' AND password_hash = '{password}';"
+        print(sql)
         query_result = read_db(sql)
+        print(query_result)
 
         # ERROR no matches for username and password in database
         if len(query_result) != 1:
