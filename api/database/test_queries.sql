@@ -9,7 +9,7 @@ INSERT INTO users (first_name, last_name, email, username, password_hash) VALUES
 ('David', 'Jones', 'david.jones@email.com', 'david_jones', 'hashed_password5');
 
 -- Insert statements for `profile_info`
-INSERT INTO profile_info (user_id, city, state, phone_number, resume) VALUES 
+INSERT INTO profile_info (user_id, resume, city, state, phone_number) VALUES 
 (1, 'resume_link_1','CityA', 'StateA', '1234567890'),
 (2,  'resume_link_2', 'CityB', 'StateB', '0987654321'),
 (3, 'resume_link_3', 'CityC', 'StateC', '1122334455'),
