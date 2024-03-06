@@ -66,6 +66,10 @@ def update_db(query: str) -> str:
         # Save query
         conn.commit()
 
+        # Return result rows if requested
+        if "RETURNING" in query:
+            return cur.fetchone()
+        
         return "Database successfully updated"
             
     except Exception as e:
