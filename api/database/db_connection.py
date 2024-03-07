@@ -81,5 +81,16 @@ def update_db(query: str) -> str:
         conn.close()
 
 
+def hash_password(password):
+    """
+    Deterministic password hashing function to generate the same result 
+    """
+    hashed_value = hash(password)
+
+    hex_representation = hex(hashed_value)
+
+    return hex_representation
+
+
 if __name__ == "__main__":
     read_db()
