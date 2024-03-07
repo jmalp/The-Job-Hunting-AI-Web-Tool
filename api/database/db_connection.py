@@ -1,4 +1,5 @@
 import psycopg2
+import hashlib
 from database.config import load_config
 
 def read_db(query: str = "SELECT * FROM users LIMIT 5;") -> list:
@@ -85,11 +86,11 @@ def hash_password(password):
     """
     Deterministic password hashing function to generate the same result 
     """
-    hashed_value = hash(password)
+    salted_password = password + "=DZ3;M<B?P<K"
 
-    hex_representation = hex(hashed_value)
-
-    return hex_representation
+    hashed_value = hashlib.sha256(salted_password.encode('utf-8')).hexdigest()
+    
+    return hashed_value
 
 
 if __name__ == "__main__":
