@@ -83,19 +83,8 @@ def create_account():
         user_id = response[0]
 
         # Construct and execute INSERT query for profile_info with optionals given
-        profile_info_keys = ['user_id']
-        profile_info_vals = [user_id]
-        excluded_keys = ['username', 'email', 'password_hash', 'first_name', 'last_name']
-
-        for key, val in user.items():
-            if key not in excluded_keys:
-                profile_info_keys.append(key)
-                profile_info_vals.append(val)
-
-        # Add lists to query strings in correct SQL syntax 
-        profile_info_keys = str(tuple(profile_info_keys)).replace("'", "")
-        profile_info_vals = tuple(profile_info_vals)
-        profile_info_sql = f"INSERT INTO profile_info {profile_info_keys} VALUES {profile_info_vals};"
+        profile_info_sql = f"INSERT INTO profile_info (user_id, city, state, phone_number, resume) \
+            VALUES ({user_id}, '{user['city']}', '{user['state']}', '{user['phone_number']}', '{user['resume']}') RETURNING profileinfo_id;"
 
         # Execute profile_info query query
         print(profile_info_sql)
