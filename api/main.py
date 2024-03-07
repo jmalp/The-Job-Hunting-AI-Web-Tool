@@ -4,7 +4,7 @@ import json
 
 from authentication.authentication import generate_token, token_required
 from data_prepping.data_cleaning import clean_data
-from database.db_connection import read_db, update_db
+from database.db_connection import read_db, update_db, hash_password
 from matching.similarity_score import calculate_tfidf_similarity
 from web_scraping.web_scraper import get_jobs
 
@@ -26,6 +26,8 @@ def test():
 def test_token_required(user_id: int):
     """
     Test endpoint to verify functionality of @token_required() and validate_token()
+
+    Requires Authorization header with value "Bearer *token*"
     """
     return jsonify({'user_id': user_id}), 200
 
@@ -41,6 +43,7 @@ def create_account():
 
     Args:
     *Args to be included in the json object in the body of the request*
+    *Must include ALL keys, put value null for optionals that aren't specified*
     username:      str | REQUIRED
     email:         str | REQUIRED
     password_hash: str | REQUIRED
@@ -57,8 +60,6 @@ def create_account():
     try:
         # Extract user information from HTTP Post form
         user = request.get_json()
-        
-        # TODO: password hashing function
 
         # Raise error for any missing required field
         if 'username' not in user:
@@ -72,12 +73,12 @@ def create_account():
         if 'last_name' not in user:
             return jsonify({"error": "missing last_name"}), 500
 
+        user['password_hash'] = hash_password(user['password_hash'])
+
         # Construct and execute INSERT query for users
         users_sql = f"INSERT INTO users (username, email, password_hash, first_name, last_name) \
             VALUES ('{user['username']}', '{user['email']}', '{user['password_hash']}', '{user['first_name']}', '{user['last_name']}') RETURNING user_id;"
-        print(users_sql)
         response = update_db(users_sql)
-        print(response)
 
         # Get generated user_id from response
         user_id = response[0]
@@ -87,7 +88,6 @@ def create_account():
             VALUES ({user_id}, '{user['city']}', '{user['state']}', '{user['phone_number']}', '{user['resume']}') RETURNING profileinfo_id;"
 
         # Execute profile_info query query
-        print(profile_info_sql)
         response = update_db(profile_info_sql)
         print(response)
 
@@ -121,18 +121,14 @@ def login():
     Returns:
     JSON response with session token
     """
-    print(request.get_json())
     try:
         # Extract email and password from HTTP Post form
         user = request.get_json()
         email = user['email']
-        password = user['password']
-
-        # TODO: password hashing function
+        password = hash_password(user['password'])
 
         # Generate and execute database query
         sql = f"SELECT user_id FROM users WHERE email = '{email}' AND password_hash = '{password}';"
-        print(sql)
         query_result = read_db(sql)
         print(query_result)
 
