@@ -7,6 +7,7 @@ export const MultiStepForm = (props) => {
 
   useEffect(() => {
     if (Object.keys(answers).length > 1) {
+      // console.log("Collected Answers:", answers);
       props.onPageUpdate(answers.index, answers);
       setAnswers({ index: props.step })
       setAnswers({ index: props.step })
@@ -15,6 +16,11 @@ export const MultiStepForm = (props) => {
 
   const updateAnswers = (value, category) => {
     setAnswers({...answers, [category]: value});
+  }
+
+  const handleSubmit = () => {
+    console.log("Final Collected Answers:", answers);
+    // send to back end
   }
 
   return (

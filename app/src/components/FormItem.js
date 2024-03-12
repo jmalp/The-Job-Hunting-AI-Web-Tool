@@ -9,63 +9,78 @@ export const FormItem = ({ item, onChange, answer }) => {
     setCurrentValue(value);
     onChange(value, item.value);
   };
-   switch (item.type) {
-      case 'text':
-        return (
-          <>
-            <Form.Label>{item.label}</Form.Label>
-            <Form.Control
-              type="text"
-              id={item.label}
-              onChange={(e) => handleChange(e.target.value, item.value)}
-              value={currentValue}
-            />
-          </>
-        )
+
+    switch (item.type) {
+      
+    case 'text':
+      return (
+        <div className="form-inputs">
+          <div className="form-group">
+          <label className="form-group label" htmlFor={item.label}>{item.label}</label>
+          <input
+          className="form-group input"
+            type="text"
+            id={item.label}
+            onChange={(e) => handleChange(e.target.value)}
+            value={currentValue}
+          />
+          </div>
+        </div>
+      )
     case 'number':
-        return (
-            <>
-            <Form.Label>{item.label}</Form.Label>
-            <Form.Control
-                type="number"
-                id={item.label}
-                onChange={(e) => handleChange(e.target.value, item.value)}
-                value={currentValue}
-            />
-            </>
-        )
-      case 'information':
-        return (
-          <p>
-            {item.label}
-          </p>
-        )
-       case 'checkbox':
-        return (
-          <Form.Check
+      return (
+        <div className="form-inputs">
+          <div className="form-group">
+          <label htmlFor={item.label}>{item.label}</label>
+          <input
+          className="form-group input"
+            type="number"
+            id={item.label}
+            onChange={(e) => handleChange(e.target.value)}
+            value={currentValue}
+          />
+        </div>
+        </div>
+      )
+    case 'information':
+      return (
+        <div className="form-inputs">
+          <div className="form-group">
+          <p>{item.label}</p>
+        </div>
+        </div>
+      )
+    case 'checkbox':
+      return (
+        <div>
+          <input
             type="checkbox"
-            label={item.label}
-            onChange={(e) => handleChange(e.target.checked, item.value)}
+            id={item.label}
+            onChange={(e) => handleChange(e.target.checked)}
             checked={currentValue}
           />
-        )
-      case 'select':
-        return (
-          <div className="mt-2">
-            <Form.Select aria-label={item.label} onChange={(e) => onChange(e.target.value, item.value)}>
-              <option>{item.label}</option>
-              {
-                item.options.map((opt, index) => {
-                  return (
-                    <option value={opt}>{opt}</option>
-                  )
-                })
-              }
-            </Form.Select>
-          </div>
-        )
-          case 'dragDropFile':
-            return (
-            <DragDropFiles />)
-    }
-  };
+          <label htmlFor={item.label}>{item.label}</label>
+        </div>
+      )
+    case 'select':
+      return (
+        <div className="form-inputs">
+          <div className="form-group">
+          <select aria-label={item.label} onChange={(e) => onChange(e.target.value, item.value)}>
+            <option>{item.label}</option>
+            {item.options.map((opt, index) => (
+              <option key={index} value={opt}>{opt}</option>
+            ))}
+          </select>
+        </div>
+        </div>
+
+      )
+    case 'dragDropFile':
+      return (
+        <DragDropFiles />
+      )
+    default:
+      return null;
+  }
+};
