@@ -1,5 +1,4 @@
 import psycopg2
-import hashlib
 from database.config import load_config
 
 def read_db(query: str = "SELECT * FROM users LIMIT 5;") -> list:
@@ -80,23 +79,6 @@ def update_db(query: str) -> str:
         # Close the cursor and connection
         cur.close()
         conn.close()
-
-
-def hash_password(password: str) -> str:
-    """
-    Deterministic password hashing function for a unique input to always generate the same result
-
-    Args:
-    password (str): unhashed password
-
-    Returns:
-    hashed_password (str)
-    """
-    salted_password = password + "=DZ3;M<B?P<K"
-
-    hashed_value = hashlib.sha256(salted_password.encode('utf-8')).hexdigest()
-    
-    return hashed_value
 
 
 if __name__ == "__main__":

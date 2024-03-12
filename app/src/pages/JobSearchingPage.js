@@ -1,6 +1,7 @@
 import '../App.css'
 import url from '../api_url.json'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import search_icon from '../assets/search.png'
 import location_icon from '../assets/location.png'
 import salary_icon from '../assets/salary.png'
@@ -8,13 +9,26 @@ import radius_icon from '../assets/radius.png'
 import JobList from '../components/JobList'
 
 export default function SearchPage() {
+  const navigate = useNavigate();
   const [jobs, setJobs] = useState([]);
+  const [token, setToken] = useState();
   const [formData, setFormData] = useState({
     keywords: "",
     location: "",
     salary: "",
     radius: ""
 });
+
+useEffect(() => {
+  setToken(localStorage.getItem('token'));
+  if (!token) {
+    console.log(token)
+    // TODO: navigate to login on missing toekn
+    // navigate('/login', { replace: true });
+  } else {
+    console.log(token)
+  }
+}, [])
 
 const handleFormChange = (event) => {
   const { name, value } = event.target;
@@ -27,10 +41,14 @@ const handleFormChange = (event) => {
   const loadJobs = async () => {
     console.log("Searching for jobs...");
     console.log(formData);
+    console.log(token)
     //Search Jobs
     fetch(url['api_url'] + '/search', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify(formData)
     })
         .then((response) => response.json())

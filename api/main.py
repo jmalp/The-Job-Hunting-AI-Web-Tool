@@ -4,8 +4,9 @@ import json
 
 from authentication.authentication import generate_token, token_required
 from data.pdf_converter import convert_pdf_to_string
+from data.hash_password import hash_password
 from data_prepping.data_cleaning import clean_data
-from database.db_connection import read_db, update_db, hash_password
+from database.db_connection import read_db, update_db
 from matching.similarity_score import calculate_tfidf_similarity
 from web_scraping.web_scraper import get_jobs
 
