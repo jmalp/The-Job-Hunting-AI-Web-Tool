@@ -9,7 +9,6 @@ import password_icon from '../assets/password.png';
 export default function LoginPage() {
     const [action, setAction] = useState("Login");
     const [formData, setFormData] = useState({
-        firstName: "",
         email: "",
         password: ""
     });
@@ -73,7 +72,6 @@ export default function LoginPage() {
                         <img src={user_icon} alt="user_icon" className="icon" />
                         <input type="text" placeholder="First Name" className="input-field" name="firstName" value={formData.firstName} onChange={handleFormChange} />
                     </div>}
-
                 <div className="input">
                     <img src={email_icon} alt="user_icon" className="icon" />
                     <input type="email" placeholder="Email" className="input-field" name="email" value={formData.email} onChange={handleFormChange} />
@@ -81,6 +79,10 @@ export default function LoginPage() {
                 <div className="input">
                     <img src={password_icon} alt="user_icon" className="icon" />
                     <input type="password" placeholder="Passoword" className="input-field" name="password" value={formData.password} onChange={handleFormChange} />
+
+                    <img src={password_icon} alt="user_icon" className="icon"/>
+                    <input type="password" placeholder="Password" className="input-field" name="password" value={formData.password} onChange={handleFormChange} />
+
                 </div>
 
             </div>
