@@ -42,11 +42,11 @@ def create_account():
     testing: str ('True' or 'False') | If set to True, user/profile_info created will be deleted on completion of the function
 
     Args:
-    *Args to be included in the json object in the body of the request*
+    *Args to be included in formData in the body of the request*
     *Must include ALL keys, put value null for optionals that aren't specified*
     username:      str | REQUIRED
     email:         str | REQUIRED
-    password_hash: str | REQUIRED
+    password:      str | REQUIRED
     first_name:    str | REQUIRED
     last_name:     str | REQUIRED
     city:          str | OPTIONAL
@@ -59,25 +59,21 @@ def create_account():
     """
     try:
         # Extract user information from HTTP Post form
-        user = request.get_json()
+        username = request.form.get('username')
+        email = request.form.get('email')
+        password_hash = hash_password(request.form.get('password'))
+        first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
+        city = request.form.get('city')
+        state = request.form.get('state')
+        phone_number = request.form.get('phone_number')
 
-        # Raise error for any missing required field
-        if 'username' not in user:
-            return jsonify({"error": "missing username"}), 500
-        if 'email' not in user:
-            return jsonify({"error": "missing email"}), 500
-        if 'password_hash' not in user:
-            return jsonify({"error": "missing password_hash"}), 500
-        if 'first_name' not in user:
-            return jsonify({"error": "missing first_name"}), 500
-        if 'last_name' not in user:
-            return jsonify({"error": "missing last_name"}), 500
-
-        user['password_hash'] = hash_password(user['password_hash'])
+        # TODO: Process resume
+        resume = None # request.form.get('resume')
 
         # Construct and execute INSERT query for users
         users_sql = f"INSERT INTO users (username, email, password_hash, first_name, last_name) \
-            VALUES ('{user['username']}', '{user['email']}', '{user['password_hash']}', '{user['first_name']}', '{user['last_name']}') RETURNING user_id;"
+            VALUES ('{username}', '{email}', '{password_hash}', '{first_name}', '{last_name}') RETURNING user_id;"
         response = update_db(users_sql)
 
         # Get generated user_id from response
@@ -85,18 +81,19 @@ def create_account():
 
         # Construct and execute INSERT query for profile_info with optionals given
         profile_info_sql = f"INSERT INTO profile_info (user_id, city, state, phone_number, resume) \
-            VALUES ({user_id}, '{user['city']}', '{user['state']}', '{user['phone_number']}', '{user['resume']}') RETURNING profileinfo_id;"
+            VALUES ({user_id}, '{city}', '{state}', '{phone_number}', '{resume}') RETURNING profileinfo_id;"
 
         # Execute profile_info query query
         response = update_db(profile_info_sql)
         print(response)
 
-        # Delete rows if testing is true
+        # ! Delete rows if testing is True
         testing_header_value = request.headers.get('Testing')
         if testing_header_value == 'True':
             delete_sql = f"DELETE FROM users WHERE user_id = {user_id}"
             response = update_db(delete_sql)
             print(response)
+        # ! Delete rows if testing is True
 
         # Generate and return token
         token = generate_token(user_id)
