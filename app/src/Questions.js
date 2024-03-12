@@ -3,14 +3,29 @@ export const questions = [
     section: 1,
     items: [
       {
+        label: 'Username',
+        type: 'text',
+        value: 'username'
+      },
+      {
+        label: 'Email',
+        type: 'text',
+        value: 'email'
+      },
+      {
+        label: 'Password',
+        type: 'text',
+        value: 'password_hash'
+      },
+      {
         label: 'First Name',
         type: 'text',
-        value: 'firstName'
+        value: 'first_name'
       },
         {
         label: 'Last Name',
         type: 'text',
-        value: 'lastName'
+        value: 'last_name'
       }
     ]
   },
@@ -33,7 +48,12 @@ export const questions = [
           'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina',
             'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington',
           'West Virginia', 'Wisconsin', 'Wyoming']
-      }
+      },
+      {
+        label: 'Phone Number',
+        type: 'number',
+        value: 'phone_number'
+      },
     ]
   },
   {

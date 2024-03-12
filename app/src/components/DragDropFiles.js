@@ -22,44 +22,42 @@ const DragDropFiles = () => {
   };
 
   return (
-    <Container className="d-flex justify-content-center align-items-center">
+    <div className="d-flex justify-content-center align-items-center container-style">
       {files ? (
-        <Card className="text-center">
-          <Card.Body>
+        <div className="text-center file-display">
+          <div>
             <ul>
               {Array.from(files).map((file, idx) => (
                 <li key={idx}>{file.name}</li>
               ))}
             </ul>
-          </Card.Body>
-          <Card.Footer className="d-flex justify-content-between">
-            <Button variant="secondary" onClick={() => setFiles(null)}>Cancel</Button>
-            <Button variant="primary" onClick={handleUpload}>Upload</Button>
-          </Card.Footer>
-        </Card>
+          </div>
+          <div className="file-actions d-flex justify-content-between">
+            <button className="button-secondary" onClick={() => setFiles(null)}>Cancel</button>
+            <button className="button-primary" onClick={handleUpload}>Upload</button>
+          </div>
+        </div>
       ) : (
         <div
           className="dropzone"
           onDragOver={handleDragOver}
           onDrop={handleDrop}
         >
-          <Card>
-            <Card.Body>
-              <p>Drag and drop a PDF to upload</p>
-              <input
-                type="file"
-                multiple
-                onChange={(event) => setFiles(event.target.files)}
-                hidden
-                accept="application/pdf"
-                ref={inputRef}
-              />
-              <Button onClick={() => inputRef.current.click()} className="submit">Select Files</Button>
-            </Card.Body>
-          </Card>
+          <div>
+            <p>Drag and drop a PDF to upload</p>
+            <input
+              type="file"
+              multiple
+              onChange={(event) => setFiles(event.target.files)}
+              hidden
+              accept="application/pdf"
+              ref={inputRef}
+            />
+            <button onClick={() => inputRef.current.click()} className="submit-button">Select Files</button>
+          </div>
         </div>
       )}
-    </Container>
+    </div>
   );
 };
 

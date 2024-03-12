@@ -106,38 +106,36 @@ def calculate_word2vec_similarity(resume_text, job_description_text):
     return similarity
 
 
-def calculate_tfidf_similarity(resume_path, job_descriptions):
+def calculate_tfidf_similarity(resume: str, job_descriptions: list):
     """Calculates the similarity between a resume and job descriptions using TF-IDF and Word2Vec."""
 
-    with open(resume_path, 'r', encoding='utf-8') as resume_file:
-        resume_contents = resume_file.read()
-        resume_preprocessed = preprocess_text(resume_contents)
+    resume_preprocessed = preprocess_text(resume)
 
-        job_matches = []
+    job_matches = []
 
-        for entry in job_descriptions:
-            job_snippet = entry.get("snippet", "")
-            job_preprocessed = preprocess_text(job_snippet)
+    for entry in job_descriptions:
+        job_snippet = entry.get("snippet", "")
+        job_preprocessed = preprocess_text(job_snippet)
 
-            # TF-IDF Similarity
-            vectorizer = TfidfVectorizer(ngram_range=(1, 2))
-            tfidf_matrix = vectorizer.fit_transform([resume_preprocessed, job_preprocessed])
-            resume_tfidf = tfidf_matrix[0]
-            job_tfidf = tfidf_matrix[1]
-            tfidf_similarity = (resume_tfidf * job_tfidf.T).toarray()[0, 0]
+        # TF-IDF Similarity
+        vectorizer = TfidfVectorizer(ngram_range=(1, 2))
+        tfidf_matrix = vectorizer.fit_transform([resume_preprocessed, job_preprocessed])
+        resume_tfidf = tfidf_matrix[0]
+        job_tfidf = tfidf_matrix[1]
+        tfidf_similarity = (resume_tfidf * job_tfidf.T).toarray()[0, 0]
 
-            # Word2Vec Similarity
-            word2vec_similarity = calculate_word2vec_similarity(resume_contents, job_snippet)
+        # Word2Vec Similarity
+        word2vec_similarity = calculate_word2vec_similarity(resume, job_snippet)
 
-            # Combine similarities
-            combined_similarity = (tfidf_similarity + word2vec_similarity) / 2
+        # Combine similarities
+        combined_similarity = (tfidf_similarity + word2vec_similarity) / 2
 
-            job_matches.append((entry, combined_similarity))
+        job_matches.append((entry, combined_similarity))
 
-        # Sort jobs by combined similarity score from best to worst
-        job_matches.sort(key=lambda x: x[1], reverse=True)
+    # Sort jobs by combined similarity score from best to worst
+    job_matches.sort(key=lambda x: x[1], reverse=True)
 
-        return job_matches
+    return job_matches
 
 
 if __name__ == '__main__':

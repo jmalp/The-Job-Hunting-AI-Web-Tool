@@ -23,7 +23,7 @@ CREATE TABLE profile_info (
     city VARCHAR(255) NOT NULL,
     state VARCHAR(255) NOT NULL,
     phone_number VARCHAR(255) NOT NULL,
-    resume VARCHAR(255) NOT NULL,
+    resume VARCHAR(6000) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
