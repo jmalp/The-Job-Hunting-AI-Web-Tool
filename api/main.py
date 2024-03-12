@@ -13,10 +13,6 @@ app = Flask(__name__)
 CORS(app)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
-# File Paths
-resume_file_path = 'data/user_data.txt'
-
-
 @app.route('/', methods=['GET'])
 def test():
     return jsonify({'test': 'success'})
@@ -153,7 +149,8 @@ def login():
 
 
 @app.route('/search', methods=['POST'])
-def search_jobs():
+@token_required
+def search_jobs(user_id: int):
     """
     Search Jobs
 
@@ -196,10 +193,11 @@ def search_jobs():
         job_descriptions = json.load(file)
 
     # Retrieve User Resume
-    # TODO: Retrieve User Resume
+    query = f"SELECT resume FROM profile_info WHERE user_id = {user_id}"
+    resume = read_db(query)[0][0]
 
     # Sort Jobs by Similarity Score
-    jobs = calculate_tfidf_similarity(resume_file_path, job_descriptions)
+    jobs = calculate_tfidf_similarity(resume, job_descriptions)
     result = []
     for job in jobs:
         result.append(job[0])
