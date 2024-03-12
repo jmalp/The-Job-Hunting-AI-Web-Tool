@@ -2,11 +2,11 @@ BEGIN;
 
 -- Insert statements for `users`
 INSERT INTO users (first_name, last_name, email, username, password_hash) VALUES 
-('John', 'Doe', 'john.doe@email.com', 'john_doe', 'hashed_password1'),
-('Jane', 'Smith', 'jane.smith@email.com', 'jane_smith', 'hashed_password2'),
-('Alex', 'Brown', 'alex.brown@email.com', 'alex_brown', 'hashed_password3'),
-('Emma', 'White', 'emma.white@email.com', 'emma_white', 'hashed_password4'),
-('David', 'Jones', 'david.jones@email.com', 'david_jones', 'hashed_password5');
+('John', 'Doe', 'john.doe@email.com', 'john_doe', 'd37c58fc285057684347eb49d010dab6e525d2817005802d6b4ee747dd0ab976' ), -- hashed_password1
+('Jane', 'Smith', 'jane.smith@email.com', 'jane_smith', '54388fcfd8bd804cd86306eb584fc034b6659c94c34ee17317a431ee333518b9'), -- hashed_password2
+('Alex', 'Brown', 'alex.brown@email.com', 'alex_brown', 'd08d095db7b2d6e574f2b00fdd4daa5d06e2cc939077404712af267b63b657ee'), -- hashed_password3
+('Emma', 'White', 'emma.white@email.com', 'emma_white', '066dbd4c36732ea85e9f8fa5c9127f8bd3da2117576c0cda1a2164c70ce20404'), -- hashed_password4
+('David', 'Jones', 'david.jones@email.com', 'david_jones', '758c2a6cf939ca32d5707cc42659f27ae7d05db1610f8c6c9c36b2aacc1fdac7'); -- hashed_password5
 
 -- Insert statements for `profile_info`
 INSERT INTO profile_info (user_id, resume, city, state, phone_number) VALUES 
