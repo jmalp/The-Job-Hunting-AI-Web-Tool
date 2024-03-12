@@ -3,6 +3,7 @@ from flask_cors import CORS
 import json
 
 from authentication.authentication import generate_token, token_required
+from data.pdf_converter import convert_pdf_to_string
 from data_prepping.data_cleaning import clean_data
 from database.db_connection import read_db, update_db, hash_password
 from matching.similarity_score import calculate_tfidf_similarity
@@ -76,29 +77,34 @@ def create_account():
             VALUES ('{username}', '{email}', '{password_hash}', '{first_name}', '{last_name}') RETURNING user_id;"
         response = update_db(users_sql)
 
+        # Return error ir error raised during Insert
+        if response[0] == 'A':
+            return jsonify({"error": response}), 500
+
         # Get generated user_id from response
         user_id = response[0]
 
-        # Construct and execute INSERT query for profile_info with optionals given
+        # Construct and execute INSERT query for profile_info
         profile_info_sql = f"INSERT INTO profile_info (user_id, city, state, phone_number, resume) \
             VALUES ({user_id}, '{city}', '{state}', '{phone_number}', '{resume}') RETURNING profileinfo_id;"
 
         # Execute profile_info query query
         response = update_db(profile_info_sql)
-        print(response)
+
+        # Return error ir error raised during Insert
+        if response[0] == 'A':
+            return jsonify({"error": response}), 500
 
         # ! Delete rows if testing is True
         testing_header_value = request.headers.get('Testing')
         if testing_header_value == 'True':
             delete_sql = f"DELETE FROM users WHERE user_id = {user_id}"
             response = update_db(delete_sql)
-            print(response)
         # ! Delete rows if testing is True
 
         # Generate and return token
         token = generate_token(user_id)
         return jsonify({"token": token}), 200
-
 
     # Return any other exception messages
     except Exception as e:
