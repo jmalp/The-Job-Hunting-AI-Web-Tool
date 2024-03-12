@@ -25,7 +25,7 @@ export default function LoginPage() {
     const handleSignUpClick = () => {
         if (action === "Login") {
             setAction("Sign Up")
-            navigate("/form"); // Navigate to FormPage
+            navigate("/form");
         }
     }
 
@@ -40,7 +40,7 @@ export default function LoginPage() {
     const requestLogin = async (form) => {
         fetch(url['api_url'] + '/login', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify(form)
         })
             .then((response) => response.json())
@@ -63,23 +63,31 @@ export default function LoginPage() {
     return (
         <div className="container">
             <div className="header">
-            <div className="text">{action}</div>
-            <div className="underline"></div>
+                <div className="text">{action}</div>
+                <div className="underline"></div>
             </div>
             <div className="inputs">
-                
+                {action === "Login" ? <div></div> :
+                    <div className="input">
+                        <img src={user_icon} alt="user_icon" className="icon" />
+                        <input type="text" placeholder="First Name" className="input-field" name="firstName" value={formData.firstName} onChange={handleFormChange} />
+                    </div>}
                 <div className="input">
-                    <img src={email_icon} alt="user_icon" className="icon"/>
+                    <img src={email_icon} alt="user_icon" className="icon" />
                     <input type="email" placeholder="Email" className="input-field" name="email" value={formData.email} onChange={handleFormChange} />
                 </div>
                 <div className="input">
+                    <img src={password_icon} alt="user_icon" className="icon" />
+                    <input type="password" placeholder="Passoword" className="input-field" name="password" value={formData.password} onChange={handleFormChange} />
+
                     <img src={password_icon} alt="user_icon" className="icon"/>
                     <input type="password" placeholder="Password" className="input-field" name="password" value={formData.password} onChange={handleFormChange} />
+
                 </div>
-            
-                </div>
-                {action==="Sign Up"?<div></div>:<div className="forgot-password">Forgot Password? <span>Click here</span></div>}
-                    {/* <input type="checkbox" className="checkbox"/>
+
+            </div>
+            {action === "Sign Up" ? <div></div> : <div className="forgot-password">Forgot Password? <span>Click here</span></div>}
+            {/* <input type="checkbox" className="checkbox"/>
                     <div className="text">I agree to the Terms and Conditions</div> */}
 
             <div className="submit-container">
