@@ -68,8 +68,8 @@ def create_account():
         state = request.form.get('state')
         phone_number = request.form.get('phone_number')
 
-        # TODO: Process resume
-        resume = None # request.form.get('resume')
+        resume = request.files['resume']
+        resume = convert_pdf_to_string(resume)[:6000]
 
         # Construct and execute INSERT query for users
         users_sql = f"INSERT INTO users (username, email, password_hash, first_name, last_name) \
