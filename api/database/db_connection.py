@@ -82,9 +82,15 @@ def update_db(query: str) -> str:
         conn.close()
 
 
-def hash_password(password):
+def hash_password(password: str) -> str:
     """
-    Deterministic password hashing function to generate the same result 
+    Deterministic password hashing function for a unique input to always generate the same result
+
+    Args:
+    password (str): unhashed password
+
+    Returns:
+    hashed_password (str)
     """
     salted_password = password + "=DZ3;M<B?P<K"
 
