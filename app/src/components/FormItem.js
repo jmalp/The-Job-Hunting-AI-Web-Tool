@@ -75,7 +75,22 @@ export const FormItem = ({ item, onChange, answer }) => {
         </div>
         </div>
 
-      )
+      )  
+      case 'password':
+        return (
+          <div className="form-inputs">
+            <div className="form-group">
+              <label className="form-group label" htmlFor={item.label}>{item.label}</label>
+              <input
+                className="form-group input"
+                type="password"
+                id={item.label}
+                onChange={(e) => handleChange(e.target.value)}
+                value={currentValue}
+              />
+            </div>
+          </div>
+        )
     case 'dragDropFile':
       return (
         <DragDropFiles />

@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { MultiStepForm } from '../components/MultiStepForm'
 import { questions } from '../Questions'
 import { SearchPage } from './JobSearchingPage'
+import url from "../api_url.json";
 
 function FormPage() {
   const [index, setIndex] = useState(1)
@@ -21,21 +22,25 @@ function FormPage() {
 
   const nextButton = () => {
     if (index === totalPagesCount) {
-      const combinedAnswers = Object.values(pagesAnswers).reduce(
-        (acc, current) => {
-          return { ...acc, ...current }
-        },
-        {}
-      )
-      console.log('Final Collected Answers:', combinedAnswers)
-      // send to back end
-
-      setPagesAnswers({})
-      setSubmitted(true)
-    } else {
-      setIndex(prevIndex => prevIndex + 1)
+      const formData = new FormData();
+  
+      Object.keys(pagesAnswers).forEach(page => {
+        Object.entries(pagesAnswers[page]).forEach(([key, value]) => {
+          if (key !== 'index') { // Skip 'index'
+            formData.append(key, value);
+          }
+        });
+      });
+  
+      for (var pair of formData.entries()) {
+        console.log(pair[0]+ ': ' + pair[1]); 
     }
-  }
+      setPagesAnswers({});
+      setSubmitted(true);
+    } else {
+      setIndex(prevIndex => prevIndex + 1);
+    }
+  };
 
   const onPageAnswerUpdate = (step, answersObj) => {
     setPagesAnswers({ ...pagesAnswers, [step]: answersObj })
