@@ -195,7 +195,11 @@ def search_jobs(user_id: int):
 
     # Retrieve User Resume
     query = f"SELECT resume FROM profile_info WHERE user_id = {user_id}"
-    resume = read_db(query)[0][0]
+    result = read_db(query)
+    try:
+        resume = result[0][0]
+    except Exception as e:
+        resume = ""
 
     # Sort Jobs by Similarity Score
     jobs = calculate_tfidf_similarity(resume, job_descriptions)
