@@ -52,7 +52,7 @@ export default function LoginPage() {
                 } else {
                     localStorage.setItem("token", data.token);
                     console.log("Login successful");
-                    navigate("/jobs");
+                    navigate("/search");
                 }
             })
             .catch((error) => {

@@ -14,8 +14,8 @@ export const questions = [
       },
       {
         label: 'Password',
-        type: 'text',
-        value: 'password_hash'
+        type: 'password',
+        value: 'password'
       },
       {
         label: 'First Name',
@@ -51,7 +51,7 @@ export const questions = [
       },
       {
         label: 'Phone Number',
-        type: 'number',
+        type: 'text',
         value: 'phone_number'
       },
     ]
