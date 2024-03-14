@@ -1,5 +1,4 @@
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import JobViewingPage from "./pages/JobViewingPage";
 import HomeRedirect from "./pages/HomeRedirect"
 import LoginPage from "./pages/LoginPage";
 import './App.css';
@@ -14,7 +13,6 @@ function App() {
           <Route exact path="/" element={<HomeRedirect />} />
           <Route exact path="/login" element={<LoginPage />} />
           <Route exact path="/form" element={<FormPage />} />
-          <Route exact path="/jobs" element={<JobViewingPage />} />
           <Route exact path="/search" element={<JobSearchingPage />} />
         </Routes>
       </div>
