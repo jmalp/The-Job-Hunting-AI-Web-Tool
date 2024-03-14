@@ -66,7 +66,7 @@ const handleFormChange = (event) => {
 }
 
   return (
-    <div>
+    <div className='job-search'>
     <div className='main-container'>
       <div className='title-header'>
         <div className='title-text'>Search for Jobs</div>
@@ -137,7 +137,7 @@ const handleFormChange = (event) => {
         </button>
       </div>
     </div>
-    <div><JobList jobs={jobs} /></div>
+    <div className='search-results'><JobList jobs={jobs} /></div>
     </div>
   );
 }
