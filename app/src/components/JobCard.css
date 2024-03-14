@@ -1,4 +1,9 @@
-#card {
+.job-link {
+  text-decoration: none;
+  color: black;
+}
+
+.card {
   display: flex;
     flex-direction: column;
     margin: auto;
@@ -11,15 +16,14 @@
     border-radius: 10px; 
   }
 
-#card:hover {
-  background: #d3deed;
-  max-width: 650px;
+.card:hover {
+  background: #f5f7fa;
 }
 
-#title {
+.title {
   font-weight: bold;
 }
 
-#snippet {
+.snippet {
   color: gray;
 }
