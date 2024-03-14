@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import json
+import os
 
 from authentication.authentication import generate_token, token_required
 from data.pdf_converter import convert_pdf_to_string
@@ -212,4 +213,5 @@ def search_jobs(user_id: int):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)
