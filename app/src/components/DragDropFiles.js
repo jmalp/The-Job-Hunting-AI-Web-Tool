@@ -1,10 +1,9 @@
 import { useState, useRef } from "react";
-import { Button, Container, Card } from "react-bootstrap";
 import "../App.css";
 
-const DragDropFiles = () => {
-  const [files, setFiles] = useState(null);
-  const inputRef = useRef();
+const DragDropFiles = ({ onFileSelect }) => {
+  const inputRef = useRef(null);
+  const [isFilePicked, setIsFilePicked] = useState(false);
 
   const handleDragOver = (event) => {
     event.preventDefault();
@@ -12,51 +11,29 @@ const DragDropFiles = () => {
 
   const handleDrop = (event) => {
     event.preventDefault();
-    setFiles(event.dataTransfer.files)
+    const file = event.dataTransfer.files[0];
+    onFileSelect(file);
+    setIsFilePicked(true);
   };
-  
-  const handleUpload = () => {
-    const formData = new FormData();
-    formData.append("Files", files);
-    console.log(formData.getAll())
+
+  const handleChange = (event) => {
+    onFileSelect(event.target.files[0]);
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center container-style">
-      {files ? (
-        <div className="text-center file-display">
-          <div>
-            <ul>
-              {Array.from(files).map((file, idx) => (
-                <li key={idx}>{file.name}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="file-actions d-flex justify-content-between">
-            <button className="button-secondary" onClick={() => setFiles(null)}>Cancel</button>
-            <button className="button-primary" onClick={handleUpload}>Upload</button>
-          </div>
-        </div>
-      ) : (
-        <div
-          className="dropzone"
-          onDragOver={handleDragOver}
-          onDrop={handleDrop}
-        >
-          <div>
-            <p>Drag and drop a PDF to upload</p>
-            <input
-              type="file"
-              multiple
-              onChange={(event) => setFiles(event.target.files)}
-              hidden
-              accept="application/pdf"
-              ref={inputRef}
-            />
-            <button onClick={() => inputRef.current.click()} className="submit-button">Select Files</button>
-          </div>
-        </div>
-      )}
+    <div className="dropzone" onDragOver={handleDragOver} onDrop={handleDrop}>
+      <p>Drag and drop a PDF to upload, or click to select a file.</p>
+      <input
+        type="file"
+        onChange={handleChange} 
+        hidden 
+        accept="application/pdf" 
+        ref={inputRef}
+      />
+      <button onClick={() => inputRef.current && inputRef.current.click()} className="submit-button">
+        Select Files
+      </button>
+      {isFilePicked && <p>File loaded successfully!</p>}
     </div>
   );
 };

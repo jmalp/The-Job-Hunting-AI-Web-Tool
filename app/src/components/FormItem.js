@@ -91,10 +91,6 @@ export const FormItem = ({ item, onChange, answer }) => {
             </div>
           </div>
         )
-    case 'dragDropFile':
-      return (
-        <DragDropFiles />
-      )
     default:
       return null;
   }

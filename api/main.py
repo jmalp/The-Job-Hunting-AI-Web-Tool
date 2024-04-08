@@ -30,6 +30,10 @@ def test_token_required(user_id: int):
     """
     return jsonify({'user_id': user_id}), 200
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_FOLDER = os.path.join(BASE_DIR, 'data')
+os.makedirs(DATA_FOLDER, exist_ok=True)
+app.config['UPLOAD_FOLDER'] = DATA_FOLDER
 
 @app.route('/create-account', methods=['POST'])
 def create_account():
@@ -63,12 +67,22 @@ def create_account():
         password_hash = hash_password(request.form.get('password'))
         first_name = request.form.get('first_name')
         last_name = request.form.get('last_name')
-        city = request.form.get('city')
-        state = request.form.get('state')
-        phone_number = request.form.get('phone_number')
-
-        resume = request.files['resume']
-        resume = convert_pdf_to_string(resume)[:6000]
+        city = request.form.get('city') or ""
+        state = request.form.get('state') or ""
+        phone_number = request.form.get('phone_number') or ""
+        
+        # Handle the file upload
+        if 'resume' in request.files:
+            print("Resume file found")
+            file = request.files['resume']
+            if file.filename != '':
+                # Secure the filename and save the file within the 'data' folder
+                secure_filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+                file.save(secure_filename)
+                print("File saved")
+                resume = convert_pdf_to_string(secure_filename)[:6000]
+        else:
+            resume = ""
 
         # Construct and execute INSERT query for users
         users_sql = f"INSERT INTO users (username, email, password_hash, first_name, last_name) \

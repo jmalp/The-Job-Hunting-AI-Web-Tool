@@ -1,18 +1,21 @@
 import '../App.css'
 import '../components/MultiStepProgress.css'
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { MultiStepProgressBar } from '../components/MultiStepProgress'
-import { useState } from 'react'
 import { MultiStepForm } from '../components/MultiStepForm'
 import { questions } from '../Questions'
-import { SearchPage } from './JobSearchingPage'
 import url from "../api_url.json";
+import DragDropFiles from '../components/DragDropFiles'
 
 function FormPage() {
   const [index, setIndex] = useState(1)
   const [submitted, setSubmitted] = useState(false)
   const totalPagesCount = questions?.length || 0
   const [pagesAnswers, setPagesAnswers] = useState({})
+  const [pdfFile, setPdfFile] = useState(null);
+  const navigate = useNavigate()
+  const inputRef = useRef(null);
 
   const prevButton = () => {
     if (index > 1) {
@@ -22,23 +25,9 @@ function FormPage() {
 
   const nextButton = () => {
     if (index === totalPagesCount) {
-      const formData = new FormData();
-  
-      Object.keys(pagesAnswers).forEach(page => {
-        Object.entries(pagesAnswers[page]).forEach(([key, value]) => {
-          if (key !== 'index') { // Skip 'index'
-            formData.append(key, value);
-          }
-        });
-      });
-  
-      for (var pair of formData.entries()) {
-        console.log(pair[0]+ ': ' + pair[1]); 
-    }
-      setPagesAnswers({});
-      setSubmitted(true);
+      handleSubmit();
     } else {
-      setIndex(prevIndex => prevIndex + 1);
+      setIndex((prevIndex) => prevIndex + 1);
     }
   };
 
@@ -46,12 +35,52 @@ function FormPage() {
     setPagesAnswers({ ...pagesAnswers, [step]: answersObj })
   }
 
+  // const handlePDFChange = (event) => {
+  //   setPdfFile(event.target.files[0]);
+  // };
+
+  const handlePDFChange = (file) => {
+    setPdfFile(file);
+  };
+
   const handleReset = () => {
     setIndex(1)
     setSubmitted(false)
   }
 
-  const navigate = useNavigate()
+  const handleSubmit = async () => {
+    console.log('Form submitted');
+    const formData = new FormData();
+
+    Object.keys(pagesAnswers).forEach(page => {
+      Object.entries(pagesAnswers[page]).forEach(([key, value]) => {
+        if (key !== 'index' && value != null) {
+          formData.append(key, value);
+        }
+      });
+    });
+
+    if (pdfFile) {
+      formData.append('resume', pdfFile);
+    }
+
+    try {
+      const response = await fetch(`${url['api_url']}/create-account`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        const jsonResponse = await response.json();
+        console.log('Account created successfully. Token:', jsonResponse.token);
+        setSubmitted(true);
+      } else {
+        console.error('Failed to send request. Server responded with status:', response.status);
+      }
+    } catch (error) {
+      console.error('Failed to send request:', error);
+    }
+  };
 
   const goToSearch = () => {
     navigate('/search')
@@ -70,13 +99,13 @@ function FormPage() {
 
       {submitted ? (
         <div>
-        <div className='container-style'>
+          <div className='container-style'>
             Profile saved successfully.
-            </div>
+          </div>
           <div className=''>
             <div className='multistep-submit-button' onClick={goToSearch}>
               Continue to Search Page
-              </div>
+            </div>
           </div>
 
         </div>
@@ -90,6 +119,18 @@ function FormPage() {
               onPageUpdate={onPageAnswerUpdate}
               pagesAnswers={pagesAnswers}
             />
+            {index === totalPagesCount && (
+              <>
+                <DragDropFiles onFileSelect={handlePDFChange} />
+                <input
+                  type="file"
+                  accept="application/pdf"
+                  onChange={(event) => handlePDFChange(event.target.files[0])}
+                  style={{ display: 'none' }}
+                  ref={inputRef}
+                />
+              </>
+            )}
           </div>
           <div className='card-footer d-flex justify-content-between'>
             <div
@@ -107,6 +148,5 @@ function FormPage() {
     </div>
   )
 }
-
 
 export default FormPage
