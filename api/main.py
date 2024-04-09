@@ -32,7 +32,8 @@ def test_token_required(user_id: int):
     """
     Test endpoint to verify functionality of @token_required() and validate_token()
 
-    Requires Authorization header with value "Bearer *token*"
+    Requirements:
+    Authorization header with value "Bearer *token*"
     """
     return jsonify({'user_id': user_id}), 200
 
@@ -42,6 +43,21 @@ def test_token_required(user_id: int):
 def get_user_info(user_id: int):
     """
     Gets all user info stored in database
+
+    Requirements:
+    Authorization header with value "Bearer *token*"
+
+    Returns:
+    JSON object representing user
+    {
+        first_name: str,
+        last_name: str,
+        username: str,
+        email: str,
+        city: str,
+        state: str,
+        phone_number: str
+    }
     """
     try:
         user = read_db(f"SELECT first_name, last_name, username, email FROM users WHERE user_id = {user_id};")[0]
