@@ -36,10 +36,30 @@ def test_token_required(user_id: int):
     """
     return jsonify({'user_id': user_id}), 200
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_FOLDER = os.path.join(BASE_DIR, 'data')
-os.makedirs(DATA_FOLDER, exist_ok=True)
-app.config['UPLOAD_FOLDER'] = DATA_FOLDER
+
+@app.route('/user-info', methods=['GET'])
+@token_required
+def get_user_info(user_id: int):
+    """
+    Gets all user info stored in database
+    """
+    try:
+        user = read_db(f"SELECT first_name, last_name, username, email FROM users WHERE user_id = {user_id};")[0]
+        profile_info = read_db(f"SELECT city, state, phone_number FROM profile_info WHERE user_id = {user_id};")[0]
+        response = {
+            "first_name": user[0],
+            "last_name": user[1],
+            "username": user[2],
+            "email": user[3],
+            "city": profile_info[0],
+            "state": profile_info[1],
+            "phone_number": profile_info[2]
+        }
+        return jsonify(response), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 
 @app.route('/create-account', methods=['POST'])
 def create_account():
