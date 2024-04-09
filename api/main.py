@@ -11,9 +11,15 @@ from database.db_connection import read_db, update_db
 from matching.similarity_score import calculate_tfidf_similarity
 from web_scraping.web_scraper import get_jobs
 
+# Initialize Flask App
 app = Flask(__name__)
 CORS(app)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_FOLDER = os.path.join(BASE_DIR, 'data')
+os.makedirs(DATA_FOLDER, exist_ok=True)
+app.config['UPLOAD_FOLDER'] = DATA_FOLDER
 
 @app.route('/', methods=['GET'])
 def test():
