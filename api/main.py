@@ -67,12 +67,12 @@ def create_account():
     Create account by adding user's credentials to the database 
     and generate a token to grant access to the rest of the website
 
-    Headers:
+    Requirements:
     testing: str ('True' or 'False') | If set to True, user/profile_info created will be deleted on completion of the function
 
     Args:
     *Args to be included in formData in the body of the request*
-    *Must include ALL keys, put value null for optionals that aren't specified*
+
     username:      str | REQUIRED
     email:         str | REQUIRED
     password:      str | REQUIRED
@@ -195,6 +195,9 @@ def login():
 def search_jobs(user_id: int):
     """
     Search Jobs
+
+    Requirements:
+    Authorization header with value "Bearer *token*"
 
     Args:
     *Args to be included in the json object in the body of the request*
