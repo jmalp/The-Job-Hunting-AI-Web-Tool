@@ -76,6 +76,31 @@ def get_user_info(user_id: int):
         return jsonify({"error": str(e)}), 500
 
 
+@app.route('/update-account', methods=['PUT'])
+@token_required
+def update_account(user_id: int):
+    """
+    Updates any of the user's attributes in the database
+
+    Requirements:
+    Authorization header with value "Bearer *token*"
+
+    Args:
+    username:      str | OPTIONAL
+    email:         str | OPTIONAL
+    password:      str | OPTIONAL
+    first_name:    str | OPTIONAL
+    last_name:     str | OPTIONAL
+    city:          str | OPTIONAL
+    state:         str | OPTIONAL
+    phone_number:  str | OPTIONAL
+    resume:        str | OPTIONAL
+
+    Returns:
+    TODO: Write Return
+    """
+    pass
+
 
 @app.route('/create-account', methods=['POST'])
 def create_account():
@@ -273,4 +298,4 @@ def search_jobs(user_id: int):
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(host='0.0.0.0', port=port, debug=True)
