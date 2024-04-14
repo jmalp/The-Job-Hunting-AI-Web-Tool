@@ -132,15 +132,15 @@ def create_account():
     Args:
     *Args to be included in formData in the body of the request*
 
-    username:      str | REQUIRED
-    email:         str | REQUIRED
-    password:      str | REQUIRED
-    first_name:    str | REQUIRED
-    last_name:     str | REQUIRED
-    city:          str | OPTIONAL
-    state:         str | OPTIONAL
-    phone_number:  str | OPTIONAL
-    resume:        str | OPTIONAL
+    username:      str  | REQUIRED
+    email:         str  | REQUIRED
+    password:      str  | REQUIRED
+    first_name:    str  | REQUIRED
+    last_name:     str  | REQUIRED
+    city:          str  | OPTIONAL
+    state:         str  | OPTIONAL
+    phone_number:  str  | OPTIONAL
+    resume:        FILE | OPTIONAL
 
     Returns:
     JSON response with session token
