@@ -71,18 +71,53 @@ def update_account(user_id: int):
     Args:
     username:      str | OPTIONAL
     email:         str | OPTIONAL
-    password:      str | OPTIONAL
     first_name:    str | OPTIONAL
     last_name:     str | OPTIONAL
     city:          str | OPTIONAL
     state:         str | OPTIONAL
     phone_number:  str | OPTIONAL
-    resume:        str | OPTIONAL
 
     Returns:
-    TODO: Write Return
+    Status message
     """
-    pass
+    try:
+        # Get default values
+        default_user = read_db(f"SELECT username, password_hash, email, first_name, last_name FROM users WHERE user_id = {user_id};")[0]
+        default_profile_info = read_db(f"SELECT city, state, phone_number, resume FROM profile_info WHERE user_id = {user_id};")[0]
+
+        # Extract values from request
+        username = request.form.get('username') or default_user[0]
+        password_hash = hash_password(request.form.get('password')) or default_user[1]
+        email = request.form.get('email') or default_user[2]
+        first_name = request.form.get('first_name') or default_user[3]
+        last_name = request.form.get('last_name') or default_user[4]
+        city = request.form.get('city') or default_profile_info[0]
+        state = request.form.get('state') or default_profile_info[1]
+        phone_number = request.form.get('phone_number') or default_profile_info[2]
+        resume = extract_pdf(default_profile_info[3])
+
+        # Construct and execute UPDATE users query
+        update_users_query = f"UPDATE users SET username = '{username}', password_hash = '{password_hash}', email = '{email}', first_name = '{first_name}', last_name = '{last_name}' WHERE user_id = {user_id};"
+        response = update_db(update_users_query)
+
+        # Return error ir error raised during Update
+        if response[0] == 'A':
+            return jsonify({"error": response}), 500
+
+        # Construct and execute UPDATE profile_info query
+        update_profile_info_query = f"UPDATE profile_info SET city = '{city}', state = '{state}', phone_number = '{phone_number}', resume = '{resume}' WHERE user_id = {user_id};"
+        response = update_db(update_profile_info_query)
+
+        # Return error ir error raised during Update
+        if response[0] == 'A':
+            return jsonify({"error": response}), 500
+        
+        # Return Success message
+        return jsonify({"message": "table updated successfully"}), 200
+    
+    # Return any other exception messages
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 @app.route('/create-account', methods=['POST'])
