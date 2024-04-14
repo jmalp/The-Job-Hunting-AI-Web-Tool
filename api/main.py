@@ -4,7 +4,7 @@ import json
 import os
 
 from authentication.authentication import generate_token, token_required
-from data.pdf_converter import convert_pdf_to_string
+from data.pdf_handler import extract_pdf, convert_pdf_to_string
 from data.hash_password import hash_password
 from data_prepping.data_cleaning import clean_data
 from database.db_connection import read_db, update_db
@@ -15,11 +15,6 @@ from web_scraping.web_scraper import get_jobs
 app = Flask(__name__)
 CORS(app)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_FOLDER = os.path.join(BASE_DIR, 'data')
-os.makedirs(DATA_FOLDER, exist_ok=True)
-app.config['UPLOAD_FOLDER'] = DATA_FOLDER
 
 @app.route('/', methods=['GET'])
 def test():
@@ -139,17 +134,7 @@ def create_account():
         phone_number = request.form.get('phone_number') or ""
         
         # Handle the file upload
-        if 'resume' in request.files:
-            print("Resume file found")
-            file = request.files['resume']
-            if file.filename != '':
-                # Secure the filename and save the file within the 'data' folder
-                secure_filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-                file.save(secure_filename)
-                print("File saved")
-                resume = convert_pdf_to_string(secure_filename)[:6000]
-        else:
-            resume = ""
+        resume = extract_pdf()
 
         # Construct and execute INSERT query for users
         users_sql = f"INSERT INTO users (username, email, password_hash, first_name, last_name) \
