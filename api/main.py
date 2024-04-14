@@ -21,19 +21,7 @@ def test():
     return jsonify({'test': 'success'})
 
 
-@app.route('/test-token-required', methods=['GET'])
-@token_required
-def test_token_required(user_id: int):
-    """
-    Test endpoint to verify functionality of @token_required() and validate_token()
-
-    Requirements:
-    Authorization header with value "Bearer *token*"
-    """
-    return jsonify({'user_id': user_id}), 200
-
-
-@app.route('/user-info', methods=['GET'])
+@app.route('/get-account', methods=['GET'])
 @token_required
 def get_user_info(user_id: int):
     """
