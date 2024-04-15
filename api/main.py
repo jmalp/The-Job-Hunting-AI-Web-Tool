@@ -4,7 +4,7 @@ import json
 import os
 
 from authentication.authentication import generate_token, token_required
-from data.pdf_handler import extract_pdf, convert_pdf_to_string
+from data.pdf_handler import pdf_to_str
 from data.hash_password import hash_password
 from data_prepping.data_cleaning import clean_data
 from database.db_connection import read_db, update_db
@@ -69,6 +69,8 @@ def update_account(user_id: int):
     Authorization header with value "Bearer *token*"
 
     Args:
+    *Args to be included in formData in the body of the request*
+
     username:      str | OPTIONAL
     email:         str | OPTIONAL
     first_name:    str | OPTIONAL
@@ -94,7 +96,11 @@ def update_account(user_id: int):
         city = request.form.get('city') or default_profile_info[0]
         state = request.form.get('state') or default_profile_info[1]
         phone_number = request.form.get('phone_number') or default_profile_info[2]
-        resume = extract_pdf(default_profile_info[3])
+        
+        if 'resume' in request.files:
+            resume = pdf_to_str(request.files['resume'])
+        else:
+            resume = default_profile_info[3]
 
         # Construct and execute UPDATE users query
         update_users_query = f"UPDATE users SET username = '{username}', password_hash = '{password_hash}', email = '{email}', first_name = '{first_name}', last_name = '{last_name}' WHERE user_id = {user_id};"
@@ -157,7 +163,10 @@ def create_account():
         phone_number = request.form.get('phone_number') or ""
         
         # Handle the file upload
-        resume = extract_pdf()
+        if 'resume' in request.files:
+            resume = pdf_to_str(request.files['resume'])
+        else:
+            resume = ""
 
         # Construct and execute INSERT query for users
         users_sql = f"INSERT INTO users (username, email, password_hash, first_name, last_name) \
