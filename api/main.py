@@ -4,13 +4,14 @@ import json
 import os
 
 from authentication.authentication import generate_token, token_required
-from data.pdf_converter import convert_pdf_to_string
+from data.pdf_handler import extract_pdf, convert_pdf_to_string
 from data.hash_password import hash_password
 from data_prepping.data_cleaning import clean_data
 from database.db_connection import read_db, update_db
 from matching.similarity_score import calculate_tfidf_similarity
 from web_scraping.web_scraper import get_jobs
 
+# Initialize Flask App
 app = Flask(__name__)
 CORS(app)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
@@ -20,20 +21,104 @@ def test():
     return jsonify({'test': 'success'})
 
 
-@app.route('/test-token-required', methods=['GET'])
+@app.route('/get-account', methods=['GET'])
 @token_required
-def test_token_required(user_id: int):
+def get_user_info(user_id: int):
     """
-    Test endpoint to verify functionality of @token_required() and validate_token()
+    Gets all user info stored in database
 
-    Requires Authorization header with value "Bearer *token*"
+    Requirements:
+    Authorization header with value "Bearer *token*"
+
+    Returns:
+    JSON object representing user
+    {
+        first_name: str,
+        last_name: str,
+        username: str,
+        email: str,
+        city: str,
+        state: str,
+        phone_number: str
+    }
     """
-    return jsonify({'user_id': user_id}), 200
+    try:
+        user = read_db(f"SELECT first_name, last_name, username, email FROM users WHERE user_id = {user_id};")[0]
+        profile_info = read_db(f"SELECT city, state, phone_number FROM profile_info WHERE user_id = {user_id};")[0]
+        response = {
+            "first_name": user[0],
+            "last_name": user[1],
+            "username": user[2],
+            "email": user[3],
+            "city": profile_info[0],
+            "state": profile_info[1],
+            "phone_number": profile_info[2]
+        }
+        return jsonify(response), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_FOLDER = os.path.join(BASE_DIR, 'data')
-os.makedirs(DATA_FOLDER, exist_ok=True)
-app.config['UPLOAD_FOLDER'] = DATA_FOLDER
+
+@app.route('/update-account', methods=['PUT'])
+@token_required
+def update_account(user_id: int):
+    """
+    Updates any of the user's attributes in the database
+
+    Requirements:
+    Authorization header with value "Bearer *token*"
+
+    Args:
+    username:      str | OPTIONAL
+    email:         str | OPTIONAL
+    first_name:    str | OPTIONAL
+    last_name:     str | OPTIONAL
+    city:          str | OPTIONAL
+    state:         str | OPTIONAL
+    phone_number:  str | OPTIONAL
+
+    Returns:
+    Status message
+    """
+    try:
+        # Get default values
+        default_user = read_db(f"SELECT username, password_hash, email, first_name, last_name FROM users WHERE user_id = {user_id};")[0]
+        default_profile_info = read_db(f"SELECT city, state, phone_number, resume FROM profile_info WHERE user_id = {user_id};")[0]
+
+        # Extract values from request
+        username = request.form.get('username') or default_user[0]
+        password_hash = hash_password(request.form.get('password')) or default_user[1]
+        email = request.form.get('email') or default_user[2]
+        first_name = request.form.get('first_name') or default_user[3]
+        last_name = request.form.get('last_name') or default_user[4]
+        city = request.form.get('city') or default_profile_info[0]
+        state = request.form.get('state') or default_profile_info[1]
+        phone_number = request.form.get('phone_number') or default_profile_info[2]
+        resume = extract_pdf(default_profile_info[3])
+
+        # Construct and execute UPDATE users query
+        update_users_query = f"UPDATE users SET username = '{username}', password_hash = '{password_hash}', email = '{email}', first_name = '{first_name}', last_name = '{last_name}' WHERE user_id = {user_id};"
+        response = update_db(update_users_query)
+
+        # Return error ir error raised during Update
+        if response[0] == 'A':
+            return jsonify({"error": response}), 500
+
+        # Construct and execute UPDATE profile_info query
+        update_profile_info_query = f"UPDATE profile_info SET city = '{city}', state = '{state}', phone_number = '{phone_number}', resume = '{resume}' WHERE user_id = {user_id};"
+        response = update_db(update_profile_info_query)
+
+        # Return error ir error raised during Update
+        if response[0] == 'A':
+            return jsonify({"error": response}), 500
+        
+        # Return Success message
+        return jsonify({"message": "table updated successfully"}), 200
+    
+    # Return any other exception messages
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 @app.route('/create-account', methods=['POST'])
 def create_account():
@@ -41,21 +126,21 @@ def create_account():
     Create account by adding user's credentials to the database 
     and generate a token to grant access to the rest of the website
 
-    Headers:
+    Requirements:
     testing: str ('True' or 'False') | If set to True, user/profile_info created will be deleted on completion of the function
 
     Args:
     *Args to be included in formData in the body of the request*
-    *Must include ALL keys, put value null for optionals that aren't specified*
-    username:      str | REQUIRED
-    email:         str | REQUIRED
-    password:      str | REQUIRED
-    first_name:    str | REQUIRED
-    last_name:     str | REQUIRED
-    city:          str | OPTIONAL
-    state:         str | OPTIONAL
-    phone_number:  str | OPTIONAL
-    resume:        str | OPTIONAL
+
+    username:      str  | REQUIRED
+    email:         str  | REQUIRED
+    password:      str  | REQUIRED
+    first_name:    str  | REQUIRED
+    last_name:     str  | REQUIRED
+    city:          str  | OPTIONAL
+    state:         str  | OPTIONAL
+    phone_number:  str  | OPTIONAL
+    resume:        FILE | OPTIONAL
 
     Returns:
     JSON response with session token
@@ -72,17 +157,7 @@ def create_account():
         phone_number = request.form.get('phone_number') or ""
         
         # Handle the file upload
-        if 'resume' in request.files:
-            print("Resume file found")
-            file = request.files['resume']
-            if file.filename != '':
-                # Secure the filename and save the file within the 'data' folder
-                secure_filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-                file.save(secure_filename)
-                print("File saved")
-                resume = convert_pdf_to_string(secure_filename)[:6000]
-        else:
-            resume = ""
+        resume = extract_pdf()
 
         # Construct and execute INSERT query for users
         users_sql = f"INSERT INTO users (username, email, password_hash, first_name, last_name) \
@@ -170,6 +245,9 @@ def search_jobs(user_id: int):
     """
     Search Jobs
 
+    Requirements:
+    Authorization header with value "Bearer *token*"
+
     Args:
     *Args to be included in the json object in the body of the request*
     keywords:    str | Keywords for search query
@@ -228,4 +306,4 @@ def search_jobs(user_id: int):
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(host='0.0.0.0', port=port, debug=True)
