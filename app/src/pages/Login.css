@@ -127,23 +127,20 @@
     padding-right: 12px;
   }
 
-  /* Apply styles to each input field */
 .input-field {
-    border: 1px solid #ccc; /* Light grey border */
-    border-radius: 5px; /* Slightly rounded corners */
+    border: 1px solid #ccc;
+    border-radius: 5px;
 
   }
   
-  /* Style the input field on focus to highlight it */
   .input-field:focus {
-    outline: none; /* Remove default focus outline */
-    border-color: #1D3557; /* Slightly darker border on focus */
+    outline: none;
+    border-color: #1D3557;
 
   }
   
-  /* Style the placeholders/labels inside the input fields */
   .input-field::placeholder {
-    color: #8b4141; /* Light color for placeholder text */
-    font-style: italic; /* Italic style for a placeholder-like look */
+    color: #8b4141;
+    font-style: italic;
   }
   

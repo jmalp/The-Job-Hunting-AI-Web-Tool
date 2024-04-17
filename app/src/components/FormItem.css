@@ -1,4 +1,3 @@
-/* Apply styles to each input field */
 .input-field {
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -9,9 +8,6 @@
   text-align: left;
 }
 
-/* Style the input field on focus to highlight it */
-
-/* Style the placeholders/labels inside the input fields */
 .input-field::placeholder {
   color: #6e6e6e;
   font-style: italic;
@@ -19,7 +15,6 @@
 
 }
 
-/* You can apply this class to form elements that should be styled like this */
 .inputs {
   margin-top: 10px;
   display: flex;
@@ -27,7 +22,6 @@
   gap: 15px;
 }
 
-/* Styles for inline fields (first name and last name) */
 .inline-field {
   display: inline-block;
   width: calc(50% - 5px);
