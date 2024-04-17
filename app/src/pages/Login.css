@@ -3,11 +3,11 @@
     flex-direction: column;
     margin: auto;
     margin-top: 100px; 
-    background: #f5f7fa; 
+    background: #1D3557;
     padding: 30px; 
     width: 90%; 
     max-width: 600px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1); 
     border-radius: 10px; 
   }
   
@@ -21,7 +21,7 @@
   }
   
   .text {
-    color: #2c3e50; 
+    color: #FFFFFF; 
     font-size: 42px; 
     font-weight: 600; 
     text-align: center;
@@ -30,7 +30,7 @@
   .underline {
     width: 70px; 
     height: 4px; 
-    background: #3498db; 
+    background: #E63946; 
     border-radius: 2px;
   }
   
@@ -95,13 +95,12 @@
     display: flex;
     width: 200px; 
     height: 50px;
-    background: #3498db;
-    color: #fff;
+    background: #F1FAEE;
+    color: #000000;
     justify-content: center;
     font-size: 17px; 
     border-radius: 30px; 
     cursor: pointer;
-    transition: background-color 0.3s;
     align-items: center;
     width: 220px;
     height: 60px;
@@ -111,11 +110,13 @@
   }
   
   .submit:hover {
-    background-color: #2980b9;
+    background: #E63946;
+    color: #F1FAEE;
   }
   
   .gray {
-    background: #bdc3c7;
-    color: #2c3e50;
+    background: #F1FAEE;
+    color: #000000;
   }
+
   
