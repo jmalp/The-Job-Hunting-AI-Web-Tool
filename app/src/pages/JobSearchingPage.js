@@ -93,7 +93,7 @@ const handleFormChange = (event) => {
               className='input-field'
               type='text'
               name='location'
-              placeholder='Search location...'
+              placeholder="Search location... or enter 'remote' ..."
               value={formData.location}
               onChange={handleFormChange}
             />
