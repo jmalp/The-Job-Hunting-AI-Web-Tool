@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import url from "../api_url.json";
 import './Login.css';
 import user_icon from '../assets/person.png';
-import email_icon from '../assets/email.png';
-import password_icon from '../assets/password.png';
+
+
+const PasswordIcon = () => <span className="material-symbols-outlined">vpn_key</span>;
+const MailIcon = () => <span className="material-symbols-outlined">mail</span>;
 
 export default function LoginPage() {
     const [action, setAction] = useState("Login");
@@ -73,11 +75,11 @@ export default function LoginPage() {
                         <input type="text" placeholder="First Name" className="input-field" name="firstName" value={formData.firstName} onChange={handleFormChange} />
                     </div>}
                 <div className="input">
-                    <img src={email_icon} alt="user_icon" className="icon" />
+                    <MailIcon />
                     <input type="email" placeholder="Email" className="input-field" name="email" value={formData.email} onChange={handleFormChange} />
                 </div>
                 <div className="input">
-                    <img src={password_icon} alt="user_icon" className="icon" />
+                    <PasswordIcon />
                     <input type="password" placeholder="Password" className="input-field" name="password" value={formData.password} onChange={handleFormChange} />
                 </div>
 

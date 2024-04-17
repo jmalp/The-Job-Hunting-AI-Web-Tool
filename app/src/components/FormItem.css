@@ -1,0 +1,44 @@
+/* Apply styles to each input field */
+.input-field {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px 10px;
+  width: 120% !important;
+  box-sizing: border-box;
+  font-size: 16px;
+  text-align: left;
+}
+
+/* Style the input field on focus to highlight it */
+
+/* Style the placeholders/labels inside the input fields */
+.input-field::placeholder {
+  color: #6e6e6e;
+  font-style: italic;
+  font-weight: normal;
+
+}
+
+/* You can apply this class to form elements that should be styled like this */
+.inputs {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Styles for inline fields (first name and last name) */
+.inline-field {
+  display: inline-block;
+  width: calc(50% - 5px);
+  margin-right: 10px;
+}
+
+.inline-field:last-child {
+  margin-right: 0;
+}
+
+.inline-field .input-field {
+  width: 100%;
+  max-width: none;
+}

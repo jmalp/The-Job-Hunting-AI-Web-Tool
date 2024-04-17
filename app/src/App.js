@@ -5,7 +5,6 @@ import LoginPage from "./pages/LoginPage";
 import './App.css';
 import FormPage from "./pages/FormPage";
 import JobSearchingPage from "./pages/JobSearchingPage"
-import ProfilePage from './pages/ProfilePage';
 import SettingsPage from './pages/SettingsPage';
 
 function App() {
@@ -18,7 +17,6 @@ function App() {
           <Route exact path="/login" element={<LoginPage />} />
           <Route exact path="/form" element={<FormPage />} />
           <Route exact path="/search" element={<JobSearchingPage />} />
-          <Route exact path="/profile" element={<ProfilePage />} />
           <Route exact path="/settings" element={<SettingsPage />} />
         </Routes>
       </div>

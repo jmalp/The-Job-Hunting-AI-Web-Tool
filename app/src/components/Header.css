@@ -3,3 +3,9 @@ h1 {
   font-weight: 300;
   font-style: normal;
 }
+
+.settings-icon {
+    color: #ffffff !important;
+    font-size: 40px !important;
+    cursor: pointer;
+}
