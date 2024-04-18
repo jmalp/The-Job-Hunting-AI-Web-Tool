@@ -85,16 +85,17 @@ export default function LoginPage() {
 
             </div>
             {action === "Sign Up" ? <div></div> : <div className="forgot-password">Forgot Password? <span>Click here</span></div>}
-            {/* <input type="checkbox" className="checkbox"/>
-                    <div className="text">I agree to the Terms and Conditions</div> */}
-
-            <div className="submit-container">
-                <div className={action === "Login" ? "submit gray" : "submit"} onClick={handleSignUpClick}>Sign Up</div>
-                <div className={action === "Sign Up" ? "submit gray" : "submit"} onClick={() => {
-                    handleLoginClick()
-                }}>Login
-                </div>
-            </div>
-        </div>
-    );
-}
+    <div className="submit-container">
+      <div className={action === "Sign Up" ? "submit" : "submit"} onClick={() => {
+        handleLoginClick()
+      }}>Login
+      </div>
+    </div>
+    {action === "Login" ? (
+      <div className="signup-text">
+        Don't have an account? <span onClick={handleSignUpClick}>Sign up</span>
+      </div>
+    ) : null}
+  </div>
+);
+};
