@@ -1,4 +1,4 @@
-import '../App.css'
+import './Login.css'
 import '../components/MultiStepProgress.css'
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom'
@@ -87,10 +87,10 @@ function FormPage() {
   }
 
   return (
-    <div className='main-container'>
-      <div className='title-header'>
-        <div className='title-text'>Create your Profile</div>
-        <div className='title-underline'></div>
+    <div className='container'>
+      <div className='header'>
+        <div className='text'>Sign Up</div>
+        <div className='underline'></div>
       </div>
 
       <div className='progress-bar-container'>
@@ -111,7 +111,6 @@ function FormPage() {
         </div>
       ) : (
         <div className=''>
-          Tell us more about yourself to receive more accurate results
           <div className='multistep-form-body'>
             <MultiStepForm
               list={questions}
@@ -132,7 +131,7 @@ function FormPage() {
               </>
             )}
           </div>
-          <div className='card-footer d-flex justify-content-between'>
+          <div className='submit-container'>
             <div
               onClick={prevButton}
               className={`submit ${index === 1 ? 'disabled' : ''}`}

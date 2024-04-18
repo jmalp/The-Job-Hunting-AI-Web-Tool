@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import url from "../api_url.json";
 import './Login.css';
 import user_icon from '../assets/person.png';
-import email_icon from '../assets/email.png';
-import password_icon from '../assets/password.png';
+
+
+const PasswordIcon = () => <span className="material-symbols-outlined">vpn_key</span>;
+const MailIcon = () => <span className="material-symbols-outlined">mail</span>;
 
 export default function LoginPage() {
     const [action, setAction] = useState("Login");
@@ -73,26 +75,27 @@ export default function LoginPage() {
                         <input type="text" placeholder="First Name" className="input-field" name="firstName" value={formData.firstName} onChange={handleFormChange} />
                     </div>}
                 <div className="input">
-                    <img src={email_icon} alt="user_icon" className="icon" />
+                    <MailIcon />
                     <input type="email" placeholder="Email" className="input-field" name="email" value={formData.email} onChange={handleFormChange} />
                 </div>
                 <div className="input">
-                    <img src={password_icon} alt="user_icon" className="icon" />
-                    <input type="password" placeholder="Passoword" className="input-field" name="password" value={formData.password} onChange={handleFormChange} />
+                    <PasswordIcon />
+                    <input type="password" placeholder="Password" className="input-field" name="password" value={formData.password} onChange={handleFormChange} />
                 </div>
 
             </div>
             {action === "Sign Up" ? <div></div> : <div className="forgot-password">Forgot Password? <span>Click here</span></div>}
-            {/* <input type="checkbox" className="checkbox"/>
-                    <div className="text">I agree to the Terms and Conditions</div> */}
-
-            <div className="submit-container">
-                <div className={action === "Login" ? "submit gray" : "submit"} onClick={handleSignUpClick}>Sign Up</div>
-                <div className={action === "Sign Up" ? "submit gray" : "submit"} onClick={() => {
-                    handleLoginClick()
-                }}>Login
-                </div>
-            </div>
-        </div>
-    );
-}
+    <div className="submit-container">
+      <div className={action === "Sign Up" ? "submit" : "submit"} onClick={() => {
+        handleLoginClick()
+      }}>Login
+      </div>
+    </div>
+    {action === "Login" ? (
+      <div className="signup-text">
+        Don't have an account? <span onClick={handleSignUpClick}>Sign up</span>
+      </div>
+    ) : null}
+  </div>
+);
+};
