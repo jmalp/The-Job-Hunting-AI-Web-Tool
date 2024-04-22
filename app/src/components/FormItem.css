@@ -1,0 +1,38 @@
+.input-field {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px 10px;
+  width: 120% !important;
+  box-sizing: border-box;
+  font-size: 16px;
+  text-align: left;
+}
+
+.input-field::placeholder {
+  color: #6e6e6e;
+  font-style: italic;
+  font-weight: normal;
+
+}
+
+.inputs {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.inline-field {
+  display: inline-block;
+  width: calc(50% - 5px);
+  margin-right: 10px;
+}
+
+.inline-field:last-child {
+  margin-right: 0;
+}
+
+.inline-field .input-field {
+  width: 100%;
+  max-width: none;
+}
