@@ -10,6 +10,9 @@ def hash_password(password: str) -> str:
     Returns:
     hashed_password (str)
     """
+    if not password:
+        return None
+
     salted_password = password + "=DZ3;M<B?P<K"
 
     hashed_value = hashlib.sha256(salted_password.encode('utf-8')).hexdigest()
