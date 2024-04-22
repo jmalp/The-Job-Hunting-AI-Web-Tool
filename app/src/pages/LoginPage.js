@@ -90,7 +90,7 @@ export default function LoginPage() {
                     console.log("Login successful");
                     setFeedbackMessage("Login successful! Redirecting...");
                     setTimeout(() => {
-                        navigate("/search");
+                    navigate("/search");
                     }, 1000);  // Redirect after 1 sec            
                 }
             })
@@ -123,8 +123,7 @@ export default function LoginPage() {
                     {formErrors.email && <div className="error">{formErrors.email}</div>}
                 </div>
                 <div className="input">
-
-                    <img src={password_icon} alt="user_icon" className="icon" />
+                    <PasswordIcon />
                     <input type="password" placeholder="Password" className="input-field" name="password" value={formData.password} onChange={handleFormChange} />
                     {formErrors.password && <div className="error">{formErrors.password}</div>}
 
