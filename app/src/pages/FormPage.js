@@ -131,7 +131,7 @@ function FormPage() {
               </>
             )}
           </div>
-          <div className='submit-container'>
+          <div className='card-footer d-flex justify-content-between'>
             <div
               onClick={prevButton}
               className={`submit ${index === 1 ? 'disabled' : ''}`}
