@@ -8,3 +8,4 @@ cleaned_test_jobs.csv
 /api/database/local.database.ini
 /api/matching/GoogleNews-vectors-negative300.bin
 /api/matching/pickled_word2vec.pkl
+__pycache__/
