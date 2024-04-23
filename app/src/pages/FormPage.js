@@ -67,12 +67,14 @@ function FormPage() {
     try {
       const response = await fetch(`${url['api_url']}/create-account`, {
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: formData,
       });
 
       if (response.ok) {
         const jsonResponse = await response.json();
         console.log('Account created successfully. Token:', jsonResponse.token);
+        localStorage.setItem('token', jsonResponse.token)
         setSubmitted(true);
       } else {
         console.error('Failed to send request. Server responded with status:', response.status);
