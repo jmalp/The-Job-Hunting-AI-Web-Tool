@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Settings.css';
 import SkillsInput from '../components/SkillsInput';
 
@@ -16,36 +16,77 @@ const ProfileSection = () => (
 );
 
 const SkillsSection = () => {
-  const [addedSkills, setAddedSkills] = useState([]);
-  const addSkill = (skill) => {
-    if (!addedSkills.includes(skill)) {
-      setAddedSkills([...addedSkills, skill]);
-    }
-  };
+    const [addedSkills, setAddedSkills] = useState([]);
+  
+    useEffect(() => {
+      const fetchUserSkills = async () => {
+        try {
+          const token = localStorage.getItem('token');
+          const response = await fetch('/api/get-user-skills', {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            },
+          });
+  
+          if (response.ok) {
+            const skills = await response.json();
+            setAddedSkills(skills);
+          } else {
+            console.error('Failed to fetch user skills');
+          }
+        } catch (error) {
+          console.error('Error fetching user skills:', error);
+        }
+      };
+  
+      fetchUserSkills();
+    }, []);
+  
+    const addSkill = (skill) => {
+      if (!addedSkills.includes(skill)) {
+        setAddedSkills([...addedSkills, skill]);
+      }
+    };
+  
+    const removeSkill = async (skill) => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch('/api/remove-skill', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+          body: JSON.stringify({ skill }),
+        });
+  
+        if (response.ok) {
+          setAddedSkills(addedSkills.filter((s) => s !== skill));
+        } else {
+          console.error('Failed to remove skill');
+        }
+      } catch (error) {
+        console.error('Error removing skill:', error);
+      }
+    };
 
-  const removeSkill = (skill) => {
-    setAddedSkills(addedSkills.filter((s) => s !== skill));
-  };
-
-  return (
-    <div className="section-container">
-      <h2>Skills</h2>
-      <SkillsInput addSkill={addSkill} />
-      <div className="added-skills">
-        {addedSkills.map((skill) => (
-          <div key={skill} className="added-skill">
-            <span className="skill-button">
-              {skill}
-              <DeleteIcon onClick={(e) => {
-                e.stopPropagation();
-                removeSkill(skill);}} />
-            </span>
+    return (
+        <div className="section-container">
+          <h2>Skills</h2>
+          <SkillsInput addSkill={addSkill} />
+          <div className="added-skills">
+            {addedSkills.map((skill) => (
+              <div key={skill} className="added-skill">
+                <span className="skill-button">
+                  {skill}
+                  <DeleteIcon onClick={() => removeSkill(skill)} />
+                </span>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </div>
-  );
-};
+        </div>
+      );
+    };
 
 const ResumeSection = () => (
   <div className="section-container">

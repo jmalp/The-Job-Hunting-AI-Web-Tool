@@ -313,6 +313,51 @@ def search_jobs(user_id: int):
     return result
 
 
+@app.route('/api/add-skill', methods=['POST'])
+@token_required
+def add_skill(user_id: int):
+    try:
+        skill = request.json['skill']
+        profileinfo_id_query = f"SELECT profileinfo_id FROM profile_info WHERE user_id = {user_id};"
+        profileinfo_id = read_db(profileinfo_id_query)[0][0]
+
+        insert_skill_query = f"INSERT INTO skills (profileinfo_id, skill_name) VALUES ({profileinfo_id}, '{skill}');"
+        update_db(insert_skill_query)
+
+        return jsonify({"message": "Skill added successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/remove-skill', methods=['DELETE'])
+@token_required
+def remove_skill(user_id: int):
+    try:
+        skill = request.json['skill']
+        profileinfo_id_query = f"SELECT profileinfo_id FROM profile_info WHERE user_id = {user_id};"
+        profileinfo_id = read_db(profileinfo_id_query)[0][0]
+
+        delete_skill_query = f"DELETE FROM skills WHERE profileinfo_id = {profileinfo_id} AND skill_name = '{skill}';"
+        update_db(delete_skill_query)
+
+        return jsonify({"message": "Skill removed successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/get-user-skills', methods=['GET'])
+@token_required
+def get_user_skills(user_id: int):
+    try:
+        profileinfo_id_query = f"SELECT profileinfo_id FROM profile_info WHERE user_id = {user_id};"
+        profileinfo_id = read_db(profileinfo_id_query)[0][0]
+
+        get_skills_query = f"SELECT skill_name FROM skills WHERE profileinfo_id = {profileinfo_id};"
+        skills = [row[0] for row in read_db(get_skills_query)]
+
+        return jsonify(skills), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
