@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { skills } from '../SkillList';
+import url from "../api_url.json";
 import Suggestions from './Suggestions';
 
 const SkillsInput = ({ addSkill }) => {
@@ -26,7 +27,7 @@ const SkillsInput = ({ addSkill }) => {
   const handleClick = async (suggestion) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('/add-skill', {
+      const response = await fetch(url['api_url'] + '/add-skill', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

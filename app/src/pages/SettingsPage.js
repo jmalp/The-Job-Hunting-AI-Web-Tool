@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Settings.css';
+import url from "../api_url.json";
 import SkillsInput from '../components/SkillsInput';
 
 const DeleteIcon = ({ onClick }) => (
@@ -19,28 +20,34 @@ const SkillsSection = () => {
     const [addedSkills, setAddedSkills] = useState([]);
   
     useEffect(() => {
-      const fetchUserSkills = async () => {
-        try {
-          const token = localStorage.getItem('token');
-          const response = await fetch('/get-user-skills', {
-            headers: {
-              'Authorization': `Bearer ${token}`,
-            },
-          });
-  
-          if (response.ok) {
-            const skills = await response.json();
-            setAddedSkills(skills);
-          } else {
-            console.error('Failed to fetch user skills');
+        const fetchUserSkills = async () => {
+          try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(url['api_url'] + '/get-user-skills', {
+              method: 'GET',
+              headers: {
+                'Authorization': `Bearer ${token}`,
+              },
+            });
+      
+            const data = await response.json();
+      
+            if (response.ok) {
+              if (data.hasOwnProperty("error")) {
+                console.error("Error fetching user skills:", data.error);
+              } else {
+                setAddedSkills(data);
+              }
+            } else {
+              console.error('Failed to fetch user skills');
+            }
+          } catch (error) {
+            console.error('Error fetching user skills:', error);
           }
-        } catch (error) {
-          console.error('Error fetching user skills:', error);
-        }
-      };
-  
-      fetchUserSkills();
-    }, []);
+        };
+      
+        fetchUserSkills();
+      }, []);
   
     const addSkill = (skill) => {
       if (!addedSkills.includes(skill)) {
@@ -51,7 +58,7 @@ const SkillsSection = () => {
     const removeSkill = async (skill) => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('/remove-skill', {
+        const response = await fetch(url['api_url'] + '/remove-skill', {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
