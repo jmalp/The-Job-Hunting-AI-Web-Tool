@@ -313,7 +313,7 @@ def search_jobs(user_id: int):
     return result
 
 
-@app.route('/api/add-skill', methods=['POST'])
+@app.route('/add-skill', methods=['POST'])
 @token_required
 def add_skill(user_id: int):
     try:
@@ -328,7 +328,7 @@ def add_skill(user_id: int):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route('/api/remove-skill', methods=['DELETE'])
+@app.route('/remove-skill', methods=['DELETE'])
 @token_required
 def remove_skill(user_id: int):
     try:
@@ -343,7 +343,7 @@ def remove_skill(user_id: int):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route('/api/get-user-skills', methods=['GET'])
+@app.route('/get-user-skills', methods=['GET'])
 @token_required
 def get_user_skills(user_id: int):
     try:
@@ -353,6 +353,8 @@ def get_user_skills(user_id: int):
         get_skills_query = f"SELECT skill_name FROM skills WHERE profileinfo_id = {profileinfo_id};"
         skills = [row[0] for row in read_db(get_skills_query)]
 
+        print("Skills:", skills)
+        
         return jsonify(skills), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500

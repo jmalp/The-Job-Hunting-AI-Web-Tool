@@ -26,7 +26,7 @@ const SkillsInput = ({ addSkill }) => {
   const handleClick = async (suggestion) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('/api/add-skill', {
+      const response = await fetch('/add-skill', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

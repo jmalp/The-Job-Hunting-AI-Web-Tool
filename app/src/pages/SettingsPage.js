@@ -22,7 +22,7 @@ const SkillsSection = () => {
       const fetchUserSkills = async () => {
         try {
           const token = localStorage.getItem('token');
-          const response = await fetch('/api/get-user-skills', {
+          const response = await fetch('/get-user-skills', {
             headers: {
               'Authorization': `Bearer ${token}`,
             },
@@ -51,7 +51,7 @@ const SkillsSection = () => {
     const removeSkill = async (skill) => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('/api/remove-skill', {
+        const response = await fetch('/remove-skill', {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
