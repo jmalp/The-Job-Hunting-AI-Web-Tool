@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { skills } from '../SkillList';
+import url from "../api_url.json";
 import Suggestions from './Suggestions';
 
 const SkillsInput = ({ addSkill }) => {
@@ -23,11 +24,29 @@ const SkillsInput = ({ addSkill }) => {
     }
   };
 
-  const handleClick = (suggestion) => {
-    addSkill(suggestion);
-    setInput('');
-    setSuggestions([]);
-    setActiveIndex(-1);
+  const handleClick = async (suggestion) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(url['api_url'] + '/add-skill', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ skill: suggestion }),
+      });
+
+      if (response.ok) {
+        addSkill(suggestion);
+        setInput('');
+        setSuggestions([]);
+        setActiveIndex(-1);
+      } else {
+        console.error('Failed to add skill');
+      }
+    } catch (error) {
+      console.error('Error adding skill:', error);
+    }
   };
 
   return (
