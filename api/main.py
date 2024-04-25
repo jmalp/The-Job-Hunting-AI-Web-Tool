@@ -316,6 +316,18 @@ def search_jobs(user_id: int):
 @app.route('/add-skill', methods=['POST'])
 @token_required
 def add_skill(user_id: int):
+    """
+    Add a skill to the user's profile.
+
+    Args:
+    user_id: int | ID of the user whose skill is being added
+
+    JSON Payload:
+    skill: str | Name of the skill to be added
+
+    Returns:
+    JSON response indicating success or failure
+    """
     try:
         skill = request.json['skill']
         profileinfo_id_query = f"SELECT profileinfo_id FROM profile_info WHERE user_id = {user_id};"
@@ -331,6 +343,18 @@ def add_skill(user_id: int):
 @app.route('/remove-skill', methods=['DELETE'])
 @token_required
 def remove_skill(user_id: int):
+    """
+    Remove a skill from the user's profile.
+
+    Args:
+    user_id: int | ID of the user whose skill is being removed
+
+    JSON Payload:
+    skill: str | Name of the skill to be removed
+
+    Returns:
+    JSON response indicating success or failure
+    """
     try:
         skill = request.json['skill']
         profileinfo_id_query = f"SELECT profileinfo_id FROM profile_info WHERE user_id = {user_id};"
@@ -346,6 +370,15 @@ def remove_skill(user_id: int):
 @app.route('/get-user-skills', methods=['GET'])
 @token_required
 def get_user_skills(user_id: int):
+    """
+    Retrieve the skills of a user.
+
+    Args:
+    user_id: int | ID of the user whose skills are being retrieved
+
+    Returns:
+    JSON array containing the user's skills or an error message
+    """
     try:
         profileinfo_id_query = f"SELECT profileinfo_id FROM profile_info WHERE user_id = {user_id};"
         profileinfo_id = read_db(profileinfo_id_query)[0][0]
