@@ -294,6 +294,10 @@ def search_jobs(user_id: int):
 
     with open(job_results_file_path, 'r', encoding='utf-8') as file:
         job_descriptions = json.load(file)
+    
+    # Delete job_results filepath
+    os.unlink(job_results_file_path)
+    os.unlink(job_descriptions_file_path)
 
     # Retrieve User Resume
     query = f"SELECT resume FROM profile_info WHERE user_id = {user_id}"

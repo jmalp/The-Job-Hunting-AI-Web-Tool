@@ -1,12 +1,14 @@
-import './JobSearching.css'
-import url from '../api_url.json'
-import React, { useState, useEffect } from 'react'
+import './JobSearching.css';
+import url from '../api_url.json';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import search_icon from '../assets/search.png'
-import location_icon from '../assets/location.png'
-import salary_icon from '../assets/salary.png'
-import radius_icon from '../assets/radius.png'
-import JobList from '../components/JobList'
+import search_icon from '../assets/search.png';
+import location_icon from '../assets/location.png';
+import salary_icon from '../assets/salary.png';
+import radius_icon from '../assets/radius.png';
+import JobList from '../components/JobList';
+import WaitingSearch from '../components/WaitingSearch';
+import SearchError from '../components/SearchError';
 
 export default function SearchPage() {
     const navigate = useNavigate();
@@ -21,13 +23,6 @@ export default function SearchPage() {
   
     useEffect(() => {
       setToken(localStorage.getItem('token'));
-      if (!token) {
-        console.log(token);
-        // TODO: navigate to login on missing token
-        // navigate('/login', { replace: true });
-      } else {
-        console.log(token);
-      }
     }, []);
   
     const handleFormChange = (event) => {
@@ -39,9 +34,14 @@ export default function SearchPage() {
     };
   
     const loadJobs = async () => {
+      setJobs("waiting");
       console.log("Searching for jobs...");
       console.log(formData);
       console.log(token);
+      if (!token) {
+        console.log(token);
+        navigate('/login', { replace: true });
+      }
       //Search Jobs
       fetch(url['api_url'] + '/search', {
         method: 'POST',
@@ -53,10 +53,11 @@ export default function SearchPage() {
       })
         .then((response) => response.json())
         .then((data) => {
-          const jobs = data;
-          setJobs(jobs);
+          const jobs_result = data;
+          setJobs(jobs_result);
         })
         .catch((error) => {
+          setJobs("error");
           console.error("Error Searching Jobs: ", error);
         });
     };
@@ -132,7 +133,16 @@ export default function SearchPage() {
             </button>
           </div>
         </div>
-        <div className='search-page-results'><JobList jobs={jobs} /></div>
+        <div className='search-page-results'>
+          {
+            (jobs === "waiting")
+            ? <WaitingSearch />
+            : (jobs === "error")
+              ? <SearchError />
+              : <JobList jobs={jobs} />
+              
+          }
+        </div>
       </>
     );
   };
