@@ -63,67 +63,59 @@ def get_user_info(user_id: int):
 @token_required
 def update_account(user_id: int):
     """
-    Updates any of the user's attributes in the database
+    Updates any of the user's attributes in the database.
 
     Requirements:
     Authorization header with value "Bearer *token*"
 
     Args:
-    *Args to be included in formData in the body of the request*
-
     username:      str | OPTIONAL
     email:         str | OPTIONAL
-    first_name:    str | OPTIONAL
-    last_name:     str | OPTIONAL
     city:          str | OPTIONAL
     state:         str | OPTIONAL
     phone_number:  str | OPTIONAL
+    password:      str | OPTIONAL
+    resume:        FILE | OPTIONAL
 
     Returns:
     Status message
     """
     try:
-        # Get default values
-        default_user = read_db(f"SELECT username, password_hash, email, first_name, last_name FROM users WHERE user_id = {user_id};")[0]
+        # Extract current values
+        default_user = read_db(f"SELECT username, email FROM users WHERE user_id = {user_id};")[0]
         default_profile_info = read_db(f"SELECT city, state, phone_number, resume FROM profile_info WHERE user_id = {user_id};")[0]
 
-        # Extract values from request
-        username = request.form.get('username') or default_user[0]
-        password_hash = hash_password(request.form.get('password')) or default_user[1]
-        email = request.form.get('email') or default_user[2]
-        first_name = request.form.get('first_name') or default_user[3]
-        last_name = request.form.get('last_name') or default_user[4]
+        # Extract or fallback to existing values
+        username = request.form.get('username', default_user[0])
+        email = request.form.get('email', default_user[1])
         city = request.form.get('city') or default_profile_info[0]
-        state = request.form.get('state') or default_profile_info[1]
-        phone_number = request.form.get('phone_number') or default_profile_info[2]
+        state = request.form.get('state', default_profile_info[1])
+        phone_number = request.form.get('phone_number', default_profile_info[2])
         
+        # Update password if provided
+        password = request.form.get('password')
+        if password:
+            password_hash = hash_password(password)
+            update_users_query = f"UPDATE users SET password_hash = '{password_hash}' WHERE user_id = {user_id};"
+            update_db(update_users_query)
+
+        # Handle PDF resume file
         if 'resume' in request.files:
             resume = pdf_to_str(request.files['resume'])
         else:
             resume = default_profile_info[3]
 
-        # Construct and execute UPDATE users query
-        update_users_query = f"UPDATE users SET username = '{username}', password_hash = '{password_hash}', email = '{email}', first_name = '{first_name}', last_name = '{last_name}' WHERE user_id = {user_id};"
-        response = update_db(update_users_query)
+        # Update user and profile_info tables
+        update_users_query = f"UPDATE users SET username = '{username}', email = '{email}' WHERE user_id = {user_id};"
+        update_db(update_users_query)
 
-        # Return error ir error raised during Update
-        if response[0] == 'A':
-            return jsonify({"error": response}), 500
-
-        # Construct and execute UPDATE profile_info query
         update_profile_info_query = f"UPDATE profile_info SET city = '{city}', state = '{state}', phone_number = '{phone_number}', resume = '{resume}' WHERE user_id = {user_id};"
-        response = update_db(update_profile_info_query)
+        update_db(update_profile_info_query)
 
-        # Return error ir error raised during Update
-        if response[0] == 'A':
-            return jsonify({"error": response}), 500
-        
-        # Return Success message
-        return jsonify({"message": "table updated successfully"}), 200
-    
-    # Return any other exception messages
+        return jsonify({"message": "Profile updated successfully"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
 
 
 @app.route('/create-account', methods=['POST'])
