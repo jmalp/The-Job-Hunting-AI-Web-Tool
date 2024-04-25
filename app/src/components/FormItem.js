@@ -1,39 +1,66 @@
-import "./FormItem.css"
-import { Form } from "react-bootstrap";
+import "./FormItem.css";
 import { useState } from "react";
-import DragDropFiles from "./DragDropFiles"
 
 export const FormItem = ({ item, onChange, answer }) => {
-  const [currentValue, setCurrentValue] = useState(answer || '');
+  const [currentValue, setCurrentValue] = useState(answer || "");
+  const [isEmailValid, setIsEmailValid] = useState(true); 
+  const [emailTouched, setEmailTouched] = useState(false); 
 
   const handleChange = (e, isCheckbox) => {
     const newValue = isCheckbox ? e.target.checked : e.target.value;
     setCurrentValue(newValue);
-    onChange(newValue, item.value);
+
+
+    if (item.type === 'email') {
+      setEmailTouched(true); 
+    }
+
+    onChange(newValue, item.value); 
   };
 
-  const inputType = item.type === 'select' ? 'select' : 'input';
-  
+  const handleBlur = () => {
+    if (item.type === 'email' && emailTouched) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      setIsEmailValid(emailRegex.test(currentValue));
+    }
+  };
+
+  const handleFocus = () => {
+    if (item.type === 'email') {
+      setIsEmailValid(true);
+    }
+  };
+
   const inputProps = {
-    className: `input-field ${item.type}`,
+    className: `input-field ${item.type} ${
+      item.value === "firstName" || item.value === "lastName" ? "inline-fields" : ""
+    }`,
     id: item.value,
     placeholder: item.label,
-    onChange: (e) => handleChange(e, item.type === 'checkbox'),
-    value: item.type === 'checkbox' ? undefined : currentValue,
-    checked: item.type === 'checkbox' ? currentValue : undefined,
+    onChange: handleChange,
+    onBlur: handleBlur,
+    onFocus: handleFocus,
+    value: item.type === "checkbox" ? undefined : currentValue,
+    checked: item.type === "checkbox" ? currentValue : undefined,
+    type: item.type
   };
 
   return (
-    <div className={`input ${item.type} ${item.value === 'firstName' || item.value === 'lastName' ? 'inline-fields' : ''}`}>
-      {inputType === 'select' ? (
+    <div className={`input ${item.type} ${item.value === "firstName" || item.value === "lastName" ? "inline-fields" : ""}`}>
+      {item.type !== "select" ? (
+        <>
+          <input {...inputProps} />
+          {item.type === 'email' && emailTouched && !isEmailValid && (
+            <div className="error-message">Please enter a valid email address.</div>
+          )}
+        </>
+      ) : (
         <select {...inputProps}>
           <option value="" disabled>{item.label}</option>
           {item.options.map((opt, index) => (
             <option key={index} value={opt}>{opt}</option>
           ))}
         </select>
-      ) : (
-        <input {...inputProps} type={item.type} />
       )}
     </div>
   );

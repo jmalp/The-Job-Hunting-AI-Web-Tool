@@ -9,7 +9,7 @@ export const questions = [
       },
       {
         label: 'Email',
-        type: 'text',
+        type: 'email',
         value: 'email'
       },
       {
