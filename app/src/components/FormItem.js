@@ -6,7 +6,9 @@ export const FormItem = ({ item, onChange, answer }) => {
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [emailTouched, setEmailTouched] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(true); 
-  const [passwordTouched, setPasswordTouched] = useState(false); 
+  const [passwordTouched, setPasswordTouched] = useState(false);
+  const [isPhoneValid, setIsPhoneValid] = useState(true); 
+  const [phoneTouched, setPhoneTouched] = useState(false);
 
   const handleChange = (e, isCheckbox) => {
     const newValue = isCheckbox ? e.target.checked : e.target.value;
@@ -21,18 +23,26 @@ export const FormItem = ({ item, onChange, answer }) => {
       setIsPasswordValid(newValue.length >= 10); 
     }
 
+    if (item.type === 'phone_number') {
+      setPhoneTouched(true);
+      const phoneRegex = /^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})$/;
+      setIsPhoneValid(phoneRegex.test(newValue.replace(/[\s()-]+/g, "")));
+    }
+
     onChange(newValue, item.value);
   };
 
   const handleBlur = () => {
-
     if (item.type === 'email' && emailTouched) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       setIsEmailValid(emailRegex.test(currentValue));
     }
-
     if (item.type === 'password' && passwordTouched) {
       setIsPasswordValid(currentValue.length >= 10);
+    }
+    if (item.type === 'phone_number' && phoneTouched) {
+      const phoneRegex = /^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})$/;
+      setIsPhoneValid(phoneRegex.test(currentValue.replace(/[\s()-]+/g, "")));
     }
   };
 
@@ -42,6 +52,9 @@ export const FormItem = ({ item, onChange, answer }) => {
     }
     if (item.type === 'password') {
       setIsPasswordValid(true);
+    }
+    if (item.type === 'phon_number') {
+      setIsPhoneValid(true);
     }
   };
 
@@ -65,10 +78,13 @@ export const FormItem = ({ item, onChange, answer }) => {
         <>
           <input {...inputProps} />
           {item.type === 'email' && emailTouched && !isEmailValid && (
-            <div className="error-message">Please enter a valid email address.</div>
+            <div className="error-message">Please enter a valid email address</div>
           )}
           {item.type === 'password' && passwordTouched && !isPasswordValid && (
             <div className="error-message">Password must be at least 10 characters long.</div>
+          )}
+          {item.type === 'phone_number' && phoneTouched && !isPhoneValid && (
+            <div className="error-message">Please enter a valid phone number</div>
           )}
         </>
       ) : (
