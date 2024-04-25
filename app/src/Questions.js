@@ -9,7 +9,7 @@ export const questions = [
       },
       {
         label: 'Email',
-        type: 'text',
+        type: 'email',
         value: 'email'
       },
       {
@@ -51,7 +51,7 @@ export const questions = [
       },
       {
         label: 'Phone Number',
-        type: 'text',
+        type: 'phone_number',
         value: 'phone_number'
       },
     ]
