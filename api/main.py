@@ -21,6 +21,12 @@ def test():
     return jsonify({'test': 'success'})
 
 
+@app.route('/valid-token', methods=['POST'])
+@token_required
+def valid_token(user_id: int):
+    print(user_id)
+    return jsonify({"valid": "true"}), 500
+
 @app.route('/get-account', methods=['GET'])
 @token_required
 def get_user_info(user_id: int):
@@ -275,8 +281,8 @@ def search_jobs(user_id: int):
     search_query = request.get_json()
     keywords = search_query['keywords']
     location = search_query['location']
-    salary = search_query['salary']
-    radius = search_query['radius']
+    salary = search_query['salary'] or '0'
+    radius = search_query['radius'] or '0'
     get_jobs(keywords, location, salary, radius)
 
     # Clean Data
