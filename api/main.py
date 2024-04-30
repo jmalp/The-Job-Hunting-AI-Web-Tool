@@ -275,8 +275,8 @@ def search_jobs(user_id: int):
     search_query = request.get_json()
     keywords = search_query['keywords']
     location = search_query['location']
-    salary = search_query['salary']
-    radius = search_query['radius']
+    salary = search_query['salary'] or '0'
+    radius = search_query['radius'] or '0'
     get_jobs(keywords, location, salary, radius)
 
     # Clean Data
