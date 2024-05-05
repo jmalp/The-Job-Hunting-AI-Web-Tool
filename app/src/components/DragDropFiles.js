@@ -30,7 +30,7 @@ const DragDropFiles = ({ onFileSelect }) => {
         accept="application/pdf" 
         ref={inputRef}
       />
-      <button onClick={() => inputRef.current && inputRef.current.click()} className="submit-button">
+      <button onClick={() => inputRef.current && inputRef.current.click()} className="file-submit-button">
         Select Files
       </button>
       {isFilePicked && <p>File loaded successfully!</p>}
