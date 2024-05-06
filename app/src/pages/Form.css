@@ -1,0 +1,111 @@
+.form-page-container {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 100px;
+    background: #1D3557;
+    padding: 30px;
+    width: 90%;
+    max-width: 1000px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  
+  .form-page-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .form-page-title {
+    color: #FFFFFF;
+    font-size: 42px;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  .form-page-underline {
+    width: 70px;
+    height: 4px;
+    background: #E63946; 
+    border-radius: 2px;
+  }
+  
+  .form-page-inputs {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-page-input {
+    margin-bottom: 20px;
+  }
+  
+  .input {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: #457B9D;
+    border-radius: 5px;
+  }
+  
+  .input img.icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+  }
+  
+  .input-field {
+    flex: 1;
+    height: 45px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    color: #FFFFFF; 
+    background: transparent;
+  }
+  
+  .form-page-submit-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  
+  .form-page-submit-btn {
+    width: 125px;
+    height: 45px;
+    background: #E63946; 
+    color: #F1FAEE; 
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .form-page-submit-btn:hover {
+    background: #F1FAEE;
+    color: #000000;
+  }
+  
+  .base-button {
+    width: 125px;
+    height: 45px;
+    background-color: #E63946;
+    color: #F1FAEE;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    margin-right: 60px;
+    margin-left: 60px;
+    transition: background-color 0.3s;
+  }
+  
+  .base-buttotn:hover {
+    background-color: #ac3741;
+  }

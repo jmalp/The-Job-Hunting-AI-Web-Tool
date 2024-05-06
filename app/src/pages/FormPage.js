@@ -1,81 +1,70 @@
-import './Login.css'
-import '../components/MultiStepProgress.css'
-import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom'
-import { MultiStepProgressBar } from '../components/MultiStepProgress'
-import { MultiStepForm } from '../components/MultiStepForm'
-import { questions } from '../Questions'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import FormWizard from "react-form-wizard-component";
+import "react-form-wizard-component/dist/style.css";
+import { questions } from '../Questions';
+import DragDropFiles from '../components/DragDropFiles';
+import { FormItem } from "../components/FormItem";
 import url from "../api_url.json";
-import DragDropFiles from '../components/DragDropFiles'
+import './Form.css';
 
-function FormPage() {
-  const [index, setIndex] = useState(1)
-  const [submitted, setSubmitted] = useState(false)
-  const totalPagesCount = questions?.length || 0
-  const [pagesAnswers, setPagesAnswers] = useState({})
+const BackTemplate = ({ handlePrevious }) => (
+  <button className="base-button" onClick={handlePrevious}>
+    Back
+  </button>
+);
+
+const NextTemplate = ({ handleNext }) => (
+  <button className="base-button" onClick={handleNext}>
+    Next
+  </button>
+);
+
+const FinishTemplate = ({ handleComplete }) => (
+  <button className="base-button" onClick={handleComplete}>
+    Finish
+  </button>
+);
+
+const FormPage = () => {
+  const [formData, setFormData] = useState({});
   const [pdfFile, setPdfFile] = useState(null);
-  const navigate = useNavigate()
-  const inputRef = useRef(null);
+  const navigate = useNavigate();
 
-  const prevButton = () => {
-    if (index > 1) {
-      setIndex(prevIndex => prevIndex - 1)
-    }
-  }
-
-  const nextButton = () => {
-    if (index === totalPagesCount) {
-      handleSubmit();
-    } else {
-      setIndex((prevIndex) => prevIndex + 1);
-    }
+  const handleInputChange = (newValue, field) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: newValue
+    }));
   };
-
-  const onPageAnswerUpdate = (step, answersObj) => {
-    setPagesAnswers({ ...pagesAnswers, [step]: answersObj })
-  }
-
-  // const handlePDFChange = (event) => {
-  //   setPdfFile(event.target.files[0]);
-  // };
-
-  const handlePDFChange = (file) => {
-    setPdfFile(file);
-  };
-
-  const handleReset = () => {
-    setIndex(1)
-    setSubmitted(false)
-  }
 
   const handleSubmit = async () => {
-    console.log('Form submitted');
-    const formData = new FormData();
+  if (!formData.username || !formData.email || !formData.password || !formData.first_name || !formData.last_name) {
+    console.error('Required fields are missing');
+    return;
+  }
 
-    Object.keys(pagesAnswers).forEach(page => {
-      Object.entries(pagesAnswers[page]).forEach(([key, value]) => {
-        if (key !== 'index' && value != null) {
-          formData.append(key, value);
-        }
-      });
+    console.log("Form completed!", formData);
+    const submitData = new FormData();
+    Object.keys(formData).forEach(key => {
+      submitData.append(key, formData[key] || '');
     });
-
     if (pdfFile) {
-      formData.append('resume', pdfFile);
+      submitData.append('resume', pdfFile);
+      console.log("Appending resume to FormData");
     }
 
     try {
       const response = await fetch(`${url['api_url']}/create-account`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: formData,
+        body: submitData,
       });
 
       if (response.ok) {
         const jsonResponse = await response.json();
         console.log('Account created successfully. Token:', jsonResponse.token);
-        localStorage.setItem('token', jsonResponse.token)
-        setSubmitted(true);
+        localStorage.setItem('token', jsonResponse.token);
+        navigate('/search');
       } else {
         console.error('Failed to send request. Server responded with status:', response.status);
       }
@@ -84,70 +73,46 @@ function FormPage() {
     }
   };
 
-  const goToSearch = () => {
-    navigate('/search')
-  }
+  const handlePDFChange = (file) => {
+    setPdfFile(file);
+  };
 
   return (
-    <div className='container'>
-      <div className='header'>
-        <div className='text'>Sign Up</div>
-        <div className='underline'></div>
+    <div className="form-page-container">
+      <div className="form-page-header">
+        <div className="form-page-title">Registration Form</div>
+        <div className="form-page-underline"></div>
       </div>
-
-      <div className='progress-bar-container'>
-        <MultiStepProgressBar step={index} />
-      </div>
-
-      {submitted ? (
-        <div>
-          <div className='container-style'>
-            Profile saved successfully.
-          </div>
-          <div className=''>
-            <div className='multistep-submit-button' onClick={goToSearch}>
-              Continue to Search Page
+      <FormWizard
+        shape="circle"
+        color="#E63946"
+        onComplete={handleSubmit}
+        backButtonTemplate={(handlePrevious) => <BackTemplate handlePrevious={handlePrevious} />}
+        nextButtonTemplate={(handleNext) => <NextTemplate handleNext={handleNext} />}
+        finishButtonTemplate={(handleComplete) => <FinishTemplate handleComplete={handleComplete} />}
+      >
+        {questions.map((section) => (
+          <FormWizard.TabContent  key={`step-${section.section}`}>
+            <div className="form-page-inputs">
+              {section.items.map((item) => (
+                <div className="form-page-input" key={item.value}>
+                  {item.type === 'select' || item.type === 'text' || item.type === 'email' || item.type === 'password' || item.type === 'phone_number' ? (
+                    <FormItem
+                      item={item}
+                      answer={formData[item.value] || ''}
+                      onChange={handleInputChange}
+                    />
+                  ) : item.type === 'dragDropFile' ? (
+                    <DragDropFiles onFileSelect={handlePDFChange} />
+                  ) : null}
+                </div>
+              ))}
             </div>
-          </div>
-
-        </div>
-      ) : (
-        <div className=''>
-          <div className='multistep-form-body'>
-            <MultiStepForm
-              list={questions}
-              step={index}
-              onPageUpdate={onPageAnswerUpdate}
-              pagesAnswers={pagesAnswers}
-            />
-            {index === totalPagesCount && (
-              <>
-                <DragDropFiles onFileSelect={handlePDFChange} />
-                <input
-                  type="file"
-                  accept="application/pdf"
-                  onChange={(event) => handlePDFChange(event.target.files[0])}
-                  style={{ display: 'none' }}
-                  ref={inputRef}
-                />
-              </>
-            )}
-          </div>
-          <div className='card-footer d-flex justify-content-between'>
-            <div
-              onClick={prevButton}
-              className={`submit ${index === 1 ? 'disabled' : ''}`}
-            >
-              Previous
-            </div>
-            <div onClick={nextButton} className='submit'>
-              {index === totalPagesCount ? 'Submit' : 'Next'}
-            </div>
-          </div>
-        </div>
-      )}
+          </FormWizard.TabContent>
+        ))}
+      </FormWizard>
     </div>
-  )
-}
+  );
+};
 
-export default FormPage
+export default FormPage;
