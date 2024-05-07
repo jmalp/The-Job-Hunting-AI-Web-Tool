@@ -12,8 +12,8 @@
     flex-direction: column;
     margin: auto;
     margin-top: 10px; 
-    color: #f5f7fa;
-    background: #1D3557; 
+    /* color: #f5f7fa; */
+    /* background: #1D3557;  */
     padding: 30px; 
     width: 90%; 
     max-width: 600px;
@@ -22,7 +22,7 @@
   }
 
 .card:hover {
-    background: #2D4567;
+    background: #f5f7fa;
   }
 
 .title {
