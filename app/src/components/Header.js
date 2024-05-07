@@ -4,6 +4,8 @@ import "./Header.css";
 
 const SettingsIcon = () => <span className="material-symbols-outlined settings-icon">account_circle</span>;
 
+const SearchIcon = () => <span className="material-icons search-icon">Back to Search</span>
+
 const Header = () => {
   const location = useLocation();
 
@@ -25,6 +27,11 @@ const Header = () => {
             {location.pathname === '/search' && (
               <Link to="/settings" title="Settings">
                 <SettingsIcon />
+              </Link>
+            )}
+            {location.pathname === '/settings' && (
+              <Link to="/search" title="Search">
+                <SearchIcon />
               </Link>
             )}
           </nav>
