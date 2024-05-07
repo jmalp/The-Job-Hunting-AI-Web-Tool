@@ -1,11 +1,48 @@
 .search-page-container {
     display: flex;
+  }
+
+.job-link {
+    text-decoration: none;
+    color: black;
+  }
+
+.card {
+  display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 10px; 
+    color: #f5f7fa;
+    background: #1D3557;
+    padding: 30px; 
+    width: 90%; 
+    max-width: 600px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); 
+    border-radius: 10px; 
+  }
+
+.card:hover {
+    background: #f5f7fa;
+  }
+
+.title {
+    font-weight: bold;
+  }
+
+.snippet {
+    color: #95979a;
+  }
+  
+.search-page-form {
+    position: sticky;
+    top: 25%;
+    z-index: 1;
     flex-direction: column;
     margin: auto;
     margin-top: 100px;
     background: #1D3557;
     padding: 30px;
-    width: 90%;
+    width: 40%;
     max-width: 1000px;
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -87,5 +124,6 @@
   
   .search-page-results {
     margin-top: 20px;
+    width: 50%;
+    z-index: 2;
   }
-  
