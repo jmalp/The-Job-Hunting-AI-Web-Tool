@@ -69,79 +69,81 @@ export default function SearchPage() {
     return (
       <>
         <div className='search-page-container'>
-          <div className='search-page-header'>
-            <div className='search-page-title'>Search for Jobs</div>
-            <div className='search-page-underline'></div>
+          <div className='search-page-form'>
+            <div className='search-page-header'>
+              <div className='search-page-title'>Search for Jobs</div>
+              <div className='search-page-underline'></div>
+            </div>
+            <div className='search-page-inputs'>
+              <div className='search-page-input'>
+                <div className='input'>
+                  <img src={search_icon} alt="search_icon" className="icon" />
+                  <input
+                    className='input-field'
+                    type='text'
+                    name='keywords'
+                    placeholder='Title, keywords or company...'
+                    value={formData.keywords}
+                    onChange={handleFormChange}
+                  />
+                </div>
+              </div>
+              <div className='search-page-input'>
+                <div className='input'>
+                  <img src={location_icon} alt="location_icon" className="icon" />
+                  <input
+                    className='input-field'
+                    type='text'
+                    name='location'
+                    placeholder='Search location...'
+                    value={formData.location}
+                    onChange={handleFormChange}
+                  />
+                </div>
+              </div>
+              <div className='search-page-input'>
+                <div className='input'>
+                  <img src={salary_icon} alt="salary_icon" className="icon" />
+                  <input
+                    className='input-field'
+                    type='text'
+                    name='salary'
+                    placeholder='Desired salary...'
+                    value={formData.salary}
+                    onChange={handleFormChange}
+                  />
+                </div>
+              </div>
+              <div className='search-page-input'>
+                <div className='input'>
+                  <img src={radius_icon} alt="radius_icon" className="icon" />
+                  <input
+                    className='input-field'
+                    type='text'
+                    name='radius'
+                    placeholder='Search radius in miles...'
+                    value={formData.radius}
+                    onChange={handleFormChange}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className='search-page-submit-container'>
+              <button onClick={handleSearch} className='search-page-submit-btn'>
+                Search
+              </button>
+            </div>
           </div>
-          <div className='search-page-inputs'>
-            <div className='search-page-input'>
-              <div className='input'>
-                <img src={search_icon} alt="search_icon" className="icon" />
-                <input
-                  className='input-field'
-                  type='text'
-                  name='keywords'
-                  placeholder='Title, keywords or company...'
-                  value={formData.keywords}
-                  onChange={handleFormChange}
-                />
-              </div>
-            </div>
-            <div className='search-page-input'>
-              <div className='input'>
-                <img src={location_icon} alt="location_icon" className="icon" />
-                <input
-                  className='input-field'
-                  type='text'
-                  name='location'
-                  placeholder='Search location...'
-                  value={formData.location}
-                  onChange={handleFormChange}
-                />
-              </div>
-            </div>
-            <div className='search-page-input'>
-              <div className='input'>
-                <img src={salary_icon} alt="salary_icon" className="icon" />
-                <input
-                  className='input-field'
-                  type='text'
-                  name='salary'
-                  placeholder='Desired salary...'
-                  value={formData.salary}
-                  onChange={handleFormChange}
-                />
-              </div>
-            </div>
-            <div className='search-page-input'>
-              <div className='input'>
-                <img src={radius_icon} alt="radius_icon" className="icon" />
-                <input
-                  className='input-field'
-                  type='text'
-                  name='radius'
-                  placeholder='Search radius in miles...'
-                  value={formData.radius}
-                  onChange={handleFormChange}
-                />
-              </div>
-            </div>
+          <div className='search-page-results'>
+            {
+              (jobs === "waiting")
+              ? <WaitingSearch />
+              : (jobs === "error")
+                ? <SearchError />
+                : <JobList jobs={jobs} />
+                
+            }
           </div>
-          <div className='search-page-submit-container'>
-            <button onClick={handleSearch} className='search-page-submit-btn'>
-              Search
-            </button>
-          </div>
-        </div>
-        <div className='search-page-results'>
-          {
-            (jobs === "waiting")
-            ? <WaitingSearch />
-            : (jobs === "error")
-              ? <SearchError />
-              : <JobList jobs={jobs} />
-              
-          }
         </div>
       </>
     );
