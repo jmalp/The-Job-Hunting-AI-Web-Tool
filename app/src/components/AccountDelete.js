@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import url from "../api_url.json";
+import "../pages/Settings.css";
 
 const AccountDelete = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -41,7 +42,7 @@ const AccountDelete = () => {
           </button>
         ) : deletionSuccess ? (
           <div className="confirmation-container">
-            <p>Account deleted successfully. You will be redirected to the login screen shortly.</p>
+            <p className="success-message" style={{ color: 'white' }}>Account deleted successfully. You will be redirected to the login screen shortly.</p>
           </div>
         ) : (
           <div className="confirmation-container">

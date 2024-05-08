@@ -3,9 +3,10 @@ import url from "../api_url.json";
 import "../pages/Settings.css";
 
 const UpdateResume = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [isFilePicked, setIsFilePicked] = useState(false);
-  const inputRef = useRef(null);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [isFilePicked, setIsFilePicked] = useState(false);
+    const [updateSuccess, setUpdateSuccess] = useState(false);
+    const inputRef = useRef(null);
 
   const handleDragOver = (event) => {
     event.preventDefault();
@@ -49,6 +50,10 @@ const UpdateResume = () => {
 
       if (response.ok) {
         console.log('Resume updated successfully');
+        setUpdateSuccess(true);
+        setTimeout(() => {
+          setUpdateSuccess(false);
+        }, 3000);
       } else {
         console.error('Failed to update resume');
       }
@@ -59,6 +64,11 @@ const UpdateResume = () => {
 
   return (
     <div>
+      {updateSuccess && (
+        <div className="success-message">
+          Resume updated successfully!
+        </div>
+      )}
       <div className="resume-dropzone" onDragOver={handleDragOver} onDrop={handleDrop}>
         <p>Drag and drop a PDF to upload, or click to select a file.</p>
         <input

@@ -387,4 +387,20 @@
     font-size: 14px;
   }
 
+  .success-message {
+    background-color: #1D3557;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+  }
+
+  .success-message p {
+    background-color: #1D3557;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+  }
+
   
