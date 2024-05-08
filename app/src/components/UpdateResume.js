@@ -65,7 +65,7 @@ const UpdateResume = () => {
           type="file"
           onChange={handleChange}
           hidden
-          accept="application/pdf"
+          accept=".pdf"
           ref={inputRef}
         />
         <button onClick={() => inputRef.current && inputRef.current.click()} className="resume-select-button">

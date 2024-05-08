@@ -11,17 +11,15 @@ const SkillsInput = ({ addSkill }) => {
   const handleInputChange = (e) => {
     const value = e.target.value;
     setInput(value);
-  
-    const suggestions = value
+
+    const filteredSuggestions = value
       ? skills.filter((skill) =>
           skill.toLowerCase().startsWith(value.toLowerCase())
         )
       : [];
-    setSuggestions(suggestions);
-  
-    if (value === '') {
-      setActiveIndex(-1);
-    }
+    setSuggestions(filteredSuggestions);
+
+    setActiveIndex(value ? value.length - 1 : -1);
   };
 
   const handleClick = async (suggestion) => {
@@ -56,14 +54,19 @@ const SkillsInput = ({ addSkill }) => {
         value={input}
         onChange={handleInputChange}
         placeholder="Add a skill..."
+        className="skills-input"
       />
-      {suggestions.length > 0 && (
+      {suggestions.length > 0 ? (
         <Suggestions
           suggestions={suggestions}
           activeIndex={activeIndex}
           handleClick={handleClick}
         />
-      )}
+      ) : input.length > 0 ? (
+        <div className="no-suggestions">
+          No matching skills found. Please try a different search term.
+        </div>
+      ) : null}
     </div>
   );
 };
