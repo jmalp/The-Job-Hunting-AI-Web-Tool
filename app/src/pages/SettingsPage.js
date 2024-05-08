@@ -4,6 +4,7 @@ import url from "../api_url.json";
 import SkillsInput from '../components/SkillsInput';
 import ProfileForm from '../components/ProfileForm';
 import AccountDelete from '../components/AccountDelete';
+import UpdateResume from '../components/UpdateResume';
 
 const DeleteIcon = ({ onClick }) => (
     <span className="material-symbols-outlined remove-skill" onClick={onClick}>
@@ -174,10 +175,10 @@ const SkillsSection = () => {
     };
 
 const ResumeSection = () => (
-  <div className="section-container">
-    <h2>Resume</h2>
-    <p>Placeholder text for the resume section.</p>
-  </div>
+    <div className="section-container">
+        <h2>Resume</h2>
+        <UpdateResume />
+    </div>
 );
 
 const AccountSection = () => (

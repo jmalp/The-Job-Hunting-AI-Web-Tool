@@ -105,24 +105,45 @@ def update_account(user_id: int):
             update_users_query = f"UPDATE users SET password_hash = '{password_hash}' WHERE user_id = {user_id};"
             update_db(update_users_query)
 
-        # Handle PDF resume file
-        if 'resume' in request.files:
-            resume = pdf_to_str(request.files['resume'])
-        else:
-            resume = default_profile_info[3]
-
         # Update user and profile_info tables
         update_users_query = f"UPDATE users SET username = '{username}', email = '{email}' WHERE user_id = {user_id};"
         update_db(update_users_query)
 
-        update_profile_info_query = f"UPDATE profile_info SET city = '{city}', state = '{state}', phone_number = '{phone_number}', resume = '{resume}' WHERE user_id = {user_id};"
+        update_profile_info_query = f"UPDATE profile_info SET city = '{city}', state = '{state}', phone_number = '{phone_number}' WHERE user_id = {user_id};"
         update_db(update_profile_info_query)
 
         return jsonify({"message": "Profile updated successfully"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/update-resume', methods=['PUT'])
+@token_required
+def update_resume(user_id: int):
+    """
+    Update the user's resume in the database.
 
+    Requirements:
+    Authorization header with value "Bearer *token*"
+
+    Args:
+    user_id: int | ID of the user whose resume is being updated
+
+    Returns:
+    JSON response indicating success or failure
+    """
+    try:
+        # Handle PDF resume file
+        if 'resume' in request.files:
+            resume = pdf_to_str(request.files['resume'])
+            update_profile_info_query = f"UPDATE profile_info SET resume = '{resume}' WHERE user_id = {user_id};"
+            update_db(update_profile_info_query)
+            return jsonify({"message": "Resume updated successfully"}), 200
+        
+        else:
+            return jsonify({"error": "No resume file provided"}), 400
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/create-account', methods=['POST'])
 def create_account():

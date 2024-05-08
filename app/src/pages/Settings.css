@@ -244,3 +244,97 @@
     background: #E63946;
     color: #F1FAEE;
   }
+
+  .dropzone {
+    color: #FFFFFF !important
+  }
+
+  .update-resume-button {
+    display: flex;
+    width: 150px;
+    height: 45px;
+    padding: 0 20px;
+    background: #E63946;
+    color: #FFFFFF;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 30px;
+    cursor: pointer;
+    align-items: center;
+    border: none !important;
+    white-space: nowrap;
+    margin-top: 20px; /* Add margin-top for spacing */
+  }
+  
+  .update-resume-button:hover {
+    background: #457B9D;
+    color: #F1FAEE;
+  }
+
+  .resume-dropzone {
+    padding: 20px;
+    border: 2px dashed #E63946;
+    background-color: #1D3557;
+    color: #F1FAEE;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .resume-dropzone:hover {
+    background-color: #15537a;
+  }
+  
+  .resume-dropzone p {
+    margin: 10px 0;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
+  .resume-select-button {
+    width: 125px;
+    height: 45px;
+    background-color: #E63946;
+    color: #F1FAEE;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .resume-select-button:hover {
+    background: #ac3741;
+    color: #F1FAEE;
+  }
+  
+  .file-loaded-message {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #F1FAEE;
+  }
+  
+  .resume-submit-button {
+    width: 150px;
+    height: 45px;
+    background-color: #E63946;
+    color: #F1FAEE;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+    margin-top: 20px;
+  }
+  
+  .resume-submit-button:hover {
+    background: #ac3741;
+    color: #F1FAEE;
+  }

@@ -33,7 +33,6 @@ const ProfileForm = ({ initialValues, onSubmit, onError }) => {
       formData.append("state", formValues.state);
       formData.append("phone_number", formValues.phone_number);
       formData.append("password", formValues.password);
-      formData.append("file", formValues.file);
 
       await onSubmit(formData);
     } catch (error) {
@@ -66,9 +65,6 @@ const ProfileForm = ({ initialValues, onSubmit, onError }) => {
         </div>
         <div className="input">
           <input type="text" name="phone_number" value={formValues.phone_number} onChange={handleChange} placeholder="Phone Number" className="input-field"/>
-        </div>
-        <div className="input">
-          <input type="file" onChange={handleFileChange} accept=".pdf"/>
         </div>
       </div>
       <div className="submit-container">
