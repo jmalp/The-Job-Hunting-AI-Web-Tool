@@ -15,7 +15,6 @@ const AccountDelete = () => {
       });
 
       if (response.ok) {
-        // Account deleted successfully, perform any necessary cleanup or redirection
         console.log('Account deleted successfully');
       } else {
         console.error('Failed to delete account');
