@@ -394,6 +394,38 @@ def get_user_skills(user_id: int):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/delete-account', methods=['DELETE'])
+@token_required
+def delete_account(user_id: int):
+    """
+    Delete the user's account and all associated data.
+
+    Requirements:
+    Authorization header with value "Bearer *token*"
+
+    Args:
+    user_id: int | ID of the user whose account is being deleted
+
+    Returns:
+    JSON response indicating success or failure
+    """
+    try:
+        # Delete user's skills
+        delete_skills_query = f"DELETE FROM skills WHERE profileinfo_id IN (SELECT profileinfo_id FROM profile_info WHERE user_id = {user_id});"
+        update_db(delete_skills_query)
+
+        # Delete user's profile_info
+        delete_profile_info_query = f"DELETE FROM profile_info WHERE user_id = {user_id};"
+        update_db(delete_profile_info_query)
+
+        # Delete user's account
+        delete_user_query = f"DELETE FROM users WHERE user_id = {user_id};"
+        update_db(delete_user_query)
+
+        return jsonify({"message": "Account deleted successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

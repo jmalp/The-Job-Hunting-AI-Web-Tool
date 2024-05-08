@@ -3,6 +3,7 @@ import './Settings.css';
 import url from "../api_url.json";
 import SkillsInput from '../components/SkillsInput';
 import ProfileForm from '../components/ProfileForm';
+import AccountDelete from '../components/AccountDelete';
 
 const DeleteIcon = ({ onClick }) => (
     <span className="material-symbols-outlined remove-skill" onClick={onClick}>
@@ -180,11 +181,11 @@ const ResumeSection = () => (
 );
 
 const AccountSection = () => (
-  <div className="section-container">
-    <h2>Account</h2>
-    <p>Placeholder text for the account section.</p>
-  </div>
-);
+    <div className="section-container">
+      <h2>Account</h2>
+      <AccountDelete />
+    </div>
+  );
 
 const SettingsPage = () => {
   const [activeSection, setActiveSection] = useState('profile');

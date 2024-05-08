@@ -159,3 +159,88 @@
     color: #F1FAEE;
   }
   
+  .delete-account-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .delete-button {
+    margin-top: 20px;
+  }
+  
+  .confirmation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .confirmation-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .settings-button-yes {
+    display: flex;
+    width: 125px;
+    height: 45px;
+    background: #8e222b;
+    color: #FFFFFF;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 30px;
+    cursor: pointer;
+    align-items: center;
+    border: none !important;
+  }
+
+  .settings-button-yes:hover {
+    background: #E63946;
+    color: #F1FAEE;
+  }
+
+  .settings-button-no {
+    display: flex;
+    width: 125px;
+    height: 45px;
+    background: #1D3557;
+    color: #FFFFFF;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 30px;
+    cursor: pointer;
+    align-items: center;
+    border: none !important;
+  }
+
+  .settings-button-no:hover {
+    background: #457B9D;
+    color: #F1FAEE;
+  }
+
+  .settings-button-delete {
+    display: flex;
+    width: 150px;
+    height: 45px;
+    padding: 0 20px;
+    background: #8e222b;
+    color: #FFFFFF;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 30px;
+    cursor: pointer;
+    align-items: center;
+    border: none !important;
+    white-space: nowrap;
+  }
+  
+  .settings-button-delete:hover {
+    background: #E63946;
+    color: #F1FAEE;
+  }
