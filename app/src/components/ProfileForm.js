@@ -12,13 +12,6 @@ const ProfileForm = ({ initialValues, onSubmit, onError }) => {
     });
   };
 
-  const handleFileChange = (e) => {
-    setFormValues({
-      ...formValues,
-      file: e.target.files[0],
-    });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formValues.password !== formValues.confirmPassword) {
