@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import url from "../api_url.json";
 
 const AccountDelete = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [deletionSuccess, setDeletionSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const handleDeleteAccount = async () => {
     try {
@@ -16,6 +19,11 @@ const AccountDelete = () => {
 
       if (response.ok) {
         console.log('Account deleted successfully');
+        setDeletionSuccess(true);
+        localStorage.removeItem('token');
+        setTimeout(() => {
+          navigate('/login');
+        }, 3000);
       } else {
         console.error('Failed to delete account');
       }
@@ -31,6 +39,10 @@ const AccountDelete = () => {
           <button className="settings-button-delete delete-button" onClick={() => setShowConfirmation(true)}>
             Delete Account
           </button>
+        ) : deletionSuccess ? (
+          <div className="confirmation-container">
+            <p>Account deleted successfully. You will be redirected to the login screen shortly.</p>
+          </div>
         ) : (
           <div className="confirmation-container">
             <p>Are you sure? This cannot be undone.</p>

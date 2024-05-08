@@ -368,6 +368,11 @@
     background-color: #E63946;
     color: #A8A8A8;
   }
+
+  .suggestion:hover strong{
+    background-color: #E63946;
+    color: #000000;
+  }
   
   .suggestion strong {
     color: #FFFFFF;
