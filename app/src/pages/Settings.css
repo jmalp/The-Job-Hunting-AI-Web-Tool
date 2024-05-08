@@ -187,7 +187,7 @@
     display: flex;
     width: 125px;
     height: 45px;
-    background: #8e222b;
+    background: #E63946;
     color: #FFFFFF;
     justify-content: center;
     font-size: 16px;
@@ -199,7 +199,7 @@
   }
 
   .settings-button-yes:hover {
-    background: #E63946;
+    background: #8e222b;
     color: #F1FAEE;
   }
 
@@ -207,7 +207,7 @@
     display: flex;
     width: 125px;
     height: 45px;
-    background: #1D3557;
+    background: #457B9D;
     color: #FFFFFF;
     justify-content: center;
     font-size: 16px;
@@ -219,7 +219,7 @@
   }
 
   .settings-button-no:hover {
-    background: #457B9D;
+    background: #1D3557;
     color: #F1FAEE;
   }
 
@@ -228,7 +228,7 @@
     width: 150px;
     height: 45px;
     padding: 0 20px;
-    background: #8e222b;
+    background: #E63946;
     color: #FFFFFF;
     justify-content: center;
     font-size: 16px;
@@ -241,7 +241,7 @@
   }
   
   .settings-button-delete:hover {
-    background: #E63946;
+    background: #8e222b;
     color: #F1FAEE;
   }
 
@@ -264,7 +264,7 @@
     align-items: center;
     border: none !important;
     white-space: nowrap;
-    margin-top: 20px; /* Add margin-top for spacing */
+    margin-top: 20px;
   }
   
   .update-resume-button:hover {
@@ -280,7 +280,6 @@
     text-align: center;
     border-radius: 10px;
     margin-bottom: 20px;
-    transition: background-color 0.3s, color 0.3s;
   }
   
   .resume-dropzone:hover {
@@ -304,7 +303,6 @@
     border-radius: 30px;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s;
   }
   
   .resume-select-button:hover {
@@ -329,7 +327,6 @@
     border-radius: 30px;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s;
     white-space: nowrap;
     margin-top: 20px;
   }

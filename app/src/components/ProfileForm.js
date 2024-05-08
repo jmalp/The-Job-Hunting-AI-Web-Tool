@@ -61,7 +61,7 @@ const ProfileForm = ({ initialValues, onSubmit, onError }) => {
         </div>
       </div>
       <div className="submit-container">
-        <button type="submit" className="submit">Submit</button>
+        <button type="submit" className="update-resume-button">Submit</button>
       </div>
     </form>
   );

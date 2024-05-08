@@ -4,7 +4,7 @@ import "./Header.css";
 
 const SettingsIcon = () => <span className="material-symbols-outlined settings-icon">account_circle</span>;
 
-const SearchIcon = () => <span className="material-icons search-icon">Back to Search</span>
+const SearchIcon = () => <span class="material-symbols-outlined settings-icon">search</span>
 
 const Header = () => {
   const location = useLocation();
