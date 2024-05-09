@@ -3,6 +3,8 @@ import './Settings.css';
 import url from "../api_url.json";
 import SkillsInput from '../components/SkillsInput';
 import ProfileForm from '../components/ProfileForm';
+import AccountDelete from '../components/AccountDelete';
+import UpdateResume from '../components/UpdateResume';
 
 const DeleteIcon = ({ onClick }) => (
     <span className="material-symbols-outlined remove-skill" onClick={onClick}>
@@ -12,85 +14,95 @@ const DeleteIcon = ({ onClick }) => (
   
   const ProfileSection = () => {
     const [profileData, setProfileData] = useState({
-        username: '',
-        email: '',
-        city: '',
-        state: '',
-        phone_number: '',
+      username: '',
+      email: '',
+      city: '',
+      state: '',
+      phone_number: '',
     });
     const [loading, setLoading] = useState(true);
-
+    const [updateSuccess, setUpdateSuccess] = useState(false);
+  
     useEffect(() => {
-        const fetchProfileData = async () => {
-            try {
-                const token = localStorage.getItem('token');
-                const response = await fetch(url['api_url'] + '/get-account', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                    },
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    if (data.hasOwnProperty("error")) {
-                        console.error("Error fetching profile data:", data.error);
-                    } else {
-                        setProfileData(data);
-                        setLoading(false);
-                    }
-                } else {
-                    console.error('Failed to fetch profile data');
-                    setLoading(false);
-                }
-            } catch (error) {
-                console.error('Error fetching profile data:', error);
-                setLoading(false);
-            }
-        };
-
-        fetchProfileData();
-    }, []);
-
-    const handleProfileUpdate = async (formData) => {
+      const fetchProfileData = async () => {
         try {
           const token = localStorage.getItem('token');
-          const response = await fetch(url['api_url'] + '/update-account', {
-            method: 'PUT',
+          const response = await fetch(url['api_url'] + '/get-account', {
+            method: 'GET',
             headers: {
               'Authorization': `Bearer ${token}`,
             },
-            body: formData,
           });
-      
+  
+          const data = await response.json();
+  
           if (response.ok) {
-            console.log('Profile updated successfully');
-            const updatedData = await response.json();
-            setProfileData(updatedData);
+            if (data.hasOwnProperty("error")) {
+              console.error("Error fetching profile data:", data.error);
+            } else {
+              setProfileData(data);
+              setLoading(false);
+            }
           } else {
-            console.error('Failed to update profile');
+            console.error('Failed to fetch profile data');
+            setLoading(false);
           }
         } catch (error) {
-          console.error('Error updating profile:', error);
+          console.error('Error fetching profile data:', error);
+          setLoading(false);
         }
       };
-
-    const handleError = (errorMessage) => {
-        console.error('Profile form error:', errorMessage);
+  
+      fetchProfileData();
+    }, []);
+  
+    const handleProfileUpdate = async (formData) => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(url['api_url'] + '/update-account', {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+          body: formData,
+        });
+  
+        if (response.ok) {
+          console.log('Profile updated successfully');
+          const updatedData = await response.json();
+          setProfileData(updatedData);
+          setUpdateSuccess(true);
+          setTimeout(() => {
+            setUpdateSuccess(false);
+          }, 3000);
+        } else {
+          console.error('Failed to update profile');
+        }
+      } catch (error) {
+        console.error('Error updating profile:', error);
+      }
     };
-
+  
+    const handleError = (errorMessage) => {
+      console.error('Profile form error:', errorMessage);
+    };
+  
     if (loading) {
-        return <div>Loading...</div>;
+      return <div>Loading...</div>;
     }
-
+  
     return (
-        <div className="section-container">
-            <h2>Update Profile</h2>
-            <ProfileForm initialValues={profileData} onSubmit={handleProfileUpdate} onError={handleError} />
-        </div>
+      <div className="section-container">
+        <h2>Update Profile</h2>
+        {updateSuccess && (
+          <div className="success-message">
+            Profile updated successfully!
+          </div>
+        )}
+        <ProfileForm initialValues={profileData} onSubmit={handleProfileUpdate} onError={handleError} />
+      </div>
     );
-};
+  };
 
 
 const SkillsSection = () => {
@@ -173,18 +185,18 @@ const SkillsSection = () => {
     };
 
 const ResumeSection = () => (
-  <div className="section-container">
-    <h2>Resume</h2>
-    <p>Placeholder text for the resume section.</p>
-  </div>
+    <div className="section-container">
+        <h2>Resume</h2>
+        <UpdateResume />
+    </div>
 );
 
 const AccountSection = () => (
-  <div className="section-container">
-    <h2>Account</h2>
-    <p>Placeholder text for the account section.</p>
-  </div>
-);
+    <div className="section-container">
+      <h2>Account</h2>
+      <AccountDelete />
+    </div>
+  );
 
 const SettingsPage = () => {
   const [activeSection, setActiveSection] = useState('profile');
