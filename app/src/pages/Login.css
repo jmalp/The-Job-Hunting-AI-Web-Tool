@@ -59,12 +59,12 @@
   .input input {
     width: calc(100% - 60px);
     height: 40px;
-    border: 1px solid #ccc;
+    border: 1px solid #050e1c;
     background: #f8fdf6;
     font-size: 16px;
     color: #050e1c;
     padding-left: 10px;
-    border-radius: 8px;
+    border-radius: 7px;
   }
   
   .input:focus {
