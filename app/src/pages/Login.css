@@ -21,7 +21,7 @@
   }
   
   .text {
-    color: #FFFFFF;
+    color: #F1FAEE;
     font-size: 42px;
     font-weight: 600;
     text-align: center;
@@ -48,7 +48,7 @@
     width: 100%;
     max-width: 480px;
     padding: 10px;
-    background: #ffffff;
+    background: #F1FAEE;
     border-radius: 6px;
   }
   
@@ -60,10 +60,11 @@
     width: calc(100% - 60px);
     height: 40px;
     border: 1px solid #ccc;
-    background: #fff;
-    font-size: 18px;
-    color: #000000;
+    background: #f8fdf6;
+    font-size: 16px;
+    color: #050e1c;
     padding-left: 10px;
+    border-radius: 8px;
   }
   
   .input:focus {
@@ -74,7 +75,7 @@
   .forgot-password {
     margin: 10px auto;
     font-size: 16px;
-    color: #FFFFFF;
+    color: #F1FAEE;
     text-align: center;
   }
   
@@ -124,12 +125,12 @@
   
   .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 40;
-    color: #1D3557;
+    color: #F1FAEE;
     padding-right: 12px;
   }
 
-.input-field {
-    border: 1px solid #ccc;
+  .input-field {
+    border: 1px solid #F1FAEE;
     border-radius: 5px;
   }
 
@@ -137,11 +138,7 @@
     outline: none;
     border-color: #1D3557;
   }
-  
-  .input-field::placeholder {
-    color: #8b4141;
-    font-style: italic;
-  }
+
 
   .submit-container {
     display: flex;
@@ -152,7 +149,7 @@
   .signup-text {
     margin-top: 20px;
     font-size: 16px;
-    color: #FFFFFF;
+    color: #F1FAEE;
     text-align: center;
   }
   
@@ -163,5 +160,5 @@
   }
   
 .feedback-message {
-  color: #FFFFFF;
+  color: #F1FAEE;
 }

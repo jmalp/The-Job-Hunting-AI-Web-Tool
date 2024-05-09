@@ -337,22 +337,30 @@
   }
 
   .skills-input {
-    width: 100%;
+    width: 50%;
     padding: 10px;
     font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 4px solid #1D3557;
+    border-radius: 8px;
     margin-bottom: 10px;
+  }
+
+
+  .skills-input:focus {
+    border-color: #1D3557;
+    outline: none;
   }
   
   .suggestions-container {
     background-color: #f1f1f1;
+    align-items: center;
+    margin: auto;
+    margin-top: -5px;
     border: 1px solid #ccc;
     border-top: none;
     border-radius: 10px;
     max-height: 120px; 
-    overflow-y: auto;
-    width: 100%;
+    width: 50%;
   }
   
   .suggestion.active,
@@ -381,10 +389,14 @@
 
   .no-suggestions {
     background-color: #1D3557;
+    align-items: center;
+    margin: auto;
+    margin-top: -5px;
     color: #A8A8A8;
     padding: 8px 12px;
     border-radius: 10px;
     font-size: 14px;
+    width: 50%;
   }
 
   .success-message {

@@ -22,7 +22,7 @@
   }
   
   .form-page-title {
-    color: #FFFFFF;
+    color: #F1FAEE;
     font-size: 42px;
     font-weight: 600;
     text-align: center;
@@ -48,8 +48,8 @@
     display: flex;
     align-items: center;
     padding: 10px;
-    background: #457B9D;
-    border-radius: 5px;
+    background: #0e1d33;
+    border-radius: 8px;
   }
   
   .input img.icon {
@@ -64,7 +64,7 @@
     padding: 10px;
     border-radius: 5px;
     border: none;
-    color: #FFFFFF; 
+    color: #F1FAEE; 
     background: transparent;
   }
   
