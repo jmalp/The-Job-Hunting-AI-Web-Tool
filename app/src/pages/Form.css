@@ -18,12 +18,12 @@
     gap: 15px;
     width: 100%;
     margin-top: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 5px;
   }
   
   .form-page-title {
-    color: #FFFFFF;
-    font-size: 42px;
+    color: #F1FAEE;
+    font-size: 36px;
     font-weight: 600;
     text-align: center;
   }
@@ -41,15 +41,15 @@
   }
   
   .form-page-input {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
   
   .input {
     display: flex;
     align-items: center;
-    padding: 10px;
-    background: #457B9D;
-    border-radius: 5px;
+    padding: 8px;
+    background: #0e1d33;
+    border-radius: 7px;
   }
   
   .input img.icon {
@@ -64,7 +64,7 @@
     padding: 10px;
     border-radius: 5px;
     border: none;
-    color: #FFFFFF; 
+    color: #F1FAEE; 
     background: transparent;
   }
   
@@ -103,9 +103,9 @@
     cursor: pointer;
     margin-right: 60px;
     margin-left: 60px;
-    transition: background-color 0.3s;
   }
   
-  .base-buttotn:hover {
-    background-color: #ac3741;
+  .base-button:hover {
+    background-color: #F1FAEE;
+    color: #1D3557;
   }
