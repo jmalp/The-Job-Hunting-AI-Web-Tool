@@ -12,13 +12,6 @@ const ProfileForm = ({ initialValues, onSubmit, onError }) => {
     });
   };
 
-  const handleFileChange = (e) => {
-    setFormValues({
-      ...formValues,
-      file: e.target.files[0],
-    });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formValues.password !== formValues.confirmPassword) {
@@ -33,7 +26,6 @@ const ProfileForm = ({ initialValues, onSubmit, onError }) => {
       formData.append("state", formValues.state);
       formData.append("phone_number", formValues.phone_number);
       formData.append("password", formValues.password);
-      formData.append("file", formValues.file);
 
       await onSubmit(formData);
     } catch (error) {
@@ -67,12 +59,9 @@ const ProfileForm = ({ initialValues, onSubmit, onError }) => {
         <div className="input">
           <input type="text" name="phone_number" value={formValues.phone_number} onChange={handleChange} placeholder="Phone Number" className="input-field"/>
         </div>
-        <div className="input">
-          <input type="file" onChange={handleFileChange} accept=".pdf"/>
-        </div>
       </div>
       <div className="submit-container">
-        <button type="submit" className="submit">Submit</button>
+        <button type="submit" className="update-resume-button">Submit</button>
       </div>
     </form>
   );

@@ -1,49 +1,53 @@
 .search-page-container {
     display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    align-items: center;
   }
-
-.job-link {
+  
+  .job-link {
     text-decoration: none;
     color: black;
   }
-
-.card {
-  display: flex;
+  
+  .card {
+    display: flex;
     flex-direction: column;
     margin: auto;
-    margin-top: 10px; 
+    margin-top: 10px;
     color: #f5f7fa;
     background: #1D3557;
-    padding: 30px; 
-    width: 90%; 
+    padding: 30px;
+    width: 90%;
     max-width: 600px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); 
-    border-radius: 10px; 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
   }
-
-.card:hover {
+  
+  .card:hover {
     background: #f5f7fa;
   }
-
-.title {
+  
+  .title {
     font-weight: bold;
   }
-
-.snippet {
+  
+  .snippet {
     color: #95979a;
   }
   
-.search-page-form {
-    position: sticky;
-    top: 25%;
+  .search-page-form {
+    position: fixed;
+    top: 1;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 1;
     flex-direction: column;
     margin: auto;
-    margin-top: 100px;
     background: #1D3557;
     padding: 30px;
-    width: 40%;
-    max-width: 1000px;
+    width: 80%;
+    max-width: 1300px;
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
   }
@@ -54,13 +58,13 @@
     align-items: center;
     gap: 15px;
     width: 100%;
-    margin-top: 20px;
+    margin-top: -10px;
     margin-bottom: 30px;
   }
   
   .search-page-title {
     color: #FFFFFF;
-    font-size: 42px;
+    font-size: 30px;
     font-weight: 600;
     text-align: center;
   }
@@ -74,11 +78,14 @@
   
   .search-page-inputs {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
   
   .search-page-input {
-    margin-bottom: 20px;
+    flex: 1;
+    margin-right: 15px;
   }
   
   .input {
@@ -103,10 +110,11 @@
   .search-page-submit-container {
     display: flex;
     justify-content: center;
+    margin-top: 15px;
   }
   
   .search-page-submit-btn {
-    width: 125px;
+    width: 200px;
     height: 45px;
     background: #E63946;
     color: #F1FAEE;
@@ -123,7 +131,9 @@
   }
   
   .search-page-results {
-    margin-top: 20px;
-    width: 50%;
-    z-index: 2;
+    margin-top: 300px;
+    width: 120%;
+    max-height: calc(100vh - 300px);
+    overflow-y: auto;
+    padding-bottom: 20px;
   }

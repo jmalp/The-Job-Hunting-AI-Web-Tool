@@ -23,7 +23,7 @@
   
   .settings-title {
     color: #FFFFFF;
-    font-size: 42px;
+    font-size: 30px;
     font-weight: 600;
     text-align: center;
   }
@@ -158,4 +158,261 @@
   .skill-button .remove-skill:hover {
     color: #F1FAEE;
   }
+  
+  .delete-account-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .delete-button {
+    margin-top: 20px;
+  }
+  
+  .confirmation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .confirmation-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .settings-button-yes {
+    display: flex;
+    width: 125px;
+    height: 45px;
+    background: #E63946;
+    color: #FFFFFF;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 30px;
+    cursor: pointer;
+    align-items: center;
+    border: none !important;
+  }
+
+  .settings-button-yes:hover {
+    background: #8e222b;
+    color: #F1FAEE;
+  }
+
+  .settings-button-no {
+    display: flex;
+    width: 125px;
+    height: 45px;
+    background: #457B9D;
+    color: #FFFFFF;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 30px;
+    cursor: pointer;
+    align-items: center;
+    border: none !important;
+  }
+
+  .settings-button-no:hover {
+    background: #1D3557;
+    color: #F1FAEE;
+  }
+
+  .settings-button-delete {
+    display: flex;
+    width: 150px;
+    height: 45px;
+    padding: 0 20px;
+    background: #E63946;
+    color: #FFFFFF;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 30px;
+    cursor: pointer;
+    align-items: center;
+    border: none !important;
+    white-space: nowrap;
+  }
+  
+  .settings-button-delete:hover {
+    background: #8e222b;
+    color: #F1FAEE;
+  }
+
+  .dropzone {
+    color: #FFFFFF !important
+  }
+
+  .update-resume-button {
+    display: flex;
+    width: 150px;
+    height: 45px;
+    padding: 0 20px;
+    background: #E63946;
+    color: #FFFFFF;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 30px;
+    cursor: pointer;
+    align-items: center;
+    border: none !important;
+    white-space: nowrap;
+    margin-top: 20px;
+  }
+  
+  .update-resume-button:hover {
+    background: #457B9D;
+    color: #F1FAEE;
+  }
+
+  .resume-dropzone {
+    padding: 20px;
+    border: 2px dashed #E63946;
+    background-color: #1D3557;
+    color: #F1FAEE;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .resume-dropzone:hover {
+    background-color: #15537a;
+  }
+  
+  .resume-dropzone p {
+    margin: 10px 0;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
+  .resume-select-button {
+    width: 125px;
+    height: 45px;
+    background-color: #E63946;
+    color: #F1FAEE;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .resume-select-button:hover {
+    background: #ac3741;
+    color: #F1FAEE;
+  }
+  
+  .file-loaded-message {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #F1FAEE;
+  }
+  
+  .resume-submit-button {
+    width: 150px;
+    height: 45px;
+    background-color: #E63946;
+    color: #F1FAEE;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    margin-top: 20px;
+  }
+  
+  .resume-submit-button:hover {
+    background: #ac3741;
+    color: #F1FAEE;
+  }
+
+  .skills-input {
+    width: 50%;
+    padding: 10px;
+    font-size: 16px;
+    border: 4px solid #1D3557;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+
+  .skills-input:focus {
+    border-color: #1D3557;
+    outline: none;
+  }
+  
+  .suggestions-container {
+    background-color: #f1f1f1;
+    align-items: center;
+    margin: auto;
+    margin-top: -5px;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 10px;
+    max-height: 120px; 
+    width: 50%;
+  }
+  
+  .suggestion.active,
+  .suggestion {
+    padding: 8px 12px;
+    cursor: pointer;
+    background-color: #1D3557;
+    color: #A8A8A8;
+  }
+  
+
+  .suggestion:hover {
+    background-color: #E63946;
+    color: #A8A8A8;
+  }
+
+  .suggestion:hover strong{
+    background-color: #E63946;
+    color: #000000;
+  }
+  
+  .suggestion strong {
+    color: #FFFFFF;
+    font-weight: bold;
+  }
+
+  .no-suggestions {
+    background-color: #1D3557;
+    align-items: center;
+    margin: auto;
+    margin-top: -5px;
+    color: #A8A8A8;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 14px;
+    width: 50%;
+  }
+
+  .success-message {
+    background-color: #1D3557;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+  }
+
+  .success-message p {
+    background-color: #1D3557;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+  }
+
   

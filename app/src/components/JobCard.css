@@ -1,0 +1,49 @@
+.job-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    background-color: #1D3557 !important;
+    padding: 20px;
+    width: 100%;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.03);
+    background-color: #050e1c !important;
+}
+
+.title, .location, .details, .snippet {
+    color: #F1FAEE;
+    margin-bottom: 10px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.location {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.details {
+    font-size: 16px;
+    font-weight: 400;
+    background: #457B9D;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.snippet {
+    font-size: 14px;
+    font-weight: 400;
+}

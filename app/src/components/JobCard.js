@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
+import './JobCard.css';
 
-export default function JobCard({job}) {
-
+export default function JobCard({ job }) {
     var details;
-    if (job.type == "") {
+    if (job.type === "") {
         details = job.salary;
     } else {
         details = job.type + " | " + job.salary;
@@ -18,5 +18,5 @@ export default function JobCard({job}) {
                 <div className='snippet'>{job.snippet}</div>
             </div>
         </Link>
-    )
+    );
 }
