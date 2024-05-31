@@ -142,17 +142,17 @@ command to run if program contains helper info
 
 ## Authors
 
-Jomar Malpica
-email: [malpicaj@oregonstate.edu](mailto:malpicaj@oregonstate.edu)
-github: [jmalp](https://github.com/jmalp)
+Jomar Malpica  
+email: malpicaj@oregonstate.edu  
+github: [jmalp](https://github.com/jmalp)  
 
-Alejandro Grau
-email: [graua@oregonstate.edu](mailto:graua@oregonstate.edu)
-github: [graua-git](https://github.com/graua-git)
+Alejandro Grau  
+email: graua@oregonstate.edu  
+github: [graua-git](https://github.com/graua-git)  
 
-Gabriele Narmontaite
-email: [narmontg@oregonstate.edu](mailto:narmontg@oregonstate.edu)
-github: [jmalp](https://github.com/jmalp)
+Gabriele Narmontaite  
+email: narmontg@oregonstate.edu  
+github: [GabbyNorth](https://github.com/GabbyNorth)  
 
 ## Version History
 
