@@ -6,6 +6,10 @@ The Job Hunting AI Web Tool
 
 The complex landscape of online job searching often leaves job seekers overwhelmed by the vast options and unsure of the best opportunities aligning with their skills and preferences. Traditional job search methodologies rely heavily on manual filtration, leading to unsatisfying matches and inefficiencies for both the job seekers and the employers. This paper proposes a solution that takes advantage of AI techniques and statistical modeling to improve the job search process, offering real-time, curated job matching. 
 
+## Table of Contents
+- [Access the Deployed Website](#access-the-deployed-website)
+- [Authors](#authors)
+- 
 ## Getting Started
 
 ## Access the Deployed Website
