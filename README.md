@@ -8,6 +8,18 @@ The complex landscape of online job searching often leaves job seekers overwhelm
 
 ## Getting Started
 
+### Access the Deployed Website
+
+You can use the deployed version of our project by visiting the following link:
+
+[Deployed Website](https://placeholder-link.com)
+
+This website is fully functional and allows you to interact with all the features of our project without needing to set up anything locally.
+
+### Running the Code Locally
+
+If the deployed website is unavailable or you prefer to run the code locally, follow the next steps to set up the project on your local machine. This includes installing the necessary dependencies for both the backend and the frontend.
+
 ### Dependencies
 
 <!-- * prerequisites, libraries, OS version, etc., needed before installing program.
@@ -59,6 +71,32 @@ The frontend of this project is built using React and managed via npm. To set up
    ```bash
    npm install
    ```
+
+#### Setting Up a Local Database
+
+To set up a local PostgreSQL database for this project, follow these steps:
+
+1. **Install pgAdmin4:**
+   - Download and install pgAdmin4 from the [official website](https://www.pgadmin.org/download/).
+   
+2. **Create a PostgreSQL Database:**
+   - Open pgAdmin4 and create a new database. Note the database name, user, password, host, and port.
+
+3. **Create a `.ini` Configuration File:**
+   - In the `api/database` directory, create a file named `config.ini` with the following content:
+     ```ini
+     [postgresql]
+     host=your_host
+     dbname=your_dbname
+     user=your_user
+     password=your_password
+     port=your_port
+     ```
+   - Replace `your_host`, `your_dbname`, `your_user`, `your_password`, and `your_port` with your database connection details.
+
+4. **Run the `schema.sql` File:**
+   - In pgAdmin4, open the Query Tool and load the `schema.sql` file located in the `api/database` directory.
+   - Execute the script to create the necessary database schema.
 
 ### Installing
 
