@@ -46,7 +46,7 @@ To install all the required Python packages, you can use the `requirements.txt` 
    pip install -r requirements.txt
    ```
 
-### Frontend Dependencies
+#### Frontend Dependencies
 
 The frontend of this project is built using React and managed via npm. To set up the frontend dependencies, follow these steps:
 
