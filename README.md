@@ -33,7 +33,7 @@ The backend of this project is built using Flask and several additional librarie
 - `pdfplumber==0.11.0`
 - `sklearn-features==0.0.2`
 
-To install all the required Python packages, you can use the `requirements.txt` file included in the repository. Follow these steps to install the dependencies:
+To install all the required Python packages, you can use the `requirements.txt` file included in the API directory. Follow these steps to install the dependencies:
 
 1. **Create a Virtual Environment (Optional but Recommended):**
    ```bash
@@ -50,9 +50,9 @@ To install all the required Python packages, you can use the `requirements.txt` 
 
 The frontend of this project is built using React and managed via npm. To set up the frontend dependencies, follow these steps:
 
-1. **Navigate to the Frontend Directory:**
+1. **Navigate to the app Directory:**
    ```bash
-   cd frontend
+   cd app
    ```
 
 2. **Install npm Packages:**
