@@ -98,11 +98,6 @@ To set up a local PostgreSQL database for this project, follow these steps:
    - In pgAdmin4, open the Query Tool and load the `schema.sql` file located in the `api/database` directory.
    - Execute the script to create the necessary database schema.
 
-### Installing
-
-<!-- * How/where to download your program
-* Any modifications needed to be made to files/folders -->
-
 ### Executing program
 
 <!-- * How to run the program
@@ -110,6 +105,30 @@ To set up a local PostgreSQL database for this project, follow these steps:
 ```
 code blocks for commands
 ``` -->
+To run the project locally, you need to start both the backend and frontend servers. Follow these steps to execute the program:
+
+Step 1: Start the Backend Server
+Open a new terminal window.
+Navigate to the API directory:
+sh
+Copy code
+cd api
+Run the backend server:
+sh
+Copy code
+python main.py
+This will start the Flask server and make the backend API available.
+Step 2: Start the Frontend Server
+Open another new terminal window.
+Navigate to the app directory:
+sh
+Copy code
+cd app
+Run the frontend server:
+sh
+Copy code
+npm start
+This will start the React application and open it in your default web browser.
 
 ## Help
 
