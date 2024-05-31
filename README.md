@@ -107,7 +107,7 @@ code blocks for commands
 ``` -->
 To run the project locally, you need to start both the backend and frontend servers. Follow these steps to execute the program:
 
-### Step 1: Start the Backend Server
+#### Step 1: Start the Backend Server
 
 1. **Open a new terminal window.**
 2. **Navigate to the API directory:**
@@ -120,7 +120,7 @@ To run the project locally, you need to start both the backend and frontend serv
    ```
    This will start the Flask server and make the backend API available.
 
-### Step 2: Start the Frontend Server
+#### Step 2: Start the Frontend Server
 
 1. **Open another new terminal window.**
 2. **Navigate to the app directory:**
