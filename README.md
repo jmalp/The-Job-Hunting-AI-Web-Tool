@@ -143,11 +143,16 @@ command to run if program contains helper info
 ## Authors
 
 Jomar Malpica
-<!-- contact info placeholder [@DomPizzie](https://twitter.com/dompizzie) -->
+email: [malpicaj@oregonstate.edu](mailto:malpicaj@oregonstate.edu)
+github: [jmalp](https://github.com/jmalp)
+
 Alejandro Grau
-<!-- contact info placeholder [@DomPizzie](https://twitter.com/dompizzie) -->
+email: [graua@oregonstate.edu](mailto:graua@oregonstate.edu)
+github: [graua-git](https://github.com/graua-git)
+
 Gabriele Narmontaite
-<!-- contact info placeholder [@DomPizzie](https://twitter.com/dompizzie) -->
+email: [narmontg@oregonstate.edu](mailto:narmontg@oregonstate.edu)
+github: [jmalp](https://github.com/jmalp)
 
 ## Version History
 
