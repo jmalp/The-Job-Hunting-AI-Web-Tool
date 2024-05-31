@@ -8,7 +8,7 @@ The complex landscape of online job searching often leaves job seekers overwhelm
 
 ## Getting Started
 
-### Access the Deployed Website
+## Access the Deployed Website
 
 You can use the deployed version of our project by visiting the following link:
 
@@ -16,7 +16,7 @@ You can use the deployed version of our project by visiting the following link:
 
 This website is fully functional and allows you to interact with all the features of our project without needing to set up anything locally.
 
-### Running the Code Locally
+## Running the Code Locally
 
 If the deployed website is unavailable or you prefer to run the code locally, follow the next steps to set up the project on your local machine. This includes installing the necessary dependencies for both the backend and the frontend.
 
