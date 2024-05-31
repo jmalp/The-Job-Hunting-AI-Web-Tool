@@ -133,6 +133,12 @@ To run the project locally, you need to start both the backend and frontend serv
    ```
    This will start the React application and open it in your default web browser.
 
+## Architecture
+
+## Design Decisions
+
+## Deployment Information
+
 ## Help
 
 <!-- Any advise for common problems or issues.
