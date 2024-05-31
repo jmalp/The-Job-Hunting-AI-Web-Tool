@@ -8,8 +8,15 @@ The complex landscape of online job searching often leaves job seekers overwhelm
 
 ## Table of Contents
 - [Access the Deployed Website](#access-the-deployed-website)
+- [Running the Code Locally](#running-the-code-locally)
+- [Architecture](#architecture)
+- [Design Decisions](#design-decisions)
+- [Deployment Information](#deployment-information)
+- [Help](#help)
 - [Authors](#authors)
-- 
+- [Version History](#version-history)
+- [Acknowledgments](#acknowledgments)
+
 ## Getting Started
 
 ## Access the Deployed Website
@@ -171,10 +178,6 @@ github: [GabbyNorth](https://github.com/GabbyNorth)
     * See [commit change]() or See [release history]() -->
 * 0.1
     * Initial Release
-
-## License
-
-<!-- This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details -->
 
 ## Acknowledgments
 
