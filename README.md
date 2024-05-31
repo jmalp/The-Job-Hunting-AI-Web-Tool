@@ -107,28 +107,31 @@ code blocks for commands
 ``` -->
 To run the project locally, you need to start both the backend and frontend servers. Follow these steps to execute the program:
 
-Step 1: Start the Backend Server
-Open a new terminal window.
-Navigate to the API directory:
-sh
-Copy code
-cd api
-Run the backend server:
-sh
-Copy code
-python main.py
-This will start the Flask server and make the backend API available.
-Step 2: Start the Frontend Server
-Open another new terminal window.
-Navigate to the app directory:
-sh
-Copy code
-cd app
-Run the frontend server:
-sh
-Copy code
-npm start
-This will start the React application and open it in your default web browser.
+### Step 1: Start the Backend Server
+
+1. **Open a new terminal window.**
+2. **Navigate to the API directory:**
+   ```sh
+   cd api
+   ```
+3. **Run the backend server:**
+   ```sh
+   python main.py
+   ```
+   This will start the Flask server and make the backend API available.
+
+### Step 2: Start the Frontend Server
+
+1. **Open another new terminal window.**
+2. **Navigate to the app directory:**
+   ```sh
+   cd app
+   ```
+3. **Run the frontend server:**
+   ```sh
+   npm start
+   ```
+   This will start the React application and open it in your default web browser.
 
 ## Help
 
