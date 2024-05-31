@@ -12,6 +12,53 @@ The complex landscape of online job searching often leaves job seekers overwhelm
 
 <!-- * prerequisites, libraries, OS version, etc., needed before installing program.
 * ex. Windows 10 -->
+#### Backend Dependencies
+
+The backend of this project is built using Flask and several additional libraries for various functionalities. Below is a list of the main Python packages used:
+
+- `Flask==3.0.2`
+- `Flask-Cors==4.0.0`
+- `Flask-RESTful==0.3.10`
+- `gensim==4.3.2`
+- `nltk==3.8.1`
+- `numpy==1.26.3`
+- `pandas==2.2.0`
+- `psycopg2==2.9.9`
+- `psycopg2-binary==2.9.9`
+- `PyJWT==2.8.0`
+- `requests==2.31.0`
+- `scikit-learn==1.4.0`
+- `scipy==1.10.1`
+- `gunicorn==21.2.0`
+- `pdfplumber==0.11.0`
+- `sklearn-features==0.0.2`
+
+To install all the required Python packages, you can use the `requirements.txt` file included in the repository. Follow these steps to install the dependencies:
+
+1. **Create a Virtual Environment (Optional but Recommended):**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate   # On Windows use `venv\Scripts\activate`
+   ```
+
+2. **Install the Dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+### Frontend Dependencies
+
+The frontend of this project is built using React and managed via npm. To set up the frontend dependencies, follow these steps:
+
+1. **Navigate to the Frontend Directory:**
+   ```bash
+   cd frontend
+   ```
+
+2. **Install npm Packages:**
+   ```bash
+   npm install
+   ```
 
 ### Installing
 
