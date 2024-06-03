@@ -61,7 +61,7 @@ The backend of this project is built using Flask and several additional librarie
 - `pdfplumber==0.11.0`
 - `sklearn-features==0.0.2`
 
-To install all the required Python packages, you can use the `requirements.txt` file included in the API directory. Follow these steps to install the dependencies:
+You can install the required Python packages using the `requirements.txt` file in the API directory. Follow these steps to install the dependencies:
 
 1. **Create a Virtual Environment (Optional but Recommended):**
    ```bash
@@ -112,7 +112,7 @@ To set up a local PostgreSQL database for this project, follow these steps:
    - Replace `your_host`, `your_dbname`, `your_user`, `your_password`, and `your_port` with your database connection details.
 
 4. **Run the `schema.sql` File:**
-   - In pgAdmin4, open the Query Tool and load the `schema.sql` file located in the `api/database` directory.
+   - In pgAdmin4, open the Query Tool and load the `schema.sql` file in the `api/database` directory.
    - Execute the script to create the necessary database schema.
 
 ### Executing program
@@ -122,7 +122,7 @@ To set up a local PostgreSQL database for this project, follow these steps:
 ```
 code blocks for commands
 ``` -->
-To run the project locally, you need to start both the backend and frontend servers. Follow these steps to execute the program:
+To run the project locally, you must start both the backend and frontend servers. Follow these steps to execute the program:
 
 #### Step 1: Start the Backend Server
 
