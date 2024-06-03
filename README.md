@@ -71,6 +71,7 @@ To install all the required Python packages, you can use the `requirements.txt` 
 
 2. **Install the Dependencies:**
    ```bash
+   cd api
    pip install -r requirements.txt
    ```
 
