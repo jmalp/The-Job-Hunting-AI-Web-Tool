@@ -23,7 +23,7 @@ The complex landscape of online job searching often leaves job seekers overwhelm
 
 You can use the deployed version of our project by visiting the following link:
 
-[Deployed Website](https://placeholder-link.com)
+[Deployed Website](http://tjhait-react-app-bucket.s3-website-us-west-2.amazonaws.com/)
 
 To interact with the application, you can either create your own account or use the following test credentials:
 
