@@ -25,6 +25,11 @@ You can use the deployed version of our project by visiting the following link:
 
 [Deployed Website](https://placeholder-link.com)
 
+To interact with the application, you can either create your own account or use the following test credentials:
+
+Username: testing@oregonstate.edu
+Password: virtualexpo2024
+
 This website is fully functional and allows you to interact with all the features of our project without needing to set up anything locally.
 
 ## Running the Code Locally
