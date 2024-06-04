@@ -6,6 +6,8 @@ The Job Hunting AI Web Tool
 
 The complex landscape of online job searching often leaves job seekers overwhelmed by the vast options and unsure of the best opportunities aligning with their skills and preferences. Traditional job search methodologies rely heavily on manual filtration, leading to unsatisfying matches and inefficiencies for both the job seekers and the employers. This paper proposes a solution that takes advantage of AI techniques and statistical modeling to improve the job search process, offering real-time, curated job matching. 
 
+---
+
 ## Table of Contents
 - [Access the Deployed Website](#access-the-deployed-website)
 - [Running the Code Locally](#running-the-code-locally)
@@ -17,7 +19,7 @@ The complex landscape of online job searching often leaves job seekers overwhelm
 - [Version History](#version-history)
 - [Acknowledgments](#acknowledgments)
 
-## Getting Started
+---
 
 ## Access the Deployed Website
 
@@ -33,6 +35,8 @@ Password: virtualexpo2024
 This account represents a user who has recently graduated from Oregon State with a Bachelor's in Computer Science. Their project experience and skills include the languages, frameworks, and libraries used to develop this application.
 
 This website is fully functional and allows you to interact with all the features of our project without needing to set up anything locally.
+
+---
 
 ## Running the Code Locally
 
@@ -152,6 +156,8 @@ To run the project locally, you must start both the backend and frontend servers
    ```
    This will start the React application and open it in your default web browser.
 
+---
+
 ## Architecture
 
 ### Overview
@@ -222,6 +228,8 @@ The project uses a classic client/server architecture that consists of a fronten
   
 - User passwords are securely hashed and stored in the database.
 
+---
+
 ## Design Decisions
 
 ### Overview
@@ -284,10 +292,6 @@ In this section, we detail the key design decisions made during the development 
 
 - We locked the main branch to prevent accidental commits that could break the code and instituted mandatory code reviews for all pull requests. This ensured that multiple team members scrutinized each change, reducing the likelihood of errors and maintaining code quality.
 
-## Deployment Information
-
-Certainly! Here's a section on the deployment design decisions, explaining how you used AWS and GCP to learn the fundamentals of cloud application development:
-
 ---
 
 ## Deployment Design Decisions
@@ -314,6 +318,8 @@ While we were able to put systems in place to prevent deletion of the test user 
 
 If the password does get changed, feel free to contact any of the team members listed below, or create an account with a throwaway email address and no resume to test the functionality of our website.
 
+---
+
 ## Authors
 
 Jomar Malpica  
@@ -328,12 +334,18 @@ Gabriele Narmontaite
 email: narmontg@oregonstate.edu  
 github: [GabbyNorth](https://github.com/GabbyNorth)  
 
+---
+
 ## Version History
 
 * 1.0
     * Initial Release
 
+---
+
 ## Acknowledgments
 
 * [Gates Bolton Analytics](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
 * [awesome-readme](https://github.com/matiassingers/awesome-readme)
+
+---
