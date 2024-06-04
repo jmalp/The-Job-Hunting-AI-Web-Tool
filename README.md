@@ -30,6 +30,8 @@ To interact with the application, you can either create your own account or use 
 Username: testing@oregonstate.edu
 Password: virtualexpo2024
 
+This account represents a user who has recently graduated from Oregon State with a Bachelor's in Computer Science. Their project experience and skills include the languages, frameworks, and libraries used to develop this application.
+
 This website is fully functional and allows you to interact with all the features of our project without needing to set up anything locally.
 
 ## Running the Code Locally
@@ -220,26 +222,97 @@ The project uses a classic client/server architecture that consists of a fronten
   
 - User passwords are securely hashed and stored in the database.
 
-### Interaction
-
-- **Communication**: The frontend and backend communicate using HTTP/HTTPS and JSON data format.
-- **API Documentation**: API endpoints are documented using Swagger.
-
-### Deployment
-
-- **Platform**: The application is deployed on Heroku.
-- **Services**: The frontend and backend are deployed as separate services, and the database is managed using Heroku Postgres.
-
 ## Design Decisions
+
+### Overview
+
+In this section, we detail the key design decisions made during the development of our project. Our decisions were guided by a combination of our existing knowledge, adherence to industry standards, and the ambition to learn new technologies and methodologies to better prepare ourselves for our careers. Understanding these decisions provides insight into the rationale behind our technology choices, architectural patterns, and implementation strategies. This transparency helps viewers understand the thought process and trade-offs considered to achieve the project’s objectives.
+
+### Technology Stack
+
+**Frontend**
+
+- We chose React because we needed to improve our frontend development skills and wanted to use a framework we were already somewhat familiar with. React’s component-based architecture and strong ecosystem also made it an ideal choice for building a scalable and maintainable user interface.
+
+**Backend**
+
+- For the backend API there are a lot more options with languages and frameworks. Since the project required some form of machine learning, we knew we must use Python. That leaves us with using either Django or Flask for our API framework. Ultimately, we decided to use Flask due to its lightweight nature and flexibility. Django provides great built-in features such as an ORM, but we felt the learning curve was too steep for the time allotted and that we wouldn't be able to fully utilize these features.
+
+**Database**
+
+- Our team has experience using MySQL through previous coursework. For this project, we decided to experiment with using PostgreSQL to further broaden our skill set. 
+
+### UI/UX Design
+
+- Our goal was to keep our website as lightweight as possible. The problem this website is trying to solve is the time-consuming nature of job applications. Thus, by keeping user flows as short as possible, we can improve the time efficiency of users' job searching process.
+
+- Our website only consists of four pages: login, create an account, search jobs, and account settings. We keep the site free of any unnecessary buttons or links. We want users to be able to access the website and find results quickly.
+
+### API Design
+
+- Our backend consists of a small amount of endpoints for the frontend to send requests to. This includes CRUD operations on user accounts, verifying login credentials, and searching for jobs.
+
+- It is not intended for other developers to make use of this API at this time.
+
+### Security
+
+- The decisions we made involving security were crucial. Since users intend to store resumes in our database that contain sensitive information, we must properly implement authentication and authorization.
+
+- We decided to use JWTs (JSON Web Tokens) for our API security. When a user creates an account or logs in, a JWT is generated containing their user ID and is sent to their client. For subsequent requests involving actions such as updating their account or searching for jobs, the client sends the JWT back to the API. The API decodes the JWT to identify the user, ensuring that the correct account is used to update the database or retrieve information.
+
+### Machine Learning
+
+### Scalability
+
+- Deploying our API on a cloud platform such as GCP allows us to scale the software horizontally if needed by creating more instances to handle larger loads. 
+
+### Testing
+
+**API Testing**
+
+- Our API was tested using a postman. We wrote several requests to test the functionality of job searching, token authentication, and crud operations on user accounts
+
+**UI/UX Testing**
+
+- Throughout the development of our frontend, we reached out to friends and family and walked them through the user journey to receive feedback on our design choices.
+
+- While time did not allow for automating frontend testing using libraries such as Selenium web driver, we did manual testing of the front end throughout to ensure all cases were covered.
+
+### Development Workflow
+
+- Our team leveraged GitHub's collaboration features to develop a functional and maintainable program.
+
+- We locked the main branch to prevent accidental commits that could break the code and instituted mandatory code reviews for all pull requests. This ensured that multiple team members scrutinized each change, reducing the likelihood of errors and maintaining code quality.
 
 ## Deployment Information
 
+Certainly! Here's a section on the deployment design decisions, explaining how you used AWS and GCP to learn the fundamentals of cloud application development:
+
+---
+
+## Deployment Design Decisions
+
+### Overview
+
+In our project, we aimed to gain a comprehensive understanding of cloud application development by utilizing both AWS and GCP. This approach allowed us to familiarize ourselves with different cloud platforms and their respective services, equipping us with versatile skills for future projects. This dual-cloud approach provided valuable insights into the strengths and capabilities of both platforms, preparing us for future projects that may require cloud-based solutions.
+
+### Frontend: AWS S3
+
+- We deployed our frontend on AWS S3, taking advantage of its static website hosting capabilities. AWS S3 provided a scalable and cost-effective solution for hosting our React application, allowing us to serve our front end with high availability and performance. This experience helped us understand the fundamentals of deploying static websites on the cloud, including configuring bucket policies, setting up custom domains, and managing access permissions.
+
+### Backend: GCP Google Compute Engine
+
+- For the backend, we utilized Google Compute Engine (GCE) on GCP. We created a virtual machine (VM) instance using Docker to containerize our Flask application. This decision allowed us to gain hands-on experience with containerization and orchestration. By deploying our backend on GCE, we learned how to set up and manage VM instances, configure firewalls, and handle network settings. This also provided insights into the benefits of using containers for consistent deployment environments and simplified scalability.
+
+### Database: AWS PostgreSQL RDS
+
+- Our database was deployed on AWS PostgreSQL RDS (Relational Database Service). AWS RDS offered a managed database service, handling routine database tasks such as backups, patching, and scaling, which allowed us to focus on application development. By using PostgreSQL RDS, we gained experience in setting up and configuring managed database instances, understanding the importance of automated backups, and implementing best practices for database security and performance.
+
 ## Help
 
-<!-- Any advise for common problems or issues.
-```
-command to run if program contains helper info
-``` -->
+While we were able to put systems in place to prevent deletion of the test user account, we were not able to prevent changing the password on the account page. If you do use this account please refrain from changing the password so that others may use it. 
+
+If the password does get changed, feel free to contact any of the team members listed below, or create an account with a throwaway email address and no resume to test the functionality of our website.
 
 ## Authors
 
@@ -257,10 +330,7 @@ github: [GabbyNorth](https://github.com/GabbyNorth)
 
 ## Version History
 
-<!-- * 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]() -->
-* 0.1
+* 1.0
     * Initial Release
 
 ## Acknowledgments
