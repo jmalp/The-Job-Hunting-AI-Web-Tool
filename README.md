@@ -214,24 +214,40 @@ The project uses a classic client/server architecture that consists of a fronten
 ### Key Features
 
 **User Registration and Login**
-- Users can create a new account by providing their email address and setting a password.
-- Existing users can log in to their accounts using their credentials.
-**User Profile Creation**
-- After logging in, users can create a detailed profile by providing information about their skills.
-- Users can upload their resumes in PDF format, which will be used to enhance job recommendations by using work experience and keywords.
-**Job Search**
-- Users can search for job listings by entering specific keywords, choosing a city, setting a search radius, and specifying a salary range.
-- The tool integrates with the Jooble API to fetch relevant job listings from various sources.
-**Personalized Job Recommendations**
-- The tool provides personalized job recommendations based on the user's profile and search criteria.
-**Job Card Display**
-- Search results are presented as job cards, offering a concise overview of each job listing.
-- Each job card includes the job title, company name, location, and a brief description.
-- Users can click on a job card to view more details and access the original job listing on the external site.
-**User Authentication and Security**
-- The tool implements a secure user authentication system to ensure only authorized users can access their accounts and personal information.
-- User passwords are securely hashed and stored in the database.
 
+- Users can create a new account by providing their email address and setting a password.
+
+- Existing users can log in to their accounts using their credentials.
+
+**User Profile Creation**
+
+- After logging in, users can create a detailed profile by providing information about their skills.
+
+- Users can upload their resumes in PDF format, which will be used to enhance job recommendations by using work experience and keywords.
+  
+**Job Search**
+
+- Users can search for job listings by entering specific keywords, choosing a city, setting a search radius, and specifying a salary range.
+  
+- The tool integrates with the Jooble API to fetch relevant job listings from various sources.
+  
+**Personalized Job Recommendations**
+  
+- The tool provides personalized job recommendations based on the user's profile and search criteria.
+  
+**Job Card Display**
+  
+- Search results are presented as job cards, offering a concise overview of each job listing.
+  
+- Each job card includes the job title, company name, location, and a brief description.
+  
+- Users can click on a job card to view more details and access the original job listing on the external site.
+  
+**User Authentication and Security**
+  
+- The tool implements a secure user authentication system to ensure only authorized users can access their accounts and personal information.
+  
+- User passwords are securely hashed and stored in the database.
 
 ### Interaction
 
