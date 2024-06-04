@@ -152,35 +152,6 @@ To run the project locally, you must start both the backend and frontend servers
 
 ## Architecture
 
-Certainly! The architecture section of a README file provides an overview of the structure and components of your project. This helps users and developers understand how different parts of the system interact and how the overall system is designed. Here's a breakdown of what you might want to include in the architecture section:
-
-### Architecture Section
-
-1. **Overview**:
-   - Provide a high-level overview of the project architecture. Mention the main components such as frontend, backend, and database, and how they interact with each other.
-
-2. **Components**:
-   - **Frontend**: Describe the technology stack used for the frontend (e.g., React, npm). Mention any important libraries or frameworks.
-   - **Backend**: Describe the technology stack used for the backend (e.g., Flask, Python). Mention key libraries and frameworks.
-   - **Database**: Describe the database technology used (e.g., PostgreSQL). Mention any important schemas or tables.
-   
-3. **Data Flow**:
-   - Explain how data flows between the frontend, backend, and database. You might want to include a diagram to illustrate this.
-
-4. **Key Features**:
-   - Highlight any key features or components in your architecture, such as authentication, API endpoints, data processing, etc.
-
-5. **Interaction**:
-   - Describe how the frontend and backend communicate (e.g., RESTful API calls). Mention any protocols or data formats used (e.g., JSON).
-
-6. **Deployment**:
-   - Provide an overview of how the application is deployed. Mention any services or platforms used for deployment (e.g., Heroku, AWS).
-
-7. **Directory Structure**:
-   - Provide a brief explanation of the project's directory structure. Mention the purpose of key directories and files.
-
-## Architecture
-
 ### Overview
 
 The project uses a classic client/server architecture that consists of a frontend, backend, and database. The frontend uses React, the backend is built using Flask, and the database is PostgreSQL. The frontend interacts with the backend through RESTful API calls, and the backend communicates with the database to fetch and store data.
