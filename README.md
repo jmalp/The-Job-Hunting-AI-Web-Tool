@@ -152,6 +152,97 @@ To run the project locally, you must start both the backend and frontend servers
 
 ## Architecture
 
+Certainly! The architecture section of a README file provides an overview of the structure and components of your project. This helps users and developers understand how different parts of the system interact and how the overall system is designed. Here's a breakdown of what you might want to include in the architecture section:
+
+### Architecture Section
+
+1. **Overview**:
+   - Provide a high-level overview of the project architecture. Mention the main components such as frontend, backend, and database, and how they interact with each other.
+
+2. **Components**:
+   - **Frontend**: Describe the technology stack used for the frontend (e.g., React, npm). Mention any important libraries or frameworks.
+   - **Backend**: Describe the technology stack used for the backend (e.g., Flask, Python). Mention key libraries and frameworks.
+   - **Database**: Describe the database technology used (e.g., PostgreSQL). Mention any important schemas or tables.
+   
+3. **Data Flow**:
+   - Explain how data flows between the frontend, backend, and database. You might want to include a diagram to illustrate this.
+
+4. **Key Features**:
+   - Highlight any key features or components in your architecture, such as authentication, API endpoints, data processing, etc.
+
+5. **Interaction**:
+   - Describe how the frontend and backend communicate (e.g., RESTful API calls). Mention any protocols or data formats used (e.g., JSON).
+
+6. **Deployment**:
+   - Provide an overview of how the application is deployed. Mention any services or platforms used for deployment (e.g., Heroku, AWS).
+
+7. **Directory Structure**:
+   - Provide a brief explanation of the project's directory structure. Mention the purpose of key directories and files.
+
+## Architecture
+
+### Overview
+
+The project uses a classic client/server architecture that consists of a frontend, backend, and database. The frontend uses React, the backend is built using Flask, and the database is PostgreSQL. The frontend interacts with the backend through RESTful API calls, and the backend communicates with the database to fetch and store data.
+
+### Components
+
+#### Frontend
+
+- **Technology Stack**: React, npm
+- **Key Libraries**: React Router, Axios
+- **Purpose**: The frontend provides the user interface and handles user interactions.
+
+#### Backend
+
+- **Technology Stack**: Flask, Python
+- **Key Libraries**: Flask, Flask-Cors, psycopg2
+- **Purpose**: The backend provides the API endpoints and handles job searching logic and account authentication and authorization.
+
+#### Database
+
+- **Technology Stack**: PostgreSQL
+- **Purpose**: The database stores all persistent data, including account information and resumes.
+
+### Data Flow
+
+1. The user interacts with the frontend through the web browser.
+2. The frontend sends requests to the backend via RESTful API calls.
+3. The backend processes these requests, interacts with the database if necessary, and sends responses back to the frontend.
+4. The frontend updates the UI based on the responses from the backend.
+
+### Key Features
+
+**User Registration and Login**
+- Users can create a new account by providing their email address and setting a password.
+- Existing users can log in to their accounts using their credentials.
+**User Profile Creation**
+- After logging in, users can create a detailed profile by providing information about their skills.
+- Users can upload their resumes in PDF format, which will be used to enhance job recommendations by using work experience and keywords.
+**Job Search**
+- Users can search for job listings by entering specific keywords, choosing a city, setting a search radius, and specifying a salary range.
+- The tool integrates with the Jooble API to fetch relevant job listings from various sources.
+**Personalized Job Recommendations**
+- The tool provides personalized job recommendations based on the user's profile and search criteria.
+**Job Card Display**
+- Search results are presented as job cards, offering a concise overview of each job listing.
+- Each job card includes the job title, company name, location, and a brief description.
+- Users can click on a job card to view more details and access the original job listing on the external site.
+**User Authentication and Security**
+- The tool implements a secure user authentication system to ensure only authorized users can access their accounts and personal information.
+- User passwords are securely hashed and stored in the database.
+
+
+### Interaction
+
+- **Communication**: The frontend and backend communicate using HTTP/HTTPS and JSON data format.
+- **API Documentation**: API endpoints are documented using Swagger.
+
+### Deployment
+
+- **Platform**: The application is deployed on Heroku.
+- **Services**: The frontend and backend are deployed as separate services, and the database is managed using Heroku Postgres.
+
 ## Design Decisions
 
 ## Deployment Information
